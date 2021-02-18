@@ -31,7 +31,6 @@ const UserSchema = new Schema({
 // Method to hash password
 UserSchema.methods.hashPassword = async function() {
     try {
-        console.log(this.password)
         this.password = await bcrypt.hash(this.password, 10);
         return this.password;
     } catch (err) {
@@ -40,7 +39,8 @@ UserSchema.methods.hashPassword = async function() {
 }
 
 //Method to compare passwords
-UserSchema.methods.comparePassword = function(loginPw) {
+UserSchema.methods.checkPassword = function(loginPw) {
+    console.log(loginPw, this.password)
     return bcrypt.compareSync(loginPw, this.password)
 }
 

@@ -2,9 +2,8 @@ const router = require("express").Router();
 const userController = require("../../controllers/userController")
 
 // route to create a new user
-router.post("/", userController.createUser)
+router.post("/create", userController.createUser)
+router.post("/login", userController.loginUser);
 
-//Test route
-router.get("/", userController.test)
 
 module.exports = router
