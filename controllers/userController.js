@@ -5,7 +5,7 @@ async function createUser(req, res) {
   try {
     // create a new user object
     const user = new User(req.body);
-    await user.hashPassword()
+    await user.hashPassword();
     // create a new user
     const newUser = await User.create(user);
     // save session details
@@ -23,7 +23,7 @@ async function createUser(req, res) {
 // function to log in a new user
 async function loginUser(req, res) {
   try {
-    //Look for a user with the requested email
+    // Look for a user with the requested email
     const userData = await User.findOne({ email: req.body.email }, (err) => {
       console.log(err);
       if (err) res.send(error);
@@ -64,17 +64,17 @@ async function loginUser(req, res) {
 
 // function to logout a user
 function logoutUser(req, res) {
-    if (req.session.logged_in) {
-      req.session.destroy(() => {
-        res.status(204).end();
-      });
-    } else {
-      res.status(404).end();
-    }
+  if (req.session.logged_in) {
+    req.session.destroy(() => {
+      res.status(204).end();
+    });
+  } else {
+    res.status(404).end();
+  }
 }
 
 module.exports = {
   createUser,
   loginUser,
-  logoutUser
+  logoutUser,
 };

@@ -16,3 +16,5 @@ const API = {
         return axios.post("/api/user/logout")
     }
 }
+
+export default API

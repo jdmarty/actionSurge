@@ -25,8 +25,8 @@ const sess = {
 
 // Set cookies to secure in production environment
 if (process.env.NODE_ENV === "production") {
-  app.set("trust proxy", 1)
-  sess.cookie.secure = true
+  app.set("trust proxy", 1);
+  sess.cookie.secure = true;
 }
 
 // Define middleware
@@ -46,6 +46,6 @@ app.use(routes);
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/actionsurge");
 
 // Start the API server
-app.listen(PORT, function() {
+app.listen(PORT, function () {
   console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
 });

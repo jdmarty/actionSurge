@@ -13,7 +13,10 @@ const UserSchema = new Schema({
     type: String,
     trim: true,
     required: "Password is Required",
-    validate: [({ length }) => length >= 8, "Password should be longer than 8 characters."],
+    validate: [
+      ({ length }) => length >= 8,
+      "Password should be longer than 8 characters.",
+    ],
   },
 
   email: {
@@ -29,21 +32,21 @@ const UserSchema = new Schema({
 });
 
 // Method to hash password
-UserSchema.methods.hashPassword = async function() {
-    try {
-        this.password = await bcrypt.hash(this.password, 10);
-        return this.password;
-    } catch (err) {
-        console.log(err)
-    }
-}
+UserSchema.methods.hashPassword = async function () {
+  try {
+    this.password = await bcrypt.hash(this.password, 10);
+    return this.password;
+  } catch (err) {
+    console.log(err);
+  }
+};
 
-//Method to compare passwords
-UserSchema.methods.checkPassword = function(loginPw) {
-    console.log(loginPw, this.password)
-    return bcrypt.compareSync(loginPw, this.password)
-}
+// Method to compare passwords
+UserSchema.methods.checkPassword = function (loginPw) {
+  console.log(loginPw, this.password);
+  return bcrypt.compareSync(loginPw, this.password);
+};
 
 const User = mongoose.model("User", UserSchema);
 
-module.exports = User
+module.exports = User;

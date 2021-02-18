@@ -1,0 +1,41 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": ["google", "prettier", "plugin:react/recommended"],
+  "plugins": ["prettier", "react"],
+  "parserOptions": {
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+  "rules": {
+    "no-var": "error",
+    "no-extra-semi": "error",
+    "no-empty": "error",
+    "no-func-assign": "error",
+    "no-irregular-whitespace": "error",
+    "no-unreachable": "error",
+    "curly": "error",
+    "dot-notation": "error",
+    "eqeqeq": "error",
+    "no-empty-function": "error",
+    "no-multi-spaces": "error",
+    "no-mixed-spaces-and-tabs": "error",
+    "no-trailing-spaces": "error",
+    "default-case": "error",
+    "no-fallthrough": "error",
+    "no-unused-vars": "error",
+    "no-use-before-define": "error",
+    "no-redeclare": "error",
+    "brace-style": "error",
+    "indent": ["error", 2],
+    "quotes": ["error", "double"],
+    "semi": ["error", "always"],
+    "radix": "off",
+    "require-jsdoc": "off",
+    "react/jsx-uses-react": "error",
+    "react/jsx-uses-vars": "error",
+    "react/jsx-pascal-case": "error"
+  }
+}
