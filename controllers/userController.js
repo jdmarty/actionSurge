@@ -2,42 +2,79 @@ const { User } = require("../models");
 
 // function to create a new user
 async function createUser(req, res) {
-  // create a new user and run the hash method
-  const user = new User(req.body);
-  await user.hashPassword();
-  // create that user in the database and return it
-  User.create(user)
-    .then((dbModel) => res.json(dbModel))
-    .catch((err) => {
-      console.log(err);
-      res.status(422).json(err);
+  try {
+    // create a new user object
+    const user = new User(req.body);
+    await user.hashPassword()
+    // create a new user
+    const newUser = await User.create(user);
+    // save session details
+    req.session.save(() => {
+      req.session.user_id = newUser.id;
+      req.session.user_name = newUser.name;
+      req.session.logged_in = true;
+      res.json({ user: newUser, message: "You are now logged in!" });
     });
+  } catch (err) {
+    res.status(400).json(err);
+  }
 }
 
 // function to log in a new user
 async function loginUser(req, res) {
-  //Look for a user with the requested email
-  const user =  await User.findOne({
-    email: req.body.email,
-  }, (err) => {
-      if (err) {
-          res.send(error)
-      }
-  });
-  // check password validity
-  const validPassword = user.checkPassword(req.body.password)
-  // if passwords do not match, send an error
-  if (!validPassword) {
-    res
-      .status(400)
-      .json({ message: "Incorrect email or password, please try again" });
-    return;
+  try {
+    //Look for a user with the requested email
+    const userData = await User.findOne({ email: req.body.email }, (err) => {
+      console.log(err);
+      if (err) res.send(error);
+    });
+    // if one is not found, send an error
+    if (!userData) {
+      res
+        .status(400)
+        .json({ message: "Incorrect email or password, please try again" });
+      return;
+    }
+    // check password validity
+    const validPassword = userData.checkPassword(req.body.password);
+    // if passwords do not match, send an error
+    if (!validPassword) {
+      res
+        .status(400)
+        .json({ message: "Incorrect email or password, please try again" });
+      return;
+    }
+    // save session details with user id and name
+    req.session.save(() => {
+      req.session.user_id = userData.id;
+      req.session.user_name = userData.username;
+      req.session.logged_in = true;
+      // send user id and username in the response
+      res.json({
+        userId: req.session.user_id,
+        userName: req.session.user_name,
+        message: "You are now logged in!",
+      });
+    });
+  } catch (err) {
+    console.log(err);
+    res.status.json(err);
   }
-  // if passwords match send user message
-  res.json({ message: "You are now logged in!"})
+}
+
+// function to logout a user
+function logoutUser(req, res) {
+    if (req.session.logged_in) {
+      req.session.destroy(() => {
+        res.status(204).end();
+      });
+    } else {
+      res.status(404).end();
+    }
 }
 
 module.exports = {
   createUser,
-  loginUser
+  loginUser,
+  logoutUser
 };
