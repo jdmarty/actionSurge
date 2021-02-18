@@ -1,9 +1,13 @@
 const { User } = require("../models");
 
 //function to create a new user
-function createUser(req, res) {
+async function createUser(req, res) {
+  // create a new user and run the hash method
+  const user = new User(req.body);
+  await user.hashPassword();
+  // create that user in the database and return it
   User
-    .create(req.body)
+    .create(user)
     .then(dbModel => res.json(dbModel))
     .catch(err => {
         console.log(err);
@@ -11,6 +15,12 @@ function createUser(req, res) {
     })
 }
 
+// test function
+function test(req, res) {
+    res.json({ msg: "Hello!"})
+}
+
 module.exports = {
-    createUser
+    createUser,
+    test
 }

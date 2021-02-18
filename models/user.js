@@ -29,13 +29,18 @@ const UserSchema = new Schema({
 });
 
 // Method to hash password
-UserSchema.methods.hashPassword = async () => {
-    this.password = await bcrypt(this.password, 10);
-    return this.password
+UserSchema.methods.hashPassword = async function() {
+    try {
+        console.log(this.password)
+        this.password = await bcrypt.hash(this.password, 10);
+        return this.password;
+    } catch (err) {
+        console.log(err)
+    }
 }
 
 //Method to compare passwords
-UserSchema.methods.comparePassword = (loginPw) => {
+UserSchema.methods.comparePassword = function(loginPw) {
     return bcrypt.compareSync(loginPw, this.password)
 }
 
