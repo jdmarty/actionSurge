@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { BrowserRouter as Router, Redirect, Route, Switch } from "react-router-dom";
 import { useAuthContext } from "./utils/AuthState"
 import Home from "./pages/Home"
@@ -6,14 +6,12 @@ import Login from "./pages/Login"
 import NoMatch from "./pages/NoMatch"
 import CreatePlayer from "./pages/CreatePlayer";
 import EditPlayer from "./pages/EditPlayer"
-import { CHECK_LOGIN } from "./utils/actions"
 
 function MainRouter() {
   // get current auth context
   const [state, dispatch] = useAuthContext();
 
   // Create routes map
-  // console.log(state)
   return (
     <Router>
       <div>
