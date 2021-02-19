@@ -6,41 +6,29 @@ const AuthContext = createContext();
 
 const { Provider } = AuthContext;
 
-const reducer = async (state, action) => {
+const reducer = (state, action) => {
   switch (action.type) {
     case LOGIN:
-      try {
-        const loginResult = await API.loginUser(action.payload);
-        return { ...state, ...loginResult };
-      } catch (err) {
-        console.log(err);
-        return state;
-      }
-    case CHECK_LOGIN:
-      try {
-        const loginStatus = await API.checkAuth();
-        if (loginStatus.auth === "true") return { ...state };
-        return { userID: null, userName: "", logged_in: false };
-      } catch (err) {
-        console.log(err);
-        return state;
-      }
+      return {
+        ...state,
+        userId: action.id,
+        userName: action.userName,
+        loggedIn: action.loggedIn,
+      };
     case LOGOUT:
-      try {
-        await API.logoutUser();
-        return { userID: null, userName: "", logged_in: false };
-      } catch (err) {
-        console.log(err);
-        return state;
-      }
+      return {
+        ...state,
+        userId: "",
+        userName: "",
+        loggedIn: false,
+      };
     case CREATE_USER:
-      try {
-        const loginResult = await API.createUser(action.payload);
-        return { ...state, ...loginResult };
-      } catch (err) {
-        console.log(err);
-        return state;
-      }
+      return {
+        ...state,
+        userId: action.id,
+        userName: action.userName,
+        loggedIn: true,
+      };
     default:
       return state;
   }
@@ -48,9 +36,9 @@ const reducer = async (state, action) => {
 
 const AuthProvider = ({ ...props }) => {
   const [state, dispatch] = useReducer(reducer, {
-      userId: "",
-      userName: "",
-      loggedIn: false
+    userId: "",
+    userName: "",
+    loggedIn: false,
   });
 
   return <Provider value={[state, dispatch]} {...props} />;

@@ -1,5 +1,5 @@
 import React from "react";
-import MyRouter from "./MyRouter"
+import MainRouter from "./MainRouter"
 import { AuthProvider } from "./utils/AuthState"
 import './App.css';
 
@@ -7,7 +7,7 @@ function App() {
   return (
     <AuthProvider>
       <div className="App">
-        <MyRouter />
+        <MainRouter />
       </div>
     </AuthProvider>
   );

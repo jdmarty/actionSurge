@@ -1,7 +1,7 @@
 import React from "react";
 
-function Login() {
+function NoMatch() {
   return <div>This is a No Match page</div>;
 }
 
-export default Login;
+export default NoMatch;

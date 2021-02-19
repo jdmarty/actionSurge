@@ -15,8 +15,8 @@ async function createUser(req, res) {
       req.session.logged_in = true;
       // send userId and username in response
       res.json({
-        userId: req.session.user_id,
-        userName: req.session.user_name,
+        user_id: req.session.user_id,
+        user_name: req.session.user_name,
         logged_in: true,
       });
     });
@@ -56,8 +56,8 @@ async function loginUser(req, res) {
       req.session.logged_in = true;
       // send user id and username in the response
       res.json({
-        userId: req.session.user_id,
-        userName: req.session.user_name,
+        user_id: req.session.user_id,
+        user_name: req.session.user_name,
         logged_in: true,
       });
     });
