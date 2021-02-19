@@ -1,5 +1,5 @@
 import React, { useContext, useReducer, createContext } from "react";
-import { LOGIN, LOGOUT, CREATE_USER, CHECK_LOGIN } from "./actions";
+import { LOGIN, LOGOUT, CHECK_LOGIN } from "./actions";
 import API from "./API";
 
 const AuthContext = createContext({});
@@ -20,13 +20,6 @@ const reducer = (state, action) => {
         userId: "",
         userName: "",
         loggedIn: false,
-      };
-    case CREATE_USER:
-      return {
-        ...state,
-        userId: action.id,
-        userName: action.userName,
-        loggedIn: true,
       };
     case CHECK_LOGIN:
       return {

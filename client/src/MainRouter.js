@@ -13,7 +13,6 @@ function MainRouter() {
   // get current auth context
   const [authState, authDispatch] = useAuthContext();
 
-  console.log(window)
   // Create routes map
   return (
     <Router>

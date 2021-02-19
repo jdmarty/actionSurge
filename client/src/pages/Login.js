@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
-import { useAuthContext } from "../utils/AuthState"
-import { LOGIN } from "../utils/actions"
-import API from "../utils/API"
+import { useAuthContext } from "../utils/AuthState";
+import { LOGIN } from "../utils/actions";
+import API from "../utils/API";
 
 function Login() {
   // references for inputs
@@ -16,24 +16,61 @@ function Login() {
   const [authState, authDispatch] = useAuthContext();
 
   // handle login submit
-  const handleLogin = e => {
+  const handleLogin = (e) => {
     e.preventDefault();
     API.loginUser({
       email: loginEmail.current.value,
-      password: loginPassword.current.value
-    }).then(({ data }) => {
-      console.log(data)
+      password: loginPassword.current.value,
+    })
+      .then(({ data }) => {
+        console.log(data);
+        authDispatch({
+          type: LOGIN,
+          userId: data.user_id,
+          userName: data.user_name,
+          loggedIn: data.logged_in,
+        });
+      })
+      .catch((err, data) => {
+        console.log(err, data);
+        alert("Invalid username or password");
+      });
+  };
+
+  // handle signup submit
+  const handleSignup = (e) => {
+    e.preventDefault();
+    // check that the form is completely filled out
+    if (
+      !signupEmail.current.value ||
+      !signupName.current.value ||
+      !signupPassword.current.value ||
+      !signupConfirm.current.value
+    ) {
+      alert("Signup Form not filled out");
+      return;
+    }
+    // check if passwords match
+    if (!signupPassword.current.value === signupConfirm.current.value) {
+      alert("Passwords do not match");
+      return;
+    }
+    // send details to the API
+    API.createUser({
+      username: signupName.current.value,
+      password: signupPassword.current.value,
+      email: signupEmail.current.value,
+    })
+    .then(({ data }) => {
+      console.log(data);
       authDispatch({
         type: LOGIN,
         userId: data.user_id,
         userName: data.user_name,
-        loggedIn: data.logged_in
-      })
-    }).catch((err, data) => {
-      console.log(err, data)
-
-    })
-  }
+        loggedIn: data.logged_in,
+      });
+    });
+  };
 
   return (
     <div className="bg-gray-500 h-screen p-9">
@@ -163,6 +200,7 @@ function Login() {
               <button
                 type="submit"
                 className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                onClick={handleSignup}
               >
                 Sign Up
               </button>

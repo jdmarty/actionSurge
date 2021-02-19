@@ -8,17 +8,11 @@ async function createUser(req, res) {
     await user.hashPassword();
     // create a new user
     const newUser = await User.create(user);
-    // save session details
-    req.session.save(() => {
-      req.session.user_id = newUser.id;
-      req.session.user_name = newUser.name;
-      req.session.logged_in = true;
-      // send userId and username in response
-      res.json({
-        user_id: req.session.user_id,
-        user_name: req.session.user_name,
-        logged_in: true,
-      });
+    // send user details in response
+    res.json({
+      user_id: newUser.id,
+      user_name: newUser.username,
+      logged_in: true,
     });
   } catch (err) {
     res.status(400).json(err);
@@ -65,9 +59,9 @@ async function loginUser(req, res) {
 function logoutUser(req, res) {
   res.json({
     user_id: "",
-    user_name: userData.username,
-    logged_in: false
-  })
+    user_name: "",
+    logged_in: false,
+  });
 }
 
 module.exports = {
