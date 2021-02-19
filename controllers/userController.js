@@ -13,7 +13,12 @@ async function createUser(req, res) {
       req.session.user_id = newUser.id;
       req.session.user_name = newUser.name;
       req.session.logged_in = true;
-      res.json({ user: newUser, message: "You are now logged in!" });
+      // send userId and username in response
+      res.json({
+        userId: req.session.user_id,
+        userName: req.session.user_name,
+        logged_in: true,
+      });
     });
   } catch (err) {
     res.status(400).json(err);
@@ -53,7 +58,7 @@ async function loginUser(req, res) {
       res.json({
         userId: req.session.user_id,
         userName: req.session.user_name,
-        message: "You are now logged in!",
+        logged_in: true,
       });
     });
   } catch (err) {
@@ -73,8 +78,18 @@ function logoutUser(req, res) {
   }
 }
 
+// function to check login status
+function checkAuth(req, res) {
+  if (req.session.logged_in) {
+    res.json({ auth: true});
+  } else {
+    res.json({ auth: false });
+  }
+}
+
 module.exports = {
   createUser,
   loginUser,
   logoutUser,
+  checkAuth
 };
