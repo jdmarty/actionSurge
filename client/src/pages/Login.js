@@ -1,4 +1,5 @@
 import React, { useState, useRef } from "react";
+import { useLocation, useHistory } from "react-router-dom"
 import { useAuthContext } from "../utils/AuthState";
 import { LOGIN } from "../utils/actions";
 import API from "../utils/API";
@@ -23,7 +24,6 @@ function Login() {
       password: loginPassword.current.value,
     })
       .then(({ data }) => {
-        console.log(data);
         authDispatch({
           type: LOGIN,
           userId: data.user_id,
@@ -51,7 +51,7 @@ function Login() {
       return;
     }
     // check if passwords match
-    if (!signupPassword.current.value === signupConfirm.current.value) {
+    if (signupPassword.current.value !== signupConfirm.current.value) {
       alert("Passwords do not match");
       return;
     }

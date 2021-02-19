@@ -27,13 +27,16 @@ function MainRouter() {
       <Nav />
       <Switch>
         <Route exact path="/">
-          {authState.loggedIn ? <Home /> : <Redirect to="/login" />}
+          {authState.loggedIn ? <Home /> : <Login />}
         </Route>
         <Route exact path="/create-player">
           {authState.loggedIn ? <CreatePlayer /> : <Redirect to="/login" />}
         </Route>
         <Route exact path="/edit-player">
           {authState.loggedIn ? <EditPlayer /> : <Redirect to="/login" />}
+        </Route>
+        <Route exact path="/battle">
+          {authState.loggedIn ? <Battle /> : <Redirect to="/login" />}
         </Route>
         <Route exact path="/login" component={Login} />
         <Route component={NoMatch} />

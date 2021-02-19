@@ -28,8 +28,8 @@ function Nav() {
             </div>
           </div>
 
-          <div class="ml-4 flex items-center md:ml-6">
-            <button class="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white">
+          <div className="ml-4 flex items-center md:ml-6">
+            <button className="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white">
               Logout
             </button>
           </div>
