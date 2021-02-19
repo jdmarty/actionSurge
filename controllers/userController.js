@@ -49,17 +49,11 @@ async function loginUser(req, res) {
         .json({ message: "Incorrect email or password, please try again" });
       return;
     }
-    // save session details with user id and name
-    req.session.save(() => {
-      req.session.user_id = userData.id;
-      req.session.user_name = userData.username;
-      req.session.logged_in = true;
-      // send user id and username in the response
-      res.json({
-        user_id: req.session.user_id,
-        user_name: req.session.user_name,
-        logged_in: true,
-      });
+    // send user details in response
+    res.json({
+      user_id: userData.id,
+      user_name: userData.username,
+      logged_in: true,
     });
   } catch (err) {
     console.log(err);
@@ -69,27 +63,15 @@ async function loginUser(req, res) {
 
 // function to logout a user
 function logoutUser(req, res) {
-  if (req.session.logged_in) {
-    req.session.destroy(() => {
-      res.status(204).end();
-    });
-  } else {
-    res.status(404).end();
-  }
-}
-
-// function to check login status
-function checkAuth(req, res) {
-  if (req.session.logged_in) {
-    res.json({ auth: true});
-  } else {
-    res.json({ auth: false });
-  }
+  res.json({
+    user_id: "",
+    user_name: userData.username,
+    logged_in: false
+  })
 }
 
 module.exports = {
   createUser,
   loginUser,
   logoutUser,
-  checkAuth
 };

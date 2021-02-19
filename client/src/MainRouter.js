@@ -1,23 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Redirect, Route, Switch, Link } from "react-router-dom";
 import { useAuthContext } from "./utils/AuthState"
+import { CHECK_LOGIN } from "./utils/actions"
 import Home from "./pages/Home"
 import Login from "./pages/Login"
 import NoMatch from "./pages/NoMatch"
 import CreatePlayer from "./pages/CreatePlayer";
 import EditPlayer from "./pages/EditPlayer"
+import API from "./utils/API"
 
 function MainRouter() {
   // get current auth context
   const [authState, authDispatch] = useAuthContext();
-  const [authorized, setAuthorized] = useState(false);
 
-  // use effect to monitor login status
-  useEffect(() => {
-    setAuthorized(authState.loggedIn)
-    console.log(authorized)
-  }, [authState, authorized]) 
-
+  console.log(window)
   // Create routes map
   return (
     <Router>
@@ -29,13 +25,13 @@ function MainRouter() {
       </div>
       <Switch>
         <Route exact path="/">
-          {authorized ? <Home /> : <Redirect to="/login" />}
+          {authState.loggedIn ? <Home /> : <Redirect to="/login" />}
         </Route>
         <Route exact path="/create-player">
-          {authorized ? <CreatePlayer /> : <Redirect to="/login" />}
+          {authState.loggedIn ? <CreatePlayer /> : <Redirect to="/login" />}
         </Route>
         <Route exact path="/edit-player">
-          {authorized ? <EditPlayer /> : <Redirect to="/login" />}
+          {authState.loggedIn ? <EditPlayer /> : <Redirect to="/login" />}
         </Route>
         <Route exact path="/login" component={Login} />
         <Route component={NoMatch} />

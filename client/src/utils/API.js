@@ -15,11 +15,6 @@ const API = {
     logoutUser: function() {
         return axios.post("/api/user/logout");
     },
-
-    // check login status
-    checkAuth: function(){
-        return axios.get("/api/user/checkAuth");
-    }
 }
 
 export default API

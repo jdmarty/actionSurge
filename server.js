@@ -12,25 +12,24 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 // Configure session
-const sess = {
-  secret: "Super secret secret",
-  cookie: {
-    // expire session after 30 minutes
-    maxAge: 1800000,
-  },
-  rolling: true,
-  resave: false,
-  saveUninitialized: true,
-};
+// const sess = {
+//   secret: "Super secret secret",
+//   cookie: {
+//     maxAge: 1800000,
+//   },
+//   rolling: true,
+//   resave: false,
+//   saveUninitialized: true,
+// };
 
 // Set cookies to secure in production environment
-if (process.env.NODE_ENV === "production") {
-  app.set("trust proxy", 1);
-  sess.cookie.secure = true;
-}
+// if (process.env.NODE_ENV === "production") {
+//   app.set("trust proxy", 1);
+//   sess.cookie.secure = true;
+// }
 
 // Define middleware
-app.use(session(sess));
+// app.use(session(sess));
 app.use(logger("dev"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());

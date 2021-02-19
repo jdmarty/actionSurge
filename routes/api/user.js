@@ -8,7 +8,5 @@ router.post("/create", userController.createUser);
 router.post("/login", userController.loginUser);
 // route to logout a user
 router.post("/logout", userController.logoutUser);
-// route to check user authentication
-router.get("/checkAuth", userController.checkAuth);
 
 module.exports = router;

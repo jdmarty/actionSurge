@@ -43,7 +43,6 @@ UserSchema.methods.hashPassword = async function () {
 
 // Method to compare passwords
 UserSchema.methods.checkPassword = function (loginPw) {
-  console.log(loginPw, this.password);
   return bcrypt.compareSync(loginPw, this.password);
 };
 

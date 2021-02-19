@@ -1,9 +1,8 @@
 import React, { useContext, useReducer, createContext } from "react";
-import { LOGIN, CHECK_LOGIN, LOGOUT, CREATE_USER } from "./actions";
+import { LOGIN, LOGOUT, CREATE_USER, CHECK_LOGIN } from "./actions";
 import API from "./API";
 
-const AuthContext = createContext();
-
+const AuthContext = createContext({});
 const { Provider } = AuthContext;
 
 const reducer = (state, action) => {
@@ -28,6 +27,11 @@ const reducer = (state, action) => {
         userId: action.id,
         userName: action.userName,
         loggedIn: true,
+      };
+    case CHECK_LOGIN:
+      return {
+        ...state,
+        loggedIn: action.loggedIn,
       };
     default:
       return state;
