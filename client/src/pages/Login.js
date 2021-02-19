@@ -1,4 +1,6 @@
 import React, { useState, useRef } from "react";
+import { useAuthContext } from "../utils/AuthState"
+import { LOGIN } from "../utils/actions"
 import API from "../utils/API"
 
 function Login() {
@@ -10,14 +12,26 @@ function Login() {
   const signupPassword = useRef();
   const signupConfirm = useRef();
 
+  // reference to authorization context
+  const [authState, authDispatch] = useAuthContext();
+
   // handle login submit
   const handleLogin = e => {
     e.preventDefault();
     API.loginUser({
       email: loginEmail.current.value,
       password: loginPassword.current.value
-    }).then(data => {
+    }).then(({ data }) => {
       console.log(data)
+      authDispatch({
+        type: LOGIN,
+        userId: data.user_id,
+        userName: data.user_name,
+        loggedIn: data.logged_in
+      })
+    }).catch((err, data) => {
+      console.log(err, data)
+
     })
   }
 

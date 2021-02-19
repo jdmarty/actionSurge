@@ -1,5 +1,5 @@
-import React from "react";
-import { BrowserRouter as Router, Redirect, Route, Switch } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { BrowserRouter as Router, Redirect, Route, Switch, Link } from "react-router-dom";
 import { useAuthContext } from "./utils/AuthState"
 import Home from "./pages/Home"
 import Login from "./pages/Login"
@@ -9,23 +9,33 @@ import EditPlayer from "./pages/EditPlayer"
 
 function MainRouter() {
   // get current auth context
-  const [state, dispatch] = useAuthContext();
+  const [authState, authDispatch] = useAuthContext();
+  const [authorized, setAuthorized] = useState(false);
+
+  // use effect to monitor login status
+  useEffect(() => {
+    setAuthorized(authState.loggedIn)
+    console.log(authorized)
+  }, [authState, authorized]) 
 
   // Create routes map
   return (
     <Router>
-      <div>
-        <p className="bg-red-500">Logged In = {state.loggedIn + ""}</p>
+      <div className="bg-red-500 p-2">
+        <span className="border-black border-2">Logged In = {authState.loggedIn + ""}</span>
+        <span className="border-black border-2">User Name = {authState.userName}</span>
+        <span className="border-black border-2">User ID = {authState.userId}</span>
+        <Link to="/">Go Home</Link>
       </div>
       <Switch>
         <Route exact path="/">
-          {state.loggedIn ? <Home /> : <Redirect to="/login" />}
+          {authorized ? <Home /> : <Redirect to="/login" />}
         </Route>
         <Route exact path="/create-player">
-          {state.loggedIn ? <CreatePlayer /> : <Redirect to="/login" />}
+          {authorized ? <CreatePlayer /> : <Redirect to="/login" />}
         </Route>
         <Route exact path="/edit-player">
-          {state.loggedIn ? <EditPlayer /> : <Redirect to="/login" />}
+          {authorized ? <EditPlayer /> : <Redirect to="/login" />}
         </Route>
         <Route exact path="/login" component={Login} />
         <Route component={NoMatch} />
