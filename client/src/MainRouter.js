@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Redirect, Route, Switch, Link } from "react-router-dom";
 import { useAuthContext } from "./utils/AuthState"
-import { CHECK_LOGIN } from "./utils/actions"
+// Raw Components
+import Nav from "./components/Nav";
+// Pages
 import Home from "./pages/Home"
 import Login from "./pages/Login"
 import NoMatch from "./pages/NoMatch"
 import CreatePlayer from "./pages/CreatePlayer";
 import EditPlayer from "./pages/EditPlayer"
-import API from "./utils/API"
+import Battle from "./pages/Battle"
+
 
 function MainRouter() {
   // get current auth context
@@ -17,11 +20,11 @@ function MainRouter() {
   return (
     <Router>
       <div className="bg-red-500 p-2">
-        <span className="border-black border-2">Logged In = {authState.loggedIn + ""}</span>
-        <span className="border-black border-2">User Name = {authState.userName}</span>
-        <span className="border-black border-2">User ID = {authState.userId}</span>
-        <Link to="/">Go Home</Link>
+        <span className="border-black border-2 mx-2">Logged In = {authState.loggedIn + ""}</span>
+        <span className="border-black border-2 mx-2">User Name = {authState.userName}</span>
+        <span className="border-black border-2 mx-2">User ID = {authState.userId}</span>
       </div>
+      <Nav />
       <Switch>
         <Route exact path="/">
           {authState.loggedIn ? <Home /> : <Redirect to="/login" />}
