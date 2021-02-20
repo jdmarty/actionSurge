@@ -1,4 +1,5 @@
 import React, { useRef } from "react";
+import { Link } from "react-router-dom"
 import { useAuthContext } from "../utils/AuthState";
 import { LOGIN } from "../utils/actions";
 import API from "../utils/API"
@@ -72,7 +73,7 @@ function LoginScreen() {
           ></input>
         </div>
 
-        <div className="px-4 py-3 text-left sm:px-6">
+        <div className="px-4 py-3 text-left sm:px-6 flex">
           <button
             type="submit"
             className="inline-flex py-2 px-4 text-lg font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700"
@@ -80,6 +81,9 @@ function LoginScreen() {
           >
             Login
           </button>
+          <Link to="/signup">
+            <p className="py-2 px-4">Sign Up</p>
+          </Link>
         </div>
       </form>
     </div>
