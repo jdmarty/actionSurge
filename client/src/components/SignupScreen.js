@@ -1,4 +1,5 @@
 import React, { useRef } from "react";
+import { Link } from "react-router-dom";
 import { useAuthContext } from "../utils/AuthState";
 import { LOGIN } from "../utils/actions";
 import API from "../utils/API";
@@ -50,8 +51,8 @@ function LoginScreen() {
   return (
     <div className="bg-gray-900 text-gray-300 rounded-md p-5">
       <h2 className="text-center text-3xl">Signup</h2>
-      <form className="px-2">
-        <div className="px-4 py-3 text-left sm:px-6">
+      <form className="md:px-24 sm:px-12 px-4">
+        <div className="py-3 text-left sm:px-6">
           <label
             htmlFor="signup-name"
             className="block text-lg font-medium text-gray-300"
@@ -68,7 +69,7 @@ function LoginScreen() {
           ></input>
         </div>
 
-        <div className="px-4 py-3 text-left sm:px-6">
+        <div className="py-3 text-left sm:px-6">
           <label
             htmlFor="signup-email"
             className="block text-lg font-medium text-gray-300"
@@ -85,7 +86,7 @@ function LoginScreen() {
           ></input>
         </div>
 
-        <div className="px-4 py-3 text-left sm:px-6">
+        <div className="py-3 text-left sm:px-6">
           <label
             htmlFor="signup-password"
             className="block text-lg font-medium text-gray-300"
@@ -102,7 +103,7 @@ function LoginScreen() {
           ></input>
         </div>
 
-        <div className="px-4 py-3 text-left sm:px-6">
+        <div className="py-3 text-left sm:px-6">
           <label
             htmlFor="signup-confirm-password"
             className="block text-lg font-medium text-gray-300"
@@ -119,7 +120,7 @@ function LoginScreen() {
           ></input>
         </div>
 
-        <div className="px-4 py-3 text-left sm:px-6">
+        <div className="py-3 text-left sm:px-6 flex">
           <button
             type="submit"
             className="inline-flex py-2 px-4 text-lg font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700"
@@ -127,6 +128,9 @@ function LoginScreen() {
           >
             Sign Up
           </button>
+          <Link to="/login">
+            <p className="py-2 px-4 hover:underline">Login</p>
+          </Link>
         </div>
       </form>
     </div>

@@ -1,7 +1,11 @@
 import React from "react";
 
 function Home() {
-  return <div>This is a Home page</div>;
+  return (
+    <div className="py-9 px-12">
+      Hello WOrld
+    </div>
+  )
 }
 
 export default Home;

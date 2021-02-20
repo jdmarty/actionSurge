@@ -35,10 +35,10 @@ function LoginScreen() {
   };
 
   return (
-    <div className="bg-gray-900 text-gray-300 rounded-md p-5">
+    <div className="bg-gray-900 text-gray-300 rounded-md p-5 lg:w-2/3 md:w-3/4 w-full">
       <h2 className="text-center text-3xl">Login</h2>
-      <form className="px-2">
-        <div className="px-4 py-3 text-left sm:px-6">
+      <form className="md:px-24 sm:px-12 px-4">
+        <div className="py-3 text-left sm:px-6">
           <label
             htmlFor="login-email"
             className="block text-lg font-medium text-gray-300"
@@ -56,7 +56,7 @@ function LoginScreen() {
           ></input>
         </div>
 
-        <div className="px-4 py-3 text-left sm:px-6">
+        <div className="py-3 text-left sm:px-6">
           <label
             htmlFor="login-password"
             className="block text-lg font-medium text-gray-300"
@@ -73,7 +73,7 @@ function LoginScreen() {
           ></input>
         </div>
 
-        <div className="px-4 py-3 text-left sm:px-6 flex">
+        <div className="py-3 text-left sm:px-6 flex">
           <button
             type="submit"
             className="inline-flex py-2 px-4 text-lg font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700"
@@ -82,7 +82,7 @@ function LoginScreen() {
             Login
           </button>
           <Link to="/signup">
-            <p className="py-2 px-4">Sign Up</p>
+            <p className="py-2 px-4 hover:underline">Sign Up</p>
           </Link>
         </div>
       </form>
