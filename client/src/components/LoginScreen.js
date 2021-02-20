@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import { Link } from "react-router-dom"
+import { toast } from "react-toast"
 import { useAuthContext } from "../utils/AuthState";
 import { LOGIN } from "../utils/actions";
 import API from "../utils/API"
@@ -30,7 +31,8 @@ function LoginScreen() {
       })
       .catch((err, data) => {
         console.log(err, data);
-        alert("Invalid username or password");
+        toast.error("Invalid username or password");
+        // alert("Invalid username or password");
       });
   };
 

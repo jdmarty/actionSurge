@@ -34,6 +34,7 @@
     "if-env": "^1.0.4",
     "mongoose": "^5.3.16",
     "morgan": "^1.10.0",
-    "react-router-dom": "^5.2.0"
+    "react-router-dom": "^5.2.0",
+    "react-toast": "^1.0.1"
   }
 }

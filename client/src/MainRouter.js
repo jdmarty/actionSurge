@@ -20,7 +20,7 @@ function MainRouter() {
   // Create routes map
   return (
     <Router>
-      <div className="bg-red-500 p-2">
+      {/* <div className="bg-red-500 p-2">
         <span className="border-black border-2 mx-2">
           Logged In = {authState.loggedIn + ""}
         </span>
@@ -30,11 +30,11 @@ function MainRouter() {
         <span className="border-black border-2 mx-2">
           User ID = {authState.userId}
         </span>
-      </div>
+      </div> */}
       <Nav />
       <Switch>
         <Route exact path="/">
-          {authState.loggedIn ? <Home /> : <Redirect to="/login" />}
+          <Home />
         </Route>
         <Route exact path="/create-player">
           {authState.loggedIn ? <CreatePlayer /> : <Redirect to="/login" />}

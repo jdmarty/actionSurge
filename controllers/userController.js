@@ -15,6 +15,7 @@ async function createUser(req, res) {
       logged_in: true,
     });
   } catch (err) {
+    console.log(err);
     res.status(400).json(err);
   }
 }

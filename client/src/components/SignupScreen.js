@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import { toast } from "react-toast";
 import { useAuthContext } from "../utils/AuthState";
 import { LOGIN } from "../utils/actions";
 import API from "../utils/API";
@@ -24,18 +25,20 @@ function LoginScreen() {
   const handleSignup = (e) => {
     e.preventDefault();
     // check that the form is completely filled out
-    if (
-      !signupEmail.current.value ||
-      !signupName.current.value ||
-      !signupPassword.current.value ||
-      !signupConfirm.current.value
-    ) {
-      alert("Signup Form not filled out");
+    if (!valid.name) {
+      toast.error("Name is required");
+      return
+    }
+    if (!valid.email) {
+      toast.error("Invalid Email address");
       return;
     }
-    // check if passwords match
-    if (signupPassword.current.value !== signupConfirm.current.value) {
-      alert("Passwords do not match");
+    if (!valid.password) {
+      toast.error("Password must contain at least 8 characters");
+      return;
+    }
+    if (!valid.confirm) {
+      toast.error("Passwords fo not match");
       return;
     }
     // send details to the API
@@ -54,7 +57,7 @@ function LoginScreen() {
       window.location.pathname = "/"
     }).catch(err => {
       console.log(err);
-      alert("Account with this email address already exists")
+      toast.error("An account with this email already exists");
     })
   };
 
