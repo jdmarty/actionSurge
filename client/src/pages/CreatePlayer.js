@@ -1,8 +1,8 @@
 import React from "react";
 // Components
-import SubmitButton from "../components/SubmitButton"
-import AbilitiesCard from "../components/create-player/AbilitiesCard"
-import SavesCard from "../components/create-player/SavesCard"
+import SubmitButton from "../components/SubmitButton";
+import AbilitiesCard from "../components/create-player/AbilitiesCard";
+import SavesCard from "../components/create-player/SavesCard";
 
 function CreatePlayer() {
   return (
@@ -107,13 +107,13 @@ function CreatePlayer() {
                 SAVES (Check marks indicate proficiency)
               </h1>
               <div className="grid grid-cols-6 gap-4 p-4">
-                {/* Save Card */}
-                <SavesCard />
-                <SavesCard />
-                <SavesCard />
-                <SavesCard />
-                <SavesCard />
-                <SavesCard />
+                {/* Save Cards */}
+                <SavesCard display="STR" />
+                <SavesCard display="DEX" />
+                <SavesCard display="CON" />
+                <SavesCard display="INT" />
+                <SavesCard display="WIS" />
+                <SavesCard display="CHA" />
               </div>
 
               {/* <div className="border bg-white">DEX</div>
@@ -124,7 +124,49 @@ function CreatePlayer() {
             </div>
           </div>
         </div>
-        <div className="bg-gray-900 col-span-3 border"></div>
+        {/* Other Character Details */}
+        <div className="bg-gray-900 col-span-3 border">
+          {/* Hit Points and AC*/}
+          <div className="border my-2 mx-6 p-2 text-white flex justify-around">
+            <div className="text-center">
+              <label htmlFor="maxHP" className="text-2xl">
+                HP
+              </label>
+              <input
+                name="maxHP"
+                type="number"
+                className="mx-2 rounded text-2xl text-black text-center w-1/2"
+              ></input>
+            </div>
+
+            <div className="text-center">
+              <label htmlFor="AC" className="text-2xl">
+                AC
+              </label>
+              <input
+                name="AC"
+                type="number"
+                className="mx-2 rounded text-2xl text-black text-center w-1/2"
+              ></input>
+            </div>
+          </div>
+
+          {/* Movement */}
+          <div className="border my-2 mx-6 p-2 text-white flex justify-around">
+            <label htmlFor="speed" className="text-2xl">
+              Speed
+            </label>
+            <input
+              name="speed"
+              type="number"
+              className="mx-2 rounded text-2xl text-black text-center w-1/2"
+            ></input>
+            <span className="text-2xl">ft</span>
+          </div>
+
+          {/* Defenses */}
+          <div className="border m-2 text-white">Defenses</div>
+        </div>
         {/* Bottom Row: Skills, Spells, and Weapons */}
         <div className="bg-gray-900 h-12 col-span-3 border"></div>
         <div className="bg-gray-900 h-12 col-span-6 border"></div>

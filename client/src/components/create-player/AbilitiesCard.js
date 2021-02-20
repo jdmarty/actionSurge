@@ -26,7 +26,7 @@ function AbilitiesCard(props) {
   }
 
   return (
-    <div className="bg-red-300 col-span-2">
+    <div className="col-span-2">
       {/* Card Header */}
       <h3 className="h-1/4 bg-green-300 text-center">{props.type}</h3>
       {/* Card Body */}

@@ -4,11 +4,11 @@ function SavesCard(props) {
 
 
   return (
-    <div className="bg-white px-2">
+    <div className="bg-white px-2 rounded-full">
       <div>
         <input type="checkbox" name="save"></input>
         <label htmlFor="save" className="mx-2">
-          STR
+          {props.display}
         </label>
         <span>+2</span>
       </div>
