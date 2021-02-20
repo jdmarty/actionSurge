@@ -30,6 +30,7 @@ function Login() {
           userName: data.user_name,
           loggedIn: data.logged_in,
         });
+        console.log(authState)
       })
       .catch((err, data) => {
         console.log(err, data);

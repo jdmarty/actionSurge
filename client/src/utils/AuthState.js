@@ -8,6 +8,9 @@ const { Provider } = AuthContext;
 const reducer = (state, action) => {
   switch (action.type) {
     case LOGIN:
+      localStorage.setItem("userId", action.userId);
+      localStorage.setItem("userName", action.userName);
+      localStorage.setItem("loggedIn", "true");
       return {
         ...state,
         userId: action.userId,
@@ -33,9 +36,9 @@ const reducer = (state, action) => {
 
 const AuthProvider = ({ ...props }) => {
   const [state, dispatch] = useReducer(reducer, {
-    userId: "",
-    userName: "",
-    loggedIn: false,
+    userId: localStorage.getItem("userId") || "",
+    userName: localStorage.getItem("userName") || "",
+    loggedIn: Boolean(localStorage.getItem("loggedIn")) || false,
   });
 
   return <Provider value={[state, dispatch]} {...props} />;
