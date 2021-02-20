@@ -4,8 +4,8 @@ import SignupScreen from "../components/SignupScreen";
 
 function Login() {
   return (
-    <div className="py-9 md:px-60 sm:px-12 px-4">
-        <SignupScreen />
+    <div className="py-9 px-1 flex justify-center">
+      <SignupScreen />
     </div>
   );
 }

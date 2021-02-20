@@ -35,7 +35,7 @@ function LoginScreen() {
   };
 
   return (
-    <div className="bg-gray-900 text-gray-300 rounded-md p-5 lg:w-2/3 md:w-3/4 w-full">
+    <div className="bg-gray-900 text-gray-300 rounded-lg p-5 lg:w-2/3 md:w-3/4 w-full">
       <h2 className="text-center text-3xl">Login</h2>
       <form className="md:px-24 sm:px-12 px-4">
         <div className="py-3 text-left sm:px-6">
@@ -64,7 +64,7 @@ function LoginScreen() {
             Password
           </label>
           <input
-            type="text"
+            type="password"
             name="login-password"
             id="login-password"
             className="text-black p-1 mt-1 block w-full shadow-sm sm:text-lg border-gray-300 rounded-md"
