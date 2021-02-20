@@ -1,6 +1,5 @@
 import React, { useContext, useReducer, createContext } from "react";
-import { LOGIN, LOGOUT, CHECK_LOGIN } from "./actions";
-import API from "./API";
+import { LOGIN, LOGOUT } from "./actions";
 
 const AuthContext = createContext({});
 const { Provider } = AuthContext;
@@ -8,6 +7,7 @@ const { Provider } = AuthContext;
 const reducer = (state, action) => {
   switch (action.type) {
     case LOGIN:
+      // set local storage to maintain login
       localStorage.setItem("userId", action.userId);
       localStorage.setItem("userName", action.userName);
       localStorage.setItem("loggedIn", "true");
@@ -18,16 +18,13 @@ const reducer = (state, action) => {
         loggedIn: action.loggedIn,
       };
     case LOGOUT:
+      // clear local storage
+      localStorage.clear();
       return {
         ...state,
         userId: "",
         userName: "",
         loggedIn: false,
-      };
-    case CHECK_LOGIN:
-      return {
-        ...state,
-        loggedIn: action.loggedIn,
       };
     default:
       return state;
@@ -36,6 +33,7 @@ const reducer = (state, action) => {
 
 const AuthProvider = ({ ...props }) => {
   const [state, dispatch] = useReducer(reducer, {
+    // pull logged in status from local storage or set to empty
     userId: localStorage.getItem("userId") || "",
     userName: localStorage.getItem("userName") || "",
     loggedIn: Boolean(localStorage.getItem("loggedIn")) || false,

@@ -1,5 +1,4 @@
-import React, { useState, useRef } from "react";
-import { useLocation, useHistory } from "react-router-dom"
+import React, { useRef } from "react";
 import { useAuthContext } from "../utils/AuthState";
 import { LOGIN } from "../utils/actions";
 import API from "../utils/API";
@@ -30,7 +29,7 @@ function Login() {
           userName: data.user_name,
           loggedIn: data.logged_in,
         });
-        console.log(authState)
+        window.location.pathname = "/"
       })
       .catch((err, data) => {
         console.log(err, data);
@@ -75,7 +74,6 @@ function Login() {
 
   return (
     <div className="bg-gray-500 h-screen p-9">
-      <h1>This is a login page</h1>
       <div className="sm:grid grid-cols-2 gap-4">
         <div className="mt-2 bg-green-500 rounded-md">
           <h2 className="text-center text-lg">Login</h2>

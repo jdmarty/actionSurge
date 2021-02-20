@@ -27,7 +27,7 @@ function MainRouter() {
       <Nav />
       <Switch>
         <Route exact path="/">
-          {authState.loggedIn ? <Home /> : <Login />}
+          <Home />
         </Route>
         <Route exact path="/create-player">
           {authState.loggedIn ? <CreatePlayer /> : <Redirect to="/login" />}
