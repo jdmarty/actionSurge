@@ -73,15 +73,16 @@ function Login() {
   };
 
   return (
-    <div className="bg-gray-500 h-screen p-9">
-      <div className="sm:grid grid-cols-2 gap-4">
-        <div className="mt-2 bg-green-500 rounded-md">
-          <h2 className="text-center text-lg">Login</h2>
+    <div className="p-9">
+      <div className="sm:grid grid-cols-2 gap-4 h-75">
+
+        <div className="mt-2 bg-gray-900 text-gray-300 rounded-md p-5">
+          <h2 className="text-center text-3xl">Login</h2>
           <form className="px-2">
             <div className="px-4 py-3 text-left sm:px-6">
               <label
                 htmlFor="login-email"
-                className="block text-sm font-medium text-gray-700"
+                className="block text-lg font-medium text-gray-300"
               >
                 Email
               </label>
@@ -89,7 +90,7 @@ function Login() {
                 type="text"
                 name="login-email"
                 id="login-email"
-                className="p-1 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-lg border-gray-300 rounded-md"
+                className="text-black p-1 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-lg border-gray-300 rounded-md"
                 placeholder="Email"
                 required
                 ref={loginEmail}
@@ -99,7 +100,7 @@ function Login() {
             <div className="px-4 py-3 text-left sm:px-6">
               <label
                 htmlFor="login-password"
-                className="block text-sm font-medium text-gray-700"
+                className="block text-lg font-medium text-gray-300"
               >
                 Password
               </label>
@@ -107,7 +108,7 @@ function Login() {
                 type="text"
                 name="login-password"
                 id="login-password"
-                className="p-1 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-lg border-gray-300 rounded-md"
+                className="text-black p-1 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-lg border-gray-300 rounded-md"
                 placeholder="Password"
                 ref={loginPassword}
               ></input>
@@ -124,6 +125,7 @@ function Login() {
             </div>
           </form>
         </div>
+
         <div className="mt-2 bg-green-500 rounded-md">
           <h2 className="text-center text-lg">Signup</h2>
           <form className="px-2">
