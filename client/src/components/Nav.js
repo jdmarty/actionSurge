@@ -16,10 +16,10 @@ function Nav() {
 
   // class strings for buttons
   const active = "bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium";
-  const inactive = "text-gray-300 px-3 py-2 rounded hover:bg-gray-700 hover:text-white";
-  const logout = "border-red-500 text-red-500 border-2 px-3 py-2 rounded-full hover:text-white hover:bg-red-500";
-  const login = "border-green-500 text-green-500 border-2 px-3 py-2 rounded-full hover:text-white hover:bg-green-500";
-  let location = useLocation()
+  const inactive = "text-gray-300 px-3 py-2 rounded-md hover:bg-gray-700 hover:text-white";
+  const logout = "border-red-500 text-red-500 border-2 px-3 py-2 rounded-md hover:text-white hover:bg-red-500";
+  const login = "border-green-500 text-green-500 border-2 px-3 py-2 rounded-md hover:text-white hover:bg-green-500";
+  let location = useLocation().pathname
 
   // select login or logout button
   const renderLogin = () => {
@@ -31,7 +31,7 @@ function Nav() {
       );
     } else {
       return (
-        <Link to="/">
+        <Link to="/login">
           <button className={login}>
             Login
           </button>
@@ -54,7 +54,7 @@ function Nav() {
                 className="h-8 w-8 cursor-pointer"
                 src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
                 alt="Workflow"
-                onClick={() => window.location.pathname = "/"}
+                onClick={() => (window.location.pathname = "/")}
               ></img>
             </div>
             {/* Links */}
@@ -67,7 +67,11 @@ function Nav() {
                 </Link>
 
                 <Link to="/create-player">
-                  <div className={location === "/create-player" ? active : inactive}>
+                  <div
+                    className={
+                      location === "/create-player" ? active : inactive
+                    }
+                  >
                     Create Player
                   </div>
                 </Link>
@@ -81,9 +85,7 @@ function Nav() {
             </div>
           </div>
           {/* Login Button */}
-          <div className="ml-4 flex items-center md:ml-6">
-            {renderLogin()}
-          </div>
+          <div className="ml-4 flex items-center md:ml-6">{renderLogin()}</div>
         </div>
       </div>
     </nav>
