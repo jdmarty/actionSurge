@@ -82,18 +82,41 @@ function CreatePlayer() {
               </select>
             </div>
           </div>
-
         </div>
         {/* Player Stats */}
         <div className="bg-gray-900 col-span-6 border">
           {/* Abilities Grid */}
-          <div className="grid grid-col-cols-6 gap-4"></div>
+          <div className="grid grid-cols-6 gap-6 h-full py-6 px-2">
+            {/* Strength Card */}
+            <div className="bg-red-300 col-span-2">
+              {/* Card Header */}
+              <h3 className="h-1/4 bg-green-300 text-center">Strength</h3>
+              {/* Card Body */}
+              <div className="h-1/2 bg-blue-300 text-center">
+                <input type="number" className="text-center text-3xl w-full h-full"></input>
+              </div>
+              {/* Card Footer */}
+              <div className="h-1/4 bg-gray-300 text-center">Bonus</div>
+            </div>
+            {/* Dex Card */}
+            <div className="bg-red-300 col-span-2"></div>
+            {/* Con Card */}
+            <div className="bg-red-300 col-span-2"></div>
+            {/* Int Card */}
+            <div className="bg-red-300 col-span-2"></div>
+            {/* Wis Card */}
+            <div className="bg-red-300 col-span-2"></div>
+            {/* Cha Card */}
+            <div className="bg-red-300 col-span-2"></div>
+            {/* Saves Row */}
+            <div className="bg-red-300 col-span-6"></div>
+          </div>
         </div>
         <div className="bg-gray-900 col-span-3 border"></div>
         {/* Bottom Row: Skills, Spells, and Weapons */}
-        <div className="bg-gray-900 h-12 col-span-4 border"></div>
-        <div className="bg-gray-900 h-12 col-span-4 border"></div>
-        <div className="bg-gray-900 h-12 col-span-4 border"></div>
+        <div className="bg-gray-900 h-12 col-span-3 border"></div>
+        <div className="bg-gray-900 h-12 col-span-6 border"></div>
+        <div className="bg-gray-900 h-12 col-span-3 border"></div>
       </div>
     </div>
   );
