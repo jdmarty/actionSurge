@@ -1,5 +1,8 @@
 import React from "react";
+// Components
 import SubmitButton from "../components/SubmitButton"
+import AbilitiesCard from "../components/create-player/AbilitiesCard"
+import SavesCard from "../components/create-player/SavesCard"
 
 function CreatePlayer() {
   return (
@@ -87,29 +90,38 @@ function CreatePlayer() {
         <div className="bg-gray-900 col-span-6 border">
           {/* Abilities Grid */}
           <div className="grid grid-cols-6 gap-6 h-full py-6 px-2">
-            {/* Strength Card */}
-            <div className="bg-red-300 col-span-2">
-              {/* Card Header */}
-              <h3 className="h-1/4 bg-green-300 text-center">Strength</h3>
-              {/* Card Body */}
-              <div className="h-1/2 bg-blue-300 text-center">
-                <input type="number" className="text-center text-3xl w-full h-full"></input>
-              </div>
-              {/* Card Footer */}
-              <div className="h-1/4 bg-gray-300 text-center">Bonus</div>
-            </div>
+            <AbilitiesCard type="Strength" />
             {/* Dex Card */}
-            <div className="bg-red-300 col-span-2"></div>
+            <AbilitiesCard type="Dexterity" />
             {/* Con Card */}
-            <div className="bg-red-300 col-span-2"></div>
+            <AbilitiesCard type="Constitution" />
             {/* Int Card */}
-            <div className="bg-red-300 col-span-2"></div>
+            <AbilitiesCard type="Intelligence" />
             {/* Wis Card */}
-            <div className="bg-red-300 col-span-2"></div>
+            <AbilitiesCard type="Wisdom" />
             {/* Cha Card */}
-            <div className="bg-red-300 col-span-2"></div>
+            <AbilitiesCard type="Charisma" />
             {/* Saves Row */}
-            <div className="bg-red-300 col-span-6"></div>
+            <div className="bg-red-300 col-span-6">
+              <h1 className="text-center bg-green-300">
+                SAVES (Check marks indicate proficiency)
+              </h1>
+              <div className="grid grid-cols-6 gap-4 p-4">
+                {/* Save Card */}
+                <SavesCard />
+                <SavesCard />
+                <SavesCard />
+                <SavesCard />
+                <SavesCard />
+                <SavesCard />
+              </div>
+
+              {/* <div className="border bg-white">DEX</div>
+              <div className="border bg-white">CON</div>
+              <div className="border bg-white">INT</div>
+              <div className="border bg-white">WIS</div>
+              <div className="border bg-white">CHA</div> */}
+            </div>
           </div>
         </div>
         <div className="bg-gray-900 col-span-3 border"></div>

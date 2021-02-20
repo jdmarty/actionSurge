@@ -1,7 +1,6 @@
 import React from "react";
 
 function SubmitButton(props) {
-  console.log(props)
   return (
     <button
       type="submit"
