@@ -9,7 +9,7 @@ function Battle({ title, icon, route }) {
       <div className="transition duration-250 ease-in-out transform md:hover:scale-110 bg-gray-900 hover:bg-green-700 mt-2 border rounded-md">
         {/* Decoration */}
         <div className="border-b-2 flex justify-center items-center lg:py-24 py-12">
-          <i class={`${icon} text-white text-9xl`}></i>
+          <i className={`${icon} text-white text-9xl`}></i>
         </div>
         {/* Description */}
         <div className="py-6">

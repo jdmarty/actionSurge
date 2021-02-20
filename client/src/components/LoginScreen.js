@@ -4,6 +4,7 @@ import { toast } from "react-toast"
 import { useAuthContext } from "../utils/AuthState";
 import { LOGIN } from "../utils/actions";
 import API from "../utils/API"
+import SubmitButton from "../components/SubmitButton"
 
 function LoginScreen() {
   // references for inputs
@@ -76,13 +77,7 @@ function LoginScreen() {
         </div>
 
         <div className="py-3 text-left sm:px-6 flex">
-          <button
-            type="submit"
-            className="inline-flex py-2 px-4 text-lg font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700"
-            onClick={handleLogin}
-          >
-            Login
-          </button>
+          <SubmitButton text="Login" onClick={handleLogin} />
           <Link to="/signup">
             <p className="py-2 px-4 hover:underline">Sign Up</p>
           </Link>
