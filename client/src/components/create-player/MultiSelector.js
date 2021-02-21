@@ -2,19 +2,23 @@ import React, { useEffect, useState } from "react";
 import Select from "react-select";
 // Context
 import { useCreatePlayerContext } from "../../utils/CreatePlayerState";
-import { ADJUST_PLAYER_TOP } from "../../utils/actions";
+import { ADJUST_PLAYER_ARRAY } from "../../utils/actions";
 
 function Selector(props) {
   const [selectedOption, setSelectedOption] = useState(null);
   const [playerState, playerDispatch] = useCreatePlayerContext();
 
   useEffect(() => {
-    console.log(selectedOption)
-    // playerDispatch({
-    //   type: ADJUST_PLAYER_TOP,
-    //   target: props.type,
-    //   value: selectedOption ? selectedOption.value : "",
-    // });
+    // map out the current selected option
+    let newArray = []
+    if (selectedOption) {
+      newArray = selectedOption.map(option => option.value)
+    }
+    playerDispatch({
+      type: ADJUST_PLAYER_ARRAY,
+      target: props.type,
+      newArray,
+    });
   }, [selectedOption]);
 
   return (

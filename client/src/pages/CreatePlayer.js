@@ -8,23 +8,39 @@ import MultiSelector from "../components/create-player/MultiSelector";
 import NameInput from "../components/create-player/NameInput";
 import HitPointsInput from "../components/create-player/HitPointsInput";
 import ArmorClassInput from "../components/create-player/ArmorClassInput";
-import SpeedInput from "../components/create-player/SpeedInput"
-
+import SpeedInput from "../components/create-player/SpeedInput";
+import SkillsCard from "../components/create-player/SkillsCard";
 // Options
-import { raceOptions, subraceOptions, classOptions, subclassOptions, levelOptions, damageTypes } from "../components/create-player/selectorOptions"
+import {
+  raceOptions,
+  subraceOptions,
+  classOptions,
+  subclassOptions,
+  levelOptions,
+  damageTypes,
+  conditions,
+  skillsOptions,
+} from "../components/create-player/selectorOptions";
 // Context
-import { useCreatePlayerContext } from "../utils/CreatePlayerState"
+import { useCreatePlayerContext } from "../utils/CreatePlayerState";
 
 function CreatePlayer() {
   // Global state for create player state
-  const [playerState, playerDispatch] = useCreatePlayerContext()
+  const [playerState, playerDispatch] = useCreatePlayerContext();
 
   // function to log current state for now
   const logState = (e) => {
-    e.preventDefault()
-    console.log(playerState)
+    e.preventDefault();
+    console.log(playerState);
+  };
+
+  // function to map out skills for now
+  const mapSkills = () => {
+    return skillsOptions.map(skill => {
+      return <div>{skill.label}</div>
+    })
   }
-  
+
   return (
     <form className="py-9 md:px-9 sm:px-36 px-4 flex justify-center">
       {/* Main Grid */}
@@ -132,16 +148,46 @@ function CreatePlayer() {
 
           {/* Defenses */}
           <div className="border my-2 mx-6 p-2 text-white">
-            <MultiSelector label="Resistances" options={damageTypes} />
-            <MultiSelector label="Immunities" options={damageTypes} />
-            <MultiSelector label="Vulnerabilities" options={damageTypes} />
-            <MultiSelector label="Condition Immunities" />
+            <MultiSelector
+              label="Resistances"
+              options={damageTypes}
+              type="damage_resistances"
+            />
+            <MultiSelector
+              label="Immunities"
+              options={damageTypes}
+              type="damage_immunities"
+            />
+            <MultiSelector
+              label="Vulnerabilities"
+              options={damageTypes}
+              type="damage_vulnerabilities"
+            />
+            <MultiSelector
+              label="Condition Immunities"
+              options={conditions}
+              type="condition_immunities"
+            />
           </div>
         </div>
         {/* Bottom Row: Skills, Spells, and Weapons */}
-        <div className="bg-gray-900 h-12 col-span-3 border"></div>
-        <div className="bg-gray-900 h-12 col-span-6 border"></div>
-        <div className="bg-gray-900 h-12 col-span-3 border"></div>
+        <div className="bg-gray-900 col-span-3 border text-white">
+          <div className="my-2 mx-6 p-2 text-white">
+            <MultiSelector
+              label="Proficient Skills"
+              options={skillsOptions}
+              type="skill_proficiencies"
+            />
+            <MultiSelector
+              label="Expert Skills"
+              options={skillsOptions}
+              type="skill-expertise"
+            />
+            {mapSkills()}
+          </div>
+        </div>
+        <div className="bg-gray-900 col-span-6 border"></div>
+        <div className="bg-gray-900 col-span-3 border"></div>
       </div>
     </form>
   );

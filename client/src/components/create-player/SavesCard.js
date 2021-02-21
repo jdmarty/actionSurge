@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 // Context
 import { useCreatePlayerContext } from "../../utils/CreatePlayerState"
-import { ADJUST_PLAYER_TOP, ADJUST_PLAYER_ARRAY } from "../../utils/actions"
+import { ADJUST_PLAYER_ARRAY } from "../../utils/actions"
 
 function SavesCard(props) {
   // State
@@ -19,13 +19,14 @@ function SavesCard(props) {
   // Effect to update array of proficiencies
   useEffect(() => {
     // get the current proficiences
-    let currentProfs = [...playerState.saveProficiencies]
+    let currentProfs = [...playerState.save_proficiencies]
     // either add or remove the current proficiencies
     if (proficient) currentProfs.push(props.type)
     else currentProfs = currentProfs.filter(save => props.type !== save)
     // set the global state with the new profs
     playerDispatch({
       type: ADJUST_PLAYER_ARRAY,
+      target: "save_proficiencies",
       newArray: currentProfs
     })
   }, [proficient])
@@ -33,7 +34,7 @@ function SavesCard(props) {
   // Render the save bonus
   const renderBonus = () => {
     let bonus = Math.floor((playerState[props.type] - 10) / 2);
-    if (playerState.saveProficiencies.includes(props.type)) {
+    if (playerState.save_proficiencies.includes(props.type)) {
       bonus += playerState.proficiency;
     };
     return bonus < 0 ? bonus : "+"+ bonus

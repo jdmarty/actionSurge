@@ -17,7 +17,7 @@ const reducer = (state, action) => {
     case ADJUST_PLAYER_ARRAY:
       return {
         ...state,
-        saveProficiencies: action.newArray
+       [action.target]: action.newArray
       }
     default:
       return state;
@@ -42,7 +42,13 @@ const CreatePlayerProvider = ({ ...props }) => {
     intelligence: 10,
     wisdom: 10,
     charisma: 10,
-    saveProficiencies: []
+    save_proficiencies: [],
+    damage_immunities: [],
+    damage_resistances: [],
+    damage_vulnerabilities: [],
+    condition_immunities: [],
+    skill_proficiencies: [],
+    skill_expertise: []
   });
 
   return <Provider value={[state, dispatch]} {...props} />;

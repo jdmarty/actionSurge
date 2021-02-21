@@ -112,3 +112,46 @@ export const damageTypes = [
   { value: "slashing", label: "Slashing" },
   { value: "thunder", label: "Thunder" },
 ];
+
+export const conditions = [
+  { value: "blinded", label: "Blinded" },
+  { value: "charmed", label: "Charmed" },
+  { value: "deafened", label: "Deafened" },
+  { value: "exhaustion", label: "Exhaustion" },
+  { value: "frightened", label: "Frightened" },
+  { value: "grappled", label: "Grappled" },
+  { value: "incapacitated", label: "incapacitated" },
+  { value: "paralyzed", label: "Paralyzed" },
+  { value: "petrified", label: "Petrified" },
+  { value: "poisoned", label: "Poisoned" },
+  { value: "prone", label: "Prone" },
+  { value: "restrained", label: "Restrained" },
+  { value: "stunned", label: "Stunned" },
+  { value: "unconscious", label: "Unconscious" },
+];
+
+const skills = [
+  "Acrobatics",
+  "Animal Handling",
+  "Arcana",
+  "Athletics",
+  "Deception",
+  "History",
+  "Insight",
+  "Intimidation",
+  "Investigation",
+  "Medicine",
+  "Nature",
+  "Perception",
+  "Performance",
+  "Persuasion",
+  "Religion",
+  "Sleight of Hand",
+  "Stealth",
+  "Survival"
+];
+
+export const skillsOptions = skills.map(skill => {
+  const value = skill.replace(/\s/g, "-").toLowerCase();
+  return { value, label: skill }
+})
