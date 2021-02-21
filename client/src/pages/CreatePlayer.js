@@ -1,17 +1,18 @@
-import React from "react";
-import axios from "axios"
+import React, { useRef } from "react";
 // Components
 import SubmitButton from "../components/SubmitButton";
 import AbilitiesCard from "../components/create-player/AbilitiesCard";
 import SavesCard from "../components/create-player/SavesCard";
-import SingleSelector from "../components/create-player/SingleSelector"
+import SingleSelector from "../components/create-player/SingleSelector";
+import NameInput from "../components/create-player/NameInput"
 // Options
 import { raceOptions, subraceOptions, classOptions, subclassOptions, levelOptions } from "../components/create-player/selectorOptions"
 // Context
 import { useCreatePlayerContext } from "../utils/CreatePlayerState"
+import e from "express";
 
 function CreatePlayer() {
-  //Global state for create player state
+  // Global state for create player state
   const [playerState, playerDispatch] = useCreatePlayerContext()
 
   return (
@@ -22,24 +23,10 @@ function CreatePlayer() {
           {/* Name Input */}
           <div className="bg-gray-900 col-span-10 border px-2 py-2">
             {/* Name Input with attached label */}
-            <div className="grid grid-cols-12">
-              <label
-                htmlFor="player-name"
-                className="col-span-1 py-1 text-center block text-lg font-medium text-gray-300"
-              >
-                Name
-              </label>
-              <input
-                type="text"
-                name="player-name"
-                className="col-span-11 text-black p-1 mt-1 block w-full shadow-sm sm:text-lg border-gray-300 rounded-md"
-                placeholder="Player Name"
-                required
-              ></input>
-            </div>
+            <NameInput />
           </div>
           {/* Submit Button */}
-          <div className="bg-gray-900 col-span-2 border text-center py-2">
+          <div className="bg-gray-900 col-span-2 border text-center py-5">
             <SubmitButton text="Create" />
           </div>
 
@@ -64,7 +51,7 @@ function CreatePlayer() {
               </div>
 
               <div className="col-span-1">
-                <SingleSelector label="Sub-Class" options={subclassOptions[playerState.classType]} type="subrace"/>
+                <SingleSelector label="Sub-Class" options={subclassOptions[playerState.classType]} type="subclass"/>
               </div>
 
               <div className="col-span-2">

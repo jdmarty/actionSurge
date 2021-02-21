@@ -7,10 +7,6 @@ const { Provider } = CreatePlayerContext;
 const reducer = (state, action) => {
   switch (action.type) {
     case ADJUST_PLAYER_TOP:
-      console.log({
-        ...state,
-        [action.target]: action.value,
-      });
       return {
         ...state,
         [action.target]: action.value
