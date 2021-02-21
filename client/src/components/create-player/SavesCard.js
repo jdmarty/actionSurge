@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 // Context
 import { useCreatePlayerContext } from "../../utils/CreatePlayerState"
-import { ADJUST_PLAYER_TOP, ADJUST_SAVE_PROFS } from "../../utils/actions"
+import { ADJUST_PLAYER_TOP, ADJUST_PLAYER_ARRAY } from "../../utils/actions"
 
 function SavesCard(props) {
   // State
@@ -25,8 +25,8 @@ function SavesCard(props) {
     else currentProfs = currentProfs.filter(save => props.type !== save)
     // set the global state with the new profs
     playerDispatch({
-      type: ADJUST_SAVE_PROFS,
-      newProfs: currentProfs
+      type: ADJUST_PLAYER_ARRAY,
+      newArray: currentProfs
     })
   }, [proficient])
 

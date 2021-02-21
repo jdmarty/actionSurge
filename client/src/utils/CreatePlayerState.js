@@ -1,5 +1,5 @@
 import React, { useContext, useReducer, createContext } from "react";
-import { ADJUST_PLAYER_TOP, ADJUST_SAVE_PROFS } from "./actions";
+import { ADJUST_PLAYER_TOP, ADJUST_PLAYER_ARRAY } from "./actions";
 
 const CreatePlayerContext = createContext({});
 const { Provider } = CreatePlayerContext;
@@ -14,10 +14,10 @@ const reducer = (state, action) => {
         [action.target]: action.value,
         proficiency: newProf,
       };
-    case ADJUST_SAVE_PROFS:
+    case ADJUST_PLAYER_ARRAY:
       return {
         ...state,
-        saveProficiencies: action.newProfs
+        saveProficiencies: action.newArray
       }
     default:
       return state;
