@@ -4,7 +4,11 @@ import SubmitButton from "../components/SubmitButton";
 import AbilitiesCard from "../components/create-player/AbilitiesCard";
 import SavesCard from "../components/create-player/SavesCard";
 import SingleSelector from "../components/create-player/SingleSelector";
-import NameInput from "../components/create-player/NameInput"
+import NameInput from "../components/create-player/NameInput";
+import HitPointsInput from "../components/create-player/HitPointsInput";
+import ArmorClassInput from "../components/create-player/ArmorClassInput";
+import SpeedInput from "../components/create-player/SpeedInput"
+
 // Options
 import { raceOptions, subraceOptions, classOptions, subclassOptions, levelOptions } from "../components/create-player/selectorOptions"
 // Context
@@ -30,7 +34,7 @@ function CreatePlayer() {
             <NameInput />
           </div>
           {/* Submit Button */}
-          <div className="bg-gray-900 col-span-2 border text-center py-5">
+          <div className="bg-gray-900 col-span-2 border text-center py-2">
             <SubmitButton text="Create" onClick={logState}/>
           </div>
 
@@ -99,40 +103,13 @@ function CreatePlayer() {
           <div className="bg-gray-900 col-span-3 border">
             {/* Hit Points and AC*/}
             <div className="border my-2 mx-6 p-2 text-white flex justify-around">
-              <div className="text-center">
-                <label htmlFor="maxHP" className="text-2xl">
-                  HP
-                </label>
-                <input
-                  name="maxHP"
-                  type="number"
-                  className="mx-2 rounded text-2xl text-black text-center w-1/2"
-                ></input>
-              </div>
-
-              <div className="text-center">
-                <label htmlFor="AC" className="text-2xl">
-                  AC
-                </label>
-                <input
-                  name="AC"
-                  type="number"
-                  className="mx-2 rounded text-2xl text-black text-center w-1/2"
-                ></input>
-              </div>
+              <HitPointsInput />
+              <ArmorClassInput />
             </div>
 
             {/* Movement */}
             <div className="border my-2 mx-6 p-2 text-white flex justify-around">
-              <label htmlFor="speed" className="text-2xl">
-                Speed
-              </label>
-              <input
-                name="speed"
-                type="number"
-                className="mx-2 rounded text-2xl text-black text-center w-1/2"
-              ></input>
-              <span className="text-2xl">ft</span>
+              <SpeedInput />
             </div>
 
             {/* Defenses */}

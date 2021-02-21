@@ -18,7 +18,7 @@ function Selector(props) {
 
   return (
     <>
-      <label htmlFor={props.label.toLowerCase()} className="text-gray-500">
+      <label htmlFor={props.label.toLowerCase()} className="text-white">
         {props.label}
       </label>
       <Select

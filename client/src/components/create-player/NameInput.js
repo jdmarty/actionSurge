@@ -1,10 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
-import Select from "react-select";
 // Context
 import { useCreatePlayerContext } from "../../utils/CreatePlayerState";
 import { ADJUST_PLAYER_TOP } from "../../utils/actions";
 
-function Selector(props) {
+function NameInput(props) {
   // State and context
   const [name, setName] = useState("");
   const [playerState, playerDispatch] = useCreatePlayerContext();
@@ -14,25 +13,21 @@ function Selector(props) {
 
   // Handler for name change
   const handleNameChange = (e) => {
-    setName(nameInput.current.value)
-  }
-
-  // Effect to update context on name change
-  useEffect(() => {
+    setName(nameInput.current.value);
     playerDispatch({
       type: ADJUST_PLAYER_TOP,
       target: "name",
-      value: name,
+      value: nameInput.current.value,
     });
-  }, [name])
+  }
 
   return (
     <div className="grid grid-cols-12">
       <label
         htmlFor="player-name"
-        className="col-span-1 py-1 text-center block text-lg font-medium text-gray-300"
+        className="col-span-1 py-1 text-center block text-2xl font-medium text-gray-300"
       >
-        Player Name
+        Name
       </label>
       <input
         type="text"
@@ -47,4 +42,4 @@ function Selector(props) {
   );
 }
 
-export default Selector;
+export default NameInput;

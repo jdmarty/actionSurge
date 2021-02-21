@@ -24,16 +24,12 @@ function AbilitiesCard(props) {
     }
 
     setScore(thisScore.current.value)
-  }
-
-  // Effect to update player context
-  useEffect(() => {
     playerDispatch({
       type: ADJUST_PLAYER_TOP,
       target: props.type.toLowerCase(),
-      value: score,
+      value: Number(thisScore.current.value),
     });
-  }, [score])
+  }
 
   const renderBonus = () => {
     const bonus = Math.floor((score-10) /2);
