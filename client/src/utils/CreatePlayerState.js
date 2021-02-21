@@ -19,11 +19,17 @@ const reducer = (state, action) => {
 const CreatePlayerProvider = ({ ...props }) => {
   const [state, dispatch] = useReducer(reducer, {
     name: "",
-    race: "",
-    subrace: "",
-    classType: "",
-    subclass: "",
-    level: 1
+    race: null,
+    subrace: null,
+    classType: null,
+    subclass: null,
+    level: 1,
+    strength: 10,
+    dexterity: 10,
+    constitution: 10,
+    intelligence: 10,
+    wisdom: 10,
+    charisma: 10,
   });
 
   return <Provider value={[state, dispatch]} {...props} />;

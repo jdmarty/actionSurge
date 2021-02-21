@@ -1,10 +1,17 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
+// Context
+import { useCreatePlayerContext } from "../../utils/CreatePlayerState";
+import { ADJUST_PLAYER_TOP } from "../../utils/actions";
 
 function AbilitiesCard(props) {
+  // State
   const [score, setScore] = useState(10);
+  const [playerState, playerDispatch] = useCreatePlayerContext();
 
+  // Reference
   const thisScore = useRef()
 
+  // Change handler
   const handleChange = e => {
     if (thisScore.current.value > 30) {
       setScore(30)
@@ -18,6 +25,15 @@ function AbilitiesCard(props) {
 
     setScore(thisScore.current.value)
   }
+
+  // Effect to update player context
+  useEffect(() => {
+    playerDispatch({
+      type: ADJUST_PLAYER_TOP,
+      target: props.type.toLowerCase(),
+      value: score,
+    });
+  }, [score])
 
   const renderBonus = () => {
     const bonus = Math.floor((score-10) /2);

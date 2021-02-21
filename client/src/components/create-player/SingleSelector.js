@@ -22,7 +22,7 @@ function Selector(props) {
         {props.label}
       </label>
       <Select
-        defaultValue={selectedOption}
+        defaultValue={playerState[props.type]}
         onChange={setSelectedOption}
         options={props.options}
       />

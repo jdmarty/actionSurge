@@ -9,12 +9,16 @@ import NameInput from "../components/create-player/NameInput"
 import { raceOptions, subraceOptions, classOptions, subclassOptions, levelOptions } from "../components/create-player/selectorOptions"
 // Context
 import { useCreatePlayerContext } from "../utils/CreatePlayerState"
-import e from "express";
 
 function CreatePlayer() {
   // Global state for create player state
   const [playerState, playerDispatch] = useCreatePlayerContext()
 
+  // function to log current state for now
+  const logState = (e) => {
+    e.preventDefault()
+    console.log(playerState)
+  }
   return (
       <form className="py-9 md:px-9 sm:px-36 px-4 flex justify-center">
         {/* Main Grid */}
@@ -27,7 +31,7 @@ function CreatePlayer() {
           </div>
           {/* Submit Button */}
           <div className="bg-gray-900 col-span-2 border text-center py-5">
-            <SubmitButton text="Create" />
+            <SubmitButton text="Create" onClick={logState}/>
           </div>
 
           {/* Middle Row */}

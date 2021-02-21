@@ -12,14 +12,19 @@ function Selector(props) {
   // References
   const nameInput = useRef()
 
+  // Handler for name change
   const handleNameChange = (e) => {
     setName(nameInput.current.value)
+  }
+
+  // Effect to update context on name change
+  useEffect(() => {
     playerDispatch({
       type: ADJUST_PLAYER_TOP,
       target: "name",
       value: name,
     });
-  }
+  }, [name])
 
   return (
     <div className="grid grid-cols-12">
