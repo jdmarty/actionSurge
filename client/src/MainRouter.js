@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Redirect, Route, Switch, Link } from "react-router-dom";
 import { useAuthContext } from "./utils/AuthState"
+
 // Raw Components
 import Nav from "./components/Nav";
 // Pages

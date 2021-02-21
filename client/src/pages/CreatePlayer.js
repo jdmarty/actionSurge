@@ -1,18 +1,20 @@
 import React from "react";
+import axios from "axios"
 // Components
 import SubmitButton from "../components/SubmitButton";
 import AbilitiesCard from "../components/create-player/AbilitiesCard";
 import SavesCard from "../components/create-player/SavesCard";
 import SingleSelector from "../components/create-player/SingleSelector"
 // Options
-import { raceOptions, classOptions, levelOptions } from "../components/create-player/selectorOptions"
+import { raceOptions, subraceOptions, classOptions, subclassOptions, levelOptions } from "../components/create-player/selectorOptions"
 // Context
-import { CreatePlayerProvider } from "../utils/CreatePlayerState"
+import { useCreatePlayerContext } from "../utils/CreatePlayerState"
 
 function CreatePlayer() {
+  //Global state for create player state
+  const [playerState, playerDispatch] = useCreatePlayerContext()
+
   return (
-    <CreatePlayerProvider>
-      {/* Main Grid */}
       <form className="py-9 md:px-9 sm:px-36 px-4 flex justify-center">
         {/* Main Grid */}
         <div className="grid grid-cols-12 w-full">
@@ -54,14 +56,7 @@ function CreatePlayer() {
               </div>
               {/* Subrace Selector */}
               <div className="col-span-1">
-                <label htmlFor="subrace" className="text-gray-500">
-                  Sub-Race
-                </label>
-                <select name="subrace" className="w-full">
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                </select>
+                <SingleSelector label="Sub-Race" options={subraceOptions[playerState.race]} type="subrace"/>
               </div>
               {/* Level Selector */}
               <div className="col-span-1">
@@ -69,14 +64,7 @@ function CreatePlayer() {
               </div>
 
               <div className="col-span-1">
-                <label htmlFor="subclass" className="text-gray-500">
-                  Sub-Class
-                </label>
-                <select name="subclass" className="w-full">
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                </select>
+                <SingleSelector label="Sub-Class" options={subclassOptions[playerState.classType]} type="subrace"/>
               </div>
 
               <div className="col-span-2">
@@ -173,7 +161,6 @@ function CreatePlayer() {
           <div className="bg-gray-900 h-12 col-span-3 border"></div>
         </div>
       </form>
-    </CreatePlayerProvider>
   );
 }
 
