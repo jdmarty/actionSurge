@@ -85,12 +85,12 @@ function CreatePlayer() {
                 </h1>
                 <div className="grid grid-cols-6 gap-2 p-4">
                   {/* Save Cards */}
-                  <SavesCard display="STR" />
-                  <SavesCard display="DEX" />
-                  <SavesCard display="CON" />
-                  <SavesCard display="INT" />
-                  <SavesCard display="WIS" />
-                  <SavesCard display="CHA" />
+                  <SavesCard display="STR" type="strength"/>
+                  <SavesCard display="DEX" type="dexterity"/>
+                  <SavesCard display="CON" type="constitution" />
+                  <SavesCard display="INT" type="intelligence"/>
+                  <SavesCard display="WIS" type="wisdom" />
+                  <SavesCard display="CHA" type="charisma"/>
                 </div>
               </div>
             </div>
