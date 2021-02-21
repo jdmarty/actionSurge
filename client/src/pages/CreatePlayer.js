@@ -3,12 +3,17 @@ import React from "react";
 import SubmitButton from "../components/SubmitButton";
 import AbilitiesCard from "../components/create-player/AbilitiesCard";
 import SavesCard from "../components/create-player/SavesCard";
+import SingleSelector from "../components/SingleSelector"
+// Options
+import { raceOptions, classOptions, levelOptions } from "../components/create-player/selectorOptions"
 
 function CreatePlayer() {
   return (
     // Main grid
-    <div className="py-9 md:px-9 sm:px-36 px-4 flex justify-center">
+    <form className="py-9 md:px-9 sm:px-36 px-4 flex justify-center">
+      {/* Main Grid */}
       <div className="grid grid-cols-12 w-full">
+        
         {/* Top Row : Name */}
         {/* Name Input */}
         <div className="bg-gray-900 col-span-10 border px-2 py-2">
@@ -33,6 +38,7 @@ function CreatePlayer() {
         <div className="bg-gray-900 col-span-2 border text-center py-2">
           <SubmitButton text="Create" />
         </div>
+
         {/* Middle Row */}
         {/* Character Details */}
         <div className="bg-gray-900 col-span-3 border">
@@ -42,21 +48,14 @@ function CreatePlayer() {
             <div className="col-span-2 h-24 bg-red-300"></div>
             {/* Race Selector */}
             <div className="col-span-1">
-              <label htmlFor="race" className="text-gray-500">
-                Race
-              </label>
-              <select name="race" className="w-full">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-              </select>
+              <SingleSelector label="Race" options={raceOptions} />
             </div>
-
+            {/* Subrace Selector */}
             <div className="col-span-1">
-              <label htmlFor="race" className="text-gray-500">
+              <label htmlFor="subrace" className="text-gray-500">
                 Sub-Race
               </label>
-              <select name="race" className="w-full">
+              <select name="subrace" className="w-full">
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -64,25 +63,22 @@ function CreatePlayer() {
             </div>
             {/* Level Selector */}
             <div className="col-span-1">
-              <label htmlFor="level" className="text-gray-500">
-                Class
+              <SingleSelector label="Class" options={classOptions} />
+            </div>
+
+            <div className="col-span-1">
+              <label htmlFor="subclass" className="text-gray-500">
+                Sub-Class
               </label>
-              <select name="level" className="w-full">
+              <select name="subclass" className="w-full">
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
               </select>
             </div>
 
-            <div className="col-span-1">
-              <label htmlFor="race" className="text-gray-500">
-                Sub-Class
-              </label>
-              <select name="race" className="w-full">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-              </select>
+            <div className="col-span-2">
+              <SingleSelector label="Level" options={levelOptions} />
             </div>
           </div>
         </div>
@@ -106,7 +102,7 @@ function CreatePlayer() {
               <h1 className="text-center bg-green-300">
                 SAVES (Check marks indicate proficiency)
               </h1>
-              <div className="grid grid-cols-6 gap-4 p-4">
+              <div className="grid grid-cols-6 gap-2 p-4">
                 {/* Save Cards */}
                 <SavesCard display="STR" />
                 <SavesCard display="DEX" />
@@ -115,12 +111,6 @@ function CreatePlayer() {
                 <SavesCard display="WIS" />
                 <SavesCard display="CHA" />
               </div>
-
-              {/* <div className="border bg-white">DEX</div>
-              <div className="border bg-white">CON</div>
-              <div className="border bg-white">INT</div>
-              <div className="border bg-white">WIS</div>
-              <div className="border bg-white">CHA</div> */}
             </div>
           </div>
         </div>
@@ -165,14 +155,22 @@ function CreatePlayer() {
           </div>
 
           {/* Defenses */}
-          <div className="border m-2 text-white">Defenses</div>
+          <div className="border my-2 mx-6 p-2 text-white">
+            <h3 className="text-center text-2xl">Defenses</h3>
+            <div className="flex justify-around mb-2">
+              <div>Damage Type</div>
+              <div>Resistance Type</div>
+              <div>X</div>
+            </div>
+            <div className="text-center">Add Defense +</div>
+          </div>
         </div>
         {/* Bottom Row: Skills, Spells, and Weapons */}
         <div className="bg-gray-900 h-12 col-span-3 border"></div>
         <div className="bg-gray-900 h-12 col-span-6 border"></div>
         <div className="bg-gray-900 h-12 col-span-3 border"></div>
       </div>
-    </div>
+    </form>
   );
 }
 

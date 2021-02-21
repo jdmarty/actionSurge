@@ -6,8 +6,8 @@ function AbilitiesCard(props) {
   const thisScore = useRef()
 
   const handleChange = e => {
-    if (thisScore.current.value > 20) {
-      setScore(20)
+    if (thisScore.current.value > 30) {
+      setScore(30)
       return
     }
 
@@ -28,7 +28,7 @@ function AbilitiesCard(props) {
   return (
     <div className="col-span-2">
       {/* Card Header */}
-      <h3 className="h-1/4 bg-green-300 text-center">{props.type}</h3>
+      <h3 className="bg-green-300 text-center">{props.type}</h3>
       {/* Card Body */}
       <div className="h-1/2 bg-blue-300 text-center">
         <input
