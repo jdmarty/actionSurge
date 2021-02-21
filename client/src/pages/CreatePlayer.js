@@ -62,7 +62,7 @@ function CreatePlayer() {
           {/* Character Basics */}
           <div className="grid grid-cols-2 gap-4 p-4">
             {/* Image Container */}
-            <div className="col-span-2 h-24 bg-red-300"></div>
+            <div className="col-span-2 h-44 bg-red-300"></div>
             {/* Race Selector */}
             <div className="col-span-1">
               <SingleSelector label="Race" options={raceOptions} type="race" />
