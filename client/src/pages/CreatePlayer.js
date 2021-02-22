@@ -104,7 +104,7 @@ function CreatePlayer() {
         {/* Player Stats */}
         <div className="bg-gray-900 col-span-6 border">
           {/* Abilities Grid */}
-          <h1 className="text-center text-white text-2xl">
+          <h1 className="text-center text-white text-3xl">
             Ability Scores
           </h1>
           <div className="grid grid-cols-6 gap-6 h-full py-6 px-2">
@@ -121,7 +121,7 @@ function CreatePlayer() {
             <AbilitiesCard type="Charisma" />
             {/* Saves Row */}
             <div className="col-span-6">
-              <h1 className="text-center text-white text-2xl">
+              <h1 className="text-center text-white text-3xl">
                 Saving Throws (Check marks indicate proficiency)
               </h1>
               <div className="grid grid-cols-6 gap-2 p-4">
@@ -203,7 +203,7 @@ function CreatePlayer() {
         </div>
         <div className="bg-gray-900 col-span-3 border text-white">
           <h1 className="text-center mt-2 text-3xl">Other Equipment</h1>
-          <div className="my-2 mx-6 p-2 space-y-5 text-xl">
+          <div className="my-2 mx-6 p-2 space-y-5 text-2xl">
             <MultiSelector label="Weapons" options={weapons} type="weapons" />
             <MultiSelector label="Armor" options={armor} type="armor" />
             <MultiSelector label="Potions" options={potions} type="potions" />
