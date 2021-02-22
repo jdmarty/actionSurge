@@ -10,6 +10,8 @@ import HitPointsInput from "../components/create-player/HitPointsInput";
 import ArmorClassInput from "../components/create-player/ArmorClassInput";
 import SpeedInput from "../components/create-player/SpeedInput";
 import SkillsList from "../components/create-player/SkillsList";
+import PossibleSpells from "../components/create-player/PossibleSpells"
+import CurrentSpells from "../components/create-player/CurrentSpells"
 
 // Options
 import {
@@ -58,6 +60,14 @@ function CreatePlayer() {
           <div className="grid grid-cols-2 gap-4 p-4">
             {/* Image Container */}
             <div className="col-span-2 h-44 bg-red-300"></div>
+            {/* Level Selector */}
+            <div className="col-span-2">
+              <SingleSelector
+                label="Level"
+                options={levelOptions}
+                type="level"
+              />
+            </div>
             {/* Race Selector */}
             <div className="col-span-1">
               <SingleSelector label="Race" options={raceOptions} type="race" />
@@ -70,7 +80,7 @@ function CreatePlayer() {
                 type="subrace"
               />
             </div>
-            {/* Level Selector */}
+            {/* Class Selector */}
             <div className="col-span-1">
               <SingleSelector
                 label="Class"
@@ -78,20 +88,12 @@ function CreatePlayer() {
                 type="classType"
               />
             </div>
-
+            {/* SubClass Selector */}
             <div className="col-span-1">
               <SingleSelector
                 label="Sub-Class"
                 options={subclassOptions[playerState.classType]}
                 type="subclass"
-              />
-            </div>
-
-            <div className="col-span-2">
-              <SingleSelector
-                label="Level"
-                options={levelOptions}
-                type="level"
               />
             </div>
           </div>
@@ -181,7 +183,16 @@ function CreatePlayer() {
             <SkillsList />
           </div>
         </div>
-        <div className="bg-gray-900 col-span-6 border"></div>
+        <div className="bg-gray-900 col-span-6 border text-white">
+          <div className="grid grid-cols-2">
+            <div className="border h-96 overflow-auto">
+              <PossibleSpells />
+            </div>
+            <div className="border h-96 overflow-auto">
+              <CurrentSpells />
+            </div>
+          </div>
+        </div>
         <div className="bg-gray-900 col-span-3 border"></div>
       </div>
     </form>

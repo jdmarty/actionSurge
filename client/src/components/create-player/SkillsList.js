@@ -4,7 +4,7 @@ import { useCreatePlayerContext } from "../../utils/CreatePlayerState";
 import { skills } from "./selectorOptions";
 
 function SkillsList(props) {
-  // Gobal State
+  // Global State
   const [playerState, playerDispatch] = useCreatePlayerContext();
 
   //Map the skills into a a list
@@ -34,16 +34,16 @@ function SkillsList(props) {
 
       // return basic skills card
       return (
-        <div className="flex justify-between text-lg" key={`skill${index}`}>
+        <li className="flex justify-between text-lg" key={`skill${index}`}>
           <p>{marker}</p>
           <p>{skill.label}</p>
           <p>{bonus >= 0 ? "+" + bonus : bonus}</p>
-        </div>
+        </li>
       );
     });
   };
 
-  return <div className="mt-1 px-2">{renderSkills(skills)}</div>;
+  return <ul className="mt-1 px-2">{renderSkills(skills)}</ul>;
 }
 
 export default SkillsList;
