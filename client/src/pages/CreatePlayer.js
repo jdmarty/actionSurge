@@ -9,7 +9,8 @@ import NameInput from "../components/create-player/NameInput";
 import HitPointsInput from "../components/create-player/HitPointsInput";
 import ArmorClassInput from "../components/create-player/ArmorClassInput";
 import SpeedInput from "../components/create-player/SpeedInput";
-import SkillsCard from "../components/create-player/SkillsCard";
+import SkillsList from "../components/create-player/SkillsList";
+
 // Options
 import {
   raceOptions,
@@ -19,7 +20,7 @@ import {
   levelOptions,
   damageTypes,
   conditions,
-  skillsOptions,
+  skills,
 } from "../components/create-player/selectorOptions";
 // Context
 import { useCreatePlayerContext } from "../utils/CreatePlayerState";
@@ -34,12 +35,6 @@ function CreatePlayer() {
     console.log(playerState);
   };
 
-  // function to map out skills for now
-  const mapSkills = () => {
-    return skillsOptions.map(skill => {
-      return <div>{skill.label}</div>
-    })
-  }
 
   return (
     <form className="py-9 md:px-9 sm:px-36 px-4 flex justify-center">
@@ -175,15 +170,15 @@ function CreatePlayer() {
           <div className="my-2 mx-6 p-2 text-white">
             <MultiSelector
               label="Proficient Skills"
-              options={skillsOptions}
+              options={skills}
               type="skill_proficiencies"
             />
             <MultiSelector
               label="Expert Skills"
-              options={skillsOptions}
-              type="skill-expertise"
+              options={skills}
+              type="skill_expertise"
             />
-            {mapSkills()}
+            <SkillsList />
           </div>
         </div>
         <div className="bg-gray-900 col-span-6 border"></div>

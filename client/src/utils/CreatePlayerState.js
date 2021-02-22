@@ -8,7 +8,7 @@ const reducer = (state, action) => {
   switch (action.type) {
     case ADJUST_PLAYER_TOP:
       // Check if the level has changed and update proficiency
-      const newProf = (action.target === "level") ? Math.floor(action.value / 5) +2 : state.proficiency
+      const newProf = (action.target === "level") ? Math.floor(action.value / 4) +2 : state.proficiency
       return {
         ...state,
         [action.target]: action.value,
