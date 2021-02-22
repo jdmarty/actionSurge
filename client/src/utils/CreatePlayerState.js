@@ -50,7 +50,9 @@ const CreatePlayerProvider = ({ ...props }) => {
     skill_proficiencies: [],
     skill_expertise: [],
     spells: [],
-    weapons: []
+    weapons: [],
+    armor: [],
+    potions: [],
   });
 
   return <Provider value={[state, dispatch]} {...props} />;

@@ -23,6 +23,9 @@ import {
   damageTypes,
   conditions,
   skills,
+  weapons,
+  armor,
+  potions,
 } from "../components/create-player/selectorOptions";
 // Context
 import { useCreatePlayerContext } from "../utils/CreatePlayerState";
@@ -101,6 +104,9 @@ function CreatePlayer() {
         {/* Player Stats */}
         <div className="bg-gray-900 col-span-6 border">
           {/* Abilities Grid */}
+          <h1 className="text-center text-white text-2xl">
+            Ability Scores
+          </h1>
           <div className="grid grid-cols-6 gap-6 h-full py-6 px-2">
             <AbilitiesCard type="Strength" />
             {/* Dex Card */}
@@ -114,9 +120,9 @@ function CreatePlayer() {
             {/* Cha Card */}
             <AbilitiesCard type="Charisma" />
             {/* Saves Row */}
-            <div className="bg-red-300 col-span-6">
-              <h1 className="text-center bg-green-300">
-                SAVES (Check marks indicate proficiency)
+            <div className="col-span-6">
+              <h1 className="text-center text-white text-2xl">
+                Saving Throws (Check marks indicate proficiency)
               </h1>
               <div className="grid grid-cols-6 gap-2 p-4">
                 {/* Save Cards */}
@@ -169,7 +175,8 @@ function CreatePlayer() {
         </div>
         {/* Bottom Row: Skills, Spells, and Weapons */}
         <div className="bg-gray-900 col-span-3 border text-white">
-          <div className="my-2 mx-6 p-2 text-white">
+          <h1 className="text-center mt-2 text-3xl">Abilities</h1>
+          <div className="my-2 mx-6 p-2 text-2xl">
             <MultiSelector
               label="Proficient Skills"
               options={skills}
@@ -184,17 +191,23 @@ function CreatePlayer() {
           </div>
         </div>
         <div className="bg-gray-900 col-span-6 border text-white">
-          <div className="grid grid-cols-2" style={{ height: "665px" }}>
-            <div className="border h-full overflow-auto">
+          <h1 className="text-center mt-2 text-3xl">Spells</h1>
+          <div className="grid grid-cols-2 py-5" style={{ height: "690px" }}>
+            <div className="h-full overflow-auto">
               <PossibleSpells />
             </div>
-            <div className="border h-full overflow-auto">
+            <div className="h-full overflow-auto">
               <CurrentSpells />
             </div>
           </div>
         </div>
         <div className="bg-gray-900 col-span-3 border text-white">
-          <h1>Weapons</h1>
+          <h1 className="text-center mt-2 text-3xl">Other Equipment</h1>
+          <div className="my-2 mx-6 p-2 space-y-5 text-xl">
+            <MultiSelector label="Weapons" options={weapons} type="weapons" />
+            <MultiSelector label="Armor" options={armor} type="armor" />
+            <MultiSelector label="Potions" options={potions} type="potions" />
+          </div>
         </div>
       </div>
     </form>
