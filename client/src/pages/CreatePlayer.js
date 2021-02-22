@@ -184,16 +184,18 @@ function CreatePlayer() {
           </div>
         </div>
         <div className="bg-gray-900 col-span-6 border text-white">
-          <div className="grid grid-cols-2">
-            <div className="border h-96 overflow-auto">
+          <div className="grid grid-cols-2" style={{ height: "665px" }}>
+            <div className="border h-full overflow-auto">
               <PossibleSpells />
             </div>
-            <div className="border h-96 overflow-auto">
+            <div className="border h-full overflow-auto">
               <CurrentSpells />
             </div>
           </div>
         </div>
-        <div className="bg-gray-900 col-span-3 border"></div>
+        <div className="bg-gray-900 col-span-3 border text-white">
+          <h1>Weapons</h1>
+        </div>
       </div>
     </form>
   );
