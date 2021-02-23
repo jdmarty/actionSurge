@@ -8,6 +8,8 @@ router.post("/create", playerController.createCharacter);
 router.get("/:id", playerController.getCharacter);
 // route to get all player characters
 router.get("/user/:id", playerController.getUserCharacters);
+// route to update a player
+router.put("/:id", playerController.updateCharacter);
 
 
 module.exports = router;

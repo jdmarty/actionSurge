@@ -32,6 +32,7 @@
     "express": "^4.16.3",
     "express-session": "^1.17.1",
     "if-env": "^1.0.4",
+    "mongojs": "^3.1.0",
     "mongoose": "^5.3.16",
     "morgan": "^1.10.0",
     "react-router-dom": "^5.2.0",

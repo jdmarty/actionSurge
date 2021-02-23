@@ -33,8 +33,22 @@ async function getCharacter(req, res) {
   }
 }
 
+// function to update a single character
+async function updateCharacter(req, res) {
+  try {
+    const updatedCharacter = await Character.updateOne({
+      _id: req.params.id
+    }, req.body);
+    res.json(updatedCharacter);
+  } catch (err) {
+    console.log(err);
+    res.status(400).json(err);
+  }
+}
+
 module.exports = {
   createCharacter,
   getUserCharacters,
   getCharacter,
+  updateCharacter
 };

@@ -10,7 +10,6 @@ import Login from "./pages/Login"
 import Signup from "./pages/Signup"
 import NoMatch from "./pages/NoMatch"
 import CreateCharacter from "./pages/CreateCharacter";
-import EditCharacter from "./pages/EditCharacter";
 import EditCharacterDirectory from "./pages/EditCharacterDirectory"
 import Battle from "./pages/Battle";
 
@@ -45,7 +44,7 @@ function MainRouter() {
           {authState.loggedIn ? <EditCharacterDirectory /> : <Redirect to="/login" />}
         </Route>
         <Route exact path="/edit-character/:id">
-          {authState.loggedIn ? <EditCharacter /> : <Redirect to="/login" />}
+          {authState.loggedIn ? <CreateCharacter type="edit"/> : <Redirect to="/login" />}
         </Route>
         <Route exact path="/battle">
           {authState.loggedIn ? <Battle /> : <Redirect to="/login" />}

@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import API from "../utils/API";
 import { useAuthContext } from "../utils/AuthState";
+import { useCreateCharacterContext } from "../utils/CreateCharacterState";
+import { ADJUST_CHARACTER_ALL } from "../utils/actions"
+import API from "../utils/API";
 
 function EditCharacterDirectory() {
-  // Characters list and auth state for user id
+  // Characters list, auth state, and global context
   const [characters, setCharacters] = useState([]);
+  const [ready, setReady] = useState(false)
+  const [id, setId] = useState("");
+  const [name, setName] = useState("")
+  const [characterState, characterDispatch] = useCreateCharacterContext();
   const [authState] = useAuthContext();
 
   // Render a list of players on component mount
@@ -13,12 +19,24 @@ function EditCharacterDirectory() {
     API.getUserCharacters(authState.userId)
       .then(({ data }) => setCharacters(data))
       .catch((err) => console.log(err));
-  });
+  }, []);
 
+  // Update create player context and prepare for update
+  const runUpdate = (id) => {
+    API.getCharacter(id)
+    .then(({data}) => {
+      characterDispatch({
+        type: ADJUST_CHARACTER_ALL,
+        nweState: data
+      })
+      setReady(id)
+    })
+  }
+  
   // component describing list item link
   const DirectoryLink = (props) => {
     return (
-      <Link to={`edit-character/${props.id}`}>
+      <Link to={`/edit-character/${props.id}`}>
         <li className="text-center text-2xl bg-yellow-900 border hover:bg-gray-300 hover:text-black p-2 m-4">
           {props.name}
         </li>
@@ -28,8 +46,8 @@ function EditCharacterDirectory() {
 
   // render a directory link for each character
   const renderLinks = (characters) => {
-    return characters.map((character) => {
-      return <DirectoryLink name={character.name} id={character._id} />;
+    return characters.map((character, index) => {
+      return <DirectoryLink name={character.name} id={character._id} key={"character"+index}/>;
     });
   };
 
@@ -46,6 +64,13 @@ function EditCharacterDirectory() {
               + Create New Character
             </li>
           </Link>
+          {ready && (
+            <Link to={`/edit-character/${ready}`}>
+              <li className="text-center text-2xl bg-green-900 border hover:bg-gray-300 hover:text-black p-2 m-4">
+                Go to edit page
+              </li>
+            </Link>
+          )}
         </ul>
       </div>
     </div>

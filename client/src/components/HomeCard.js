@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function Battle({ title, icon, route }) {
+function HomeCard({ title, icon, route }) {
 
   return (
     <Link to={route}>
@@ -22,4 +22,4 @@ function Battle({ title, icon, route }) {
   );
 }
 
-export default Battle;
+export default HomeCard;

@@ -16,7 +16,7 @@ const API = {
     return axios.post("/api/user/logout");
   },
 
-  // create player
+  // create character
   createCharacter: function (characterData) {
     return axios.post("/api/character/create", characterData);
   },
@@ -24,6 +24,17 @@ const API = {
   // get all players for a user
   getUserCharacters: function(userId) {
     return axios.get(`/api/character/user/${userId}`);
+  },
+
+  // get a single character
+  // make this more secure later
+  getCharacter: function(characterId) {
+    return axios.get(`/api/character/${characterId}`);
+  },
+
+  // update a single character
+  updateCharacter: function(characterId) {
+    return axios.put(`/api/character/${characterId}`)
   }
 };
 

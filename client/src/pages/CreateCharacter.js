@@ -1,4 +1,5 @@
 import React from "react";
+import { useParams } from "react-router-dom"
 // Components
 import SubmitButton from "../components/SubmitButton";
 import AbilitiesCard from "../components/create-player/AbilitiesCard";
@@ -26,16 +27,17 @@ import {
   armor,
   potions,
 } from "../components/create-player/selectorOptions";
-// Global Context
+// Global Context and tools
 import { useCreateCharacterContext } from "../utils/CreateCharacterState";
 import { useAuthContext } from "../utils/AuthState";
-import API from "../utils/API"
+import API from "../utils/API";
 import { toast } from "react-toast";
 
 function CreateCharacter(props) {
   // Global state for create player state
-  const [characterState] = useCreateCharacterContext()
+  const [characterState, characterDispatch] = useCreateCharacterContext();
   const [authState] = useAuthContext();
+  let { id } = useParams();
 
   // function to log current state for now
   const logState = (e) => {
@@ -53,21 +55,41 @@ function CreateCharacter(props) {
 
   // api call to create a new character
   const createCharacter = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     // attach user id
-    const characterData = {...characterState}
-    characterData.user_id = authState.userId
+    const characterData = { ...characterState };
+    characterData.user_id = authState.userId;
     // create player
     API.createCharacter(characterData)
-      .then(({data}) => {
-        console.log(data)
+      .then(({ data }) => {
+        console.log(data);
         toast.success(`New Character ${data.name} successfully created!`);
-        setTimeout(() => window.location.pathname = "/", 3000);
+        setTimeout(() => (window.location.pathname = "/"), 3000);
       })
-      .catch(err => {
-        console.log(err)
-        toast.error("Oh No! Something went wrong! Check your inputs and try again")
+      .catch((err) => {
+        console.log(err);
+        toast.error(
+          "Oh No! Something went wrong! Check your inputs and try again"
+        );
+      });
+  };
+
+  // api call to update an existing character
+  const updateCharacter = (e) => {
+    e.preventDefault();
+    const characterData = { ...characterState };
+    API.updateCharacter(id, characterData)
+      .then(({ data }) => {
+        console.log(data);
+        toast.success(`New Character ${data.name} successfully updated!`);
+        setTimeout(() => (window.location.pathname = "/"), 3000);
       })
+      .catch((err) => {
+        console.log(err);
+        toast.error(
+          "Oh No! Something went wrong! Check your inputs and try again"
+        );
+      });
   }
 
   return (
@@ -82,19 +104,15 @@ function CreateCharacter(props) {
         </div>
         {/* Submit Button */}
         <div className="bg-gray-900 col-span-2 border text-center py-2">
-          {props.type === "edit" ? (
-            <SubmitButton
-              text="Update Character"
-              onClick={logState}
-              checkValid={checkValid}
-            />
-          ) : (
-            <SubmitButton
-              text="Create Character"
-              onClick={createCharacter}
-              checkValid={checkValid}
-            />
-          )}
+          {props.type === "edit" ? <SubmitButton
+            text="Edit Character"
+            onClick={updateCharacter}
+            checkValid={checkValid}
+          /> : <SubmitButton
+            text="Create Character"
+            onClick={createCharacter}
+            checkValid={checkValid}
+          />}
         </div>
 
         {/* Middle Row */}
