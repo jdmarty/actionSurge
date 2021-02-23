@@ -11,6 +11,18 @@ async function createPlayer(req, res) {
   }
 }
 
+// function to get all characters for this user
+async function getUserPlayers(req, res) {
+  try {
+    const userPlayers = await Player.find({ user_id: req.params.id });
+    res.json(userPlayers);
+  } catch (err) {
+    console.log(err);
+    res.status(400).json(err);
+  }
+}
+
 module.exports = {
-  createPlayer
+  createPlayer,
+  getUserPlayers
 };

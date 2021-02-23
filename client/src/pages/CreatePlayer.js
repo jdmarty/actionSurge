@@ -28,12 +28,14 @@ import {
 } from "../components/create-player/selectorOptions";
 // Global Context
 import { useCreatePlayerContext } from "../utils/CreatePlayerState";
+import { useAuthContext } from "../utils/AuthState";
 import API from "../utils/API"
 import { toast } from "react-toast";
 
 function CreatePlayer(props) {
   // Global state for create player state
-  const [playerState, playerDispatch] = useCreatePlayerContext();
+  const [playerState] = useCreatePlayerContext();
+  const [authState] = useAuthContext();
 
   // function to log current state for now
   const logState = (e) => {
@@ -52,7 +54,11 @@ function CreatePlayer(props) {
   // api call to create a new character
   const createPlayer = (e) => {
     e.preventDefault()
-    API.createPlayer(playerState)
+    // attach user id
+    const playerData = {...playerState}
+    playerData.user_id = authState.userId
+    // create player
+    API.createPlayer(playerData)
       .then(({data}) => {
         console.log(data)
         toast.success(`New Player ${data.name} successfully created!`);

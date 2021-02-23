@@ -10,13 +10,14 @@ import Login from "./pages/Login"
 import Signup from "./pages/Signup"
 import NoMatch from "./pages/NoMatch"
 import CreatePlayer from "./pages/CreatePlayer";
-import EditPlayer from "./pages/EditPlayer"
-import Battle from "./pages/Battle"
+import EditPlayer from "./pages/EditPlayer";
+import EditPlayerDirectory from "./pages/EditPlayerDirectory"
+import Battle from "./pages/Battle";
 
 
 function MainRouter() {
   // get current auth context
-  const [authState, authDispatch] = useAuthContext();
+  const [authState] = useAuthContext();
 
   // Create routes map
   return (
@@ -41,6 +42,9 @@ function MainRouter() {
           {authState.loggedIn ? <CreatePlayer /> : <Redirect to="/login" />}
         </Route>
         <Route exact path="/edit-player">
+          {authState.loggedIn ? <EditPlayerDirectory /> : <Redirect to="/login" />}
+        </Route>
+        <Route exact path="/edit-player/:id">
           {authState.loggedIn ? <EditPlayer /> : <Redirect to="/login" />}
         </Route>
         <Route exact path="/battle">
