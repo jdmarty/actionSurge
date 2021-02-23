@@ -120,13 +120,14 @@ export const conditions = [
   { value: "exhaustion", label: "Exhaustion" },
   { value: "frightened", label: "Frightened" },
   { value: "grappled", label: "Grappled" },
-  { value: "incapacitated", label: "incapacitated" },
+  { value: "incapacitated", label: "Incapacitated" },
   { value: "paralyzed", label: "Paralyzed" },
   { value: "petrified", label: "Petrified" },
   { value: "poisoned", label: "Poisoned" },
   { value: "prone", label: "Prone" },
   { value: "restrained", label: "Restrained" },
   { value: "stunned", label: "Stunned" },
+  { value: "surprised", label: "Surprised" },
   { value: "unconscious", label: "Unconscious" },
 ];
 

@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 // Components
 import SubmitButton from "../components/SubmitButton";
 import AbilitiesCard from "../components/create-player/AbilitiesCard";
@@ -10,9 +10,8 @@ import HitPointsInput from "../components/create-player/HitPointsInput";
 import ArmorClassInput from "../components/create-player/ArmorClassInput";
 import SpeedInput from "../components/create-player/SpeedInput";
 import SkillsList from "../components/create-player/SkillsList";
-import PossibleSpells from "../components/create-player/PossibleSpells"
-import CurrentSpells from "../components/create-player/CurrentSpells"
-
+import PossibleSpells from "../components/create-player/PossibleSpells";
+import CurrentSpells from "../components/create-player/CurrentSpells";
 // Options
 import {
   raceOptions,
@@ -27,10 +26,12 @@ import {
   armor,
   potions,
 } from "../components/create-player/selectorOptions";
-// Context
+// Global Context
 import { useCreatePlayerContext } from "../utils/CreatePlayerState";
+import API from "../utils/API"
+import { toast } from "react-toast";
 
-function CreatePlayer() {
+function CreatePlayer(props) {
   // Global state for create player state
   const [playerState, playerDispatch] = useCreatePlayerContext();
 
@@ -42,12 +43,26 @@ function CreatePlayer() {
 
   // function to validate form for submission
   const checkValid = () => {
-    if (!playerState.name) return false
-    if (!playerState.race) return false
-    if (!playerState.classType) return false
-    return true
-  }
+    if (!playerState.name) return false;
+    if (!playerState.race) return false;
+    if (!playerState.classType) return false;
+    return true;
+  };
 
+  // api call to create a new character
+  const createPlayer = (e) => {
+    e.preventDefault()
+    API.createPlayer(playerState)
+      .then(({data}) => {
+        console.log(data)
+        toast.success(`New Player ${data.name} successfully created!`);
+        setTimeout(() => window.location.pathname = "/", 3000);
+      })
+      .catch(err => {
+        console.log(err)
+        toast.error("Oh No! Something went wrong! Check your inputs and try again")
+      })
+  }
 
   return (
     <form className="py-9 md:px-9 sm:px-36 px-4 flex justify-center">
@@ -61,7 +76,19 @@ function CreatePlayer() {
         </div>
         {/* Submit Button */}
         <div className="bg-gray-900 col-span-2 border text-center py-2">
-          <SubmitButton text="Create" onClick={logState} checkValid={checkValid}/>
+          {props.type === "edit" ? (
+            <SubmitButton
+              text="Update Character"
+              onClick={logState}
+              checkValid={checkValid}
+            />
+          ) : (
+            <SubmitButton
+              text="Create Character"
+              onClick={createPlayer}
+              checkValid={checkValid}
+            />
+          )}
         </div>
 
         {/* Middle Row */}
@@ -112,9 +139,7 @@ function CreatePlayer() {
         {/* Player Stats */}
         <div className="bg-gray-900 col-span-6 border">
           {/* Abilities Grid */}
-          <h1 className="text-center text-white text-3xl">
-            Ability Scores
-          </h1>
+          <h1 className="text-center text-white text-3xl">Ability Scores</h1>
           <div className="grid grid-cols-6 gap-6 h-full py-6 px-2">
             <AbilitiesCard type="Strength" />
             {/* Dex Card */}
