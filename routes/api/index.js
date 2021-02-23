@@ -1,9 +1,9 @@
 /* eslint-disable new-cap */
 const router = require("express").Router();
 const userRoutes = require("./user");
-const playerRoutes = require("./player");
+const characterRoutes = require("./character");
 
 router.use("/user", userRoutes);
-router.use("/character", playerRoutes);
+router.use("/character", characterRoutes);
 
 module.exports = router;

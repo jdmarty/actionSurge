@@ -3,7 +3,7 @@ const { Character } = require("../models");
 // function to create a new player
 async function createCharacter(req, res) {
   try {
-    const newPlayer = await Player.create(req.body);
+    const newPlayer = await Character.create(req.body);
     res.json(newPlayer);
   } catch (err) {
     console.log(err);

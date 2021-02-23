@@ -28,7 +28,6 @@ function SkillsList() {
 
       // add expert bonus
       if (isExpert) {
-        console.log("here");
         bonus = baseBonus + characterState.proficiency * 2;
       }
 

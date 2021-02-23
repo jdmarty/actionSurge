@@ -66,19 +66,19 @@ function Nav() {
                   </div>
                 </Link>
 
-                <Link to="/create-player">
+                <Link to="/create-character">
                   <div
                     className={
-                      location === "/create-player" ? active : inactive
+                      location === "/create-character" ? active : inactive
                     }
                   >
                     Create
                   </div>
                 </Link>
 
-                <Link to="/edit-player">
+                <Link to="/edit-character">
                   <div
-                    className={location === "/edit-player" ? active : inactive}
+                    className={location === "/edit-character" ? active : inactive}
                   >
                     Edit
                   </div>

@@ -31,7 +31,6 @@ import { useCreateCharacterContext } from "../utils/CreateCharacterState";
 import { useAuthContext } from "../utils/AuthState";
 import API from "../utils/API"
 import { toast } from "react-toast";
-import { createCharacter } from "../../../controllers/characterController";
 
 function CreateCharacter(props) {
   // Global state for create player state
