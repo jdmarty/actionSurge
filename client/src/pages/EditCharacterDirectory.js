@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import API from "../utils/API";
 import { useAuthContext } from "../utils/AuthState";
 
-function EditPlayerDirectory() {
+function EditCharacterDirectory() {
   // Characters list and auth state for user id
   const [characters, setCharacters] = useState([]);
   const [authState] = useAuthContext();
@@ -10,7 +10,7 @@ function EditPlayerDirectory() {
   // Render a list of players on component mount
   useEffect(() => {
     API
-      .getUserPlayers(authState.userId)
+      .getUserCharacters(authState.userId)
       .then(({data}) => setCharacters(data))
       .catch(err => console.log(err))
   })
@@ -26,4 +26,4 @@ function EditPlayerDirectory() {
   );
 }
 
-export default EditPlayerDirectory;
+export default EditCharacterDirectory;

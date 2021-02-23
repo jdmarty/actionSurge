@@ -2,16 +2,16 @@ import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import parseIndexName from "../../utils/parseIndexName";
 // Context
-import { useCreatePlayerContext } from "../../utils/CreatePlayerState";
-import { ADJUST_PLAYER_ARRAY } from "../../utils/actions";
+import { useCreateCharacterContext } from "../../utils/CreateCharacterState";
+import { ADJUST_CHARACTER_ARRAY } from "../../utils/actions";
 
 function Selector(props) {
   // Global State
-  const [playerState, playerDispatch] = useCreatePlayerContext();
+  const [characterState, characterDispatch] = useCreateCharacterContext();
   // Set default value from global state
   const defaultValue =
-    playerState[props.type].length > 0
-      ? playerState[props.type].map((string) => {
+    characterState[props.type].length > 0
+      ? characterState[props.type].map((string) => {
           return { value: string, label: parseIndexName(string) };
         })
       : null;
@@ -24,8 +24,8 @@ function Selector(props) {
     if (selectedOption) {
       newArray = selectedOption.map((option) => option.value);
     }
-    playerDispatch({
-      type: ADJUST_PLAYER_ARRAY,
+    characterDispatch({
+      type: ADJUST_CHARACTER_ARRAY,
       target: props.type,
       newArray,
     });

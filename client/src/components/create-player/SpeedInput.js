@@ -1,12 +1,12 @@
 import React, { useRef, useState } from "react";
 // Context
-import { useCreatePlayerContext } from "../../utils/CreatePlayerState";
-import { ADJUST_PLAYER_TOP } from "../../utils/actions";
+import { useCreateCharacterContext } from "../../utils/CreateCharacterState";
+import { ADJUST_CHARACTER_TOP } from "../../utils/actions";
 
 function SpeedInput() {
   // Global and Local State
-  const [playerState, playerDispatch] = useCreatePlayerContext();
-  const [speed, setSpeed] = useState(playerState.speed);
+  const [characterState, characterDispatch] = useCreateCharacterContext();
+  const [speed, setSpeed] = useState(characterState.speed);
 
 
   // References
@@ -19,8 +19,8 @@ function SpeedInput() {
       return;
     }
     setSpeed(speedInput.current.value);
-    playerDispatch({
-      type: ADJUST_PLAYER_TOP,
+    characterDispatch({
+      type: ADJUST_CHARACTER_TOP,
       target: "speed",
       value: Number(speedInput.current.value),
     });

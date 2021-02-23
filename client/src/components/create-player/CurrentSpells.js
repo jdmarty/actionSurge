@@ -1,11 +1,11 @@
 import React, { useRef, useState } from "react";
-import { useCreatePlayerContext } from "../../utils/CreatePlayerState";
+import { useCreateCharacterContext } from "../../utils/CreateCharacterState";
 import CurrentSpellCard from "./CurrentSpellCard";
 // function to parse index name back to standard name
 import parseIndexName from "../../utils/parseIndexName";
 
 function CurrentSpells() {
-  const [playerState] = useCreatePlayerContext();
+  const [characterState] = useCreateCharacterContext();
   const [search, setSearch] = useState("");
   const searchRef = useRef();
 
@@ -40,7 +40,7 @@ function CurrentSpells() {
         value={search}
         onChange={handleSearch}
       ></input>
-      <ul>{renderSpells(playerState.spells)}</ul>
+      <ul>{renderSpells(characterState.spells)}</ul>
     </div>
   );
 }

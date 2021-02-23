@@ -17,13 +17,13 @@ const API = {
   },
 
   // create player
-  createPlayer: function (playerData) {
-    return axios.post("/api/player/create", playerData);
+  createCharacter: function (playerData) {
+    return axios.post("/api/character/create", playerData);
   },
 
   // get all players for a user
   getUserPlayers: function(userId) {
-    return axios.get(`/api/player/all/${userId}`);
+    return axios.get(`/api/character/user/${userId}`);
   }
 };
 

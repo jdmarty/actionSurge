@@ -1,15 +1,16 @@
 import React from "react";
-import { useCreatePlayerContext } from "../../utils/CreatePlayerState";
-import { ADJUST_PLAYER_ARRAY } from "../../utils/actions";
+// Context
+import { useCreateCharacterContext } from "../../utils/CreateCharacterState";
+import { ADJUST_CHARACTER_ARRAY } from "../../utils/actions";
 
 function CurrentSpellCard(props) {
-  const [playerState, playerDispatch] = useCreatePlayerContext();
+  const [characterState, characterDispatch] = useCreateCharacterContext()
 
   // handler to remove item from spell list
   const handleRemoveClick = () => {
-    let currentSpells = [...playerState.spells].filter(spell => spell !== props.name);
-    playerDispatch({
-      type: ADJUST_PLAYER_ARRAY,
+    let currentSpells = [...characterState.spells].filter(spell => spell !== props.name);
+    characterDispatch({
+      type: ADJUST_CHARACTER_ARRAY,
       target: "spells",
       newArray: currentSpells,
     });

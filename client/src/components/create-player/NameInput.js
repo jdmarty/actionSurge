@@ -1,12 +1,12 @@
 import React, { useRef, useState } from "react";
 // Context
-import { useCreatePlayerContext } from "../../utils/CreatePlayerState";
-import { ADJUST_PLAYER_TOP } from "../../utils/actions";
+import { useCreateCharacterContext } from "../../utils/CreateCharacterState";
+import { ADJUST_CHARACTER_TOP } from "../../utils/actions";
 
 function NameInput() {
   // State and context
-  const [playerState, playerDispatch] = useCreatePlayerContext();
-  const [name, setName] = useState(playerState.name);
+  const [characterState, characterDispatch] = useCreateCharacterContext();
+  const [name, setName] = useState(characterState.name);
 
   // References
   const nameInput = useRef()
@@ -14,8 +14,8 @@ function NameInput() {
   // Handler for name change
   const handleNameChange = (e) => {
     setName(nameInput.current.value);
-    playerDispatch({
-      type: ADJUST_PLAYER_TOP,
+    characterDispatch({
+      type: ADJUST_CHARACTER_TOP,
       target: "name",
       value: nameInput.current.value,
     });

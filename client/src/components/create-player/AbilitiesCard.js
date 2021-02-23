@@ -1,12 +1,12 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 // Context
-import { useCreatePlayerContext } from "../../utils/CreatePlayerState";
-import { ADJUST_PLAYER_TOP } from "../../utils/actions";
+import { useCreateCharacterContext } from "../../utils/CreateCharacterState";
+import { ADJUST_CHARACTER_TOP } from "../../utils/actions";
 
 function AbilitiesCard(props) {
   // Global and Local State
-  const [playerState, playerDispatch] = useCreatePlayerContext();
-  const [score, setScore] = useState(playerState[props.type.toLowerCase()]);
+  const [characterState, characterDispatch] = useCreateCharacterContext();
+  const [score, setScore] = useState(characterState[props.type.toLowerCase()]);
 
 
   // Reference to input
@@ -25,8 +25,8 @@ function AbilitiesCard(props) {
     }
 
     setScore(thisScore.current.value)
-    playerDispatch({
-      type: ADJUST_PLAYER_TOP,
+    characterDispatch({
+      type: ADJUST_CHARACTER_TOP,
       target: props.type.toLowerCase(),
       value: Number(thisScore.current.value),
     });

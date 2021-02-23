@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { BrowserRouter as Router, Redirect, Route, Switch, Link } from "react-router-dom";
 import { useAuthContext } from "./utils/AuthState"
 
@@ -9,9 +9,9 @@ import Home from "./pages/Home"
 import Login from "./pages/Login"
 import Signup from "./pages/Signup"
 import NoMatch from "./pages/NoMatch"
-import CreatePlayer from "./pages/CreatePlayer";
-import EditPlayer from "./pages/EditPlayer";
-import EditPlayerDirectory from "./pages/EditPlayerDirectory"
+import CreateCharacter from "./pages/CreateCharacter";
+import EditCharacter from "./pages/EditCharacter";
+import EditCharacterDirectory from "./pages/EditCharacterDirectory"
 import Battle from "./pages/Battle";
 
 
@@ -38,14 +38,14 @@ function MainRouter() {
         <Route exact path="/">
           <Home />
         </Route>
-        <Route exact path="/create-player">
-          {authState.loggedIn ? <CreatePlayer /> : <Redirect to="/login" />}
+        <Route exact path="/create-character">
+          {authState.loggedIn ? <CreateCharacter /> : <Redirect to="/login" />}
         </Route>
-        <Route exact path="/edit-player">
-          {authState.loggedIn ? <EditPlayerDirectory /> : <Redirect to="/login" />}
+        <Route exact path="/edit-character">
+          {authState.loggedIn ? <EditCharacterDirectory /> : <Redirect to="/login" />}
         </Route>
-        <Route exact path="/edit-player/:id">
-          {authState.loggedIn ? <EditPlayer /> : <Redirect to="/login" />}
+        <Route exact path="/edit-character/:id">
+          {authState.loggedIn ? <EditCharacter /> : <Redirect to="/login" />}
         </Route>
         <Route exact path="/battle">
           {authState.loggedIn ? <Battle /> : <Redirect to="/login" />}

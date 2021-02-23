@@ -1,13 +1,13 @@
 import React, { useState, useRef, useEffect } from "react";
 // Context
-import { useCreatePlayerContext } from "../../utils/CreatePlayerState"
-import { ADJUST_PLAYER_ARRAY } from "../../utils/actions"
+import { useCreateCharacterContext } from "../../utils/CreateCharacterState";
+import { ADJUST_CHARACTER_ARRAY } from "../../utils/actions"
 
 function SavesCard(props) {
   // Global and Local State
-  const [playerState, playerDispatch] = useCreatePlayerContext();
+  const [characterState, characterDispatch] = useCreateCharacterContext();
   // Set initial state to reference player state
-  const [proficient, setProficient] = useState(playerState.save_proficiencies.includes(props.type))
+  const [proficient, setProficient] = useState(characterState.save_proficiencies.includes(props.type))
 
   // Reference to checkbox
   const isProf = useRef()
@@ -20,13 +20,13 @@ function SavesCard(props) {
   // Effect to update array of proficiencies
   useEffect(() => {
     // get the current proficiences
-    let currentProfs = [...playerState.save_proficiencies]
+    let currentProfs = [...characterState.save_proficiencies]
     // either add or remove the current proficiencies
     if (proficient) currentProfs.push(props.type)
     else currentProfs = currentProfs.filter(save => props.type !== save)
     // set the global state with the new profs
-    playerDispatch({
-      type: ADJUST_PLAYER_ARRAY,
+    characterDispatch({
+      type: ADJUST_CHARACTER_ARRAY,
       target: "save_proficiencies",
       newArray: currentProfs
     })
@@ -34,9 +34,9 @@ function SavesCard(props) {
 
   // Render the save bonus
   const renderBonus = () => {
-    let bonus = Math.floor((playerState[props.type] - 10) / 2);
-    if (playerState.save_proficiencies.includes(props.type)) {
-      bonus += playerState.proficiency;
+    let bonus = Math.floor((characterState[props.type] - 10) / 2);
+    if (characterState.save_proficiencies.includes(props.type)) {
+      bonus += characterState.proficiency;
     };
     return bonus < 0 ? bonus : "+"+ bonus
   }

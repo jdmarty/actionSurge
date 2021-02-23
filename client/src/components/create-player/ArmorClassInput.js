@@ -1,12 +1,12 @@
 import React, { useRef, useState } from "react";
 // Context
-import { useCreatePlayerContext } from "../../utils/CreatePlayerState";
-import { ADJUST_PLAYER_TOP } from "../../utils/actions";
+import { useCreateCharacterContext } from "../../utils/CreateCharacterState";
+import { ADJUST_CHARACTER_TOP } from "../../utils/actions";
 
 function ArmorClassInput() {
   // State and context
-  const [playerState, playerDispatch] = useCreatePlayerContext();
-  const [ac, setAc] = useState(playerState.armor_class);
+  const [characterState, characterDispatch] = useCreateCharacterContext();
+  const [ac, setAc] = useState(characterState.armor_class);
 
 
   // References
@@ -19,8 +19,8 @@ function ArmorClassInput() {
       return;
     }
     setAc(acInput.current.value);
-    playerDispatch({
-      type: ADJUST_PLAYER_TOP,
+    characterDispatch({
+      type: ADJUST_CHARACTER_TOP,
       target: "armor_class",
       value: Number(acInput.current.value),
     });

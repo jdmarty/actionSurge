@@ -1,12 +1,12 @@
 import React, { useContext, useReducer, createContext } from "react";
-import { ADJUST_PLAYER_TOP, ADJUST_PLAYER_ARRAY } from "./actions";
+import { ADJUST_CHARACTER_ARRAY, ADJUST_CHARACTER_TOP } from "./actions";
 
-const CreatePlayerContext = createContext({});
-const { Provider } = CreatePlayerContext;
+const CreateCharacterContext = createContext({});
+const { Provider } = CreateCharacterContext;
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case ADJUST_PLAYER_TOP:
+    case ADJUST_CHARACTER_TOP:
       // Check if the level has changed and update proficiency
       const newProf = (action.target === "level") ? Math.floor(action.value / 4) +2 : state.proficiency
       return {
@@ -14,7 +14,7 @@ const reducer = (state, action) => {
         [action.target]: action.value,
         proficiency: newProf,
       };
-    case ADJUST_PLAYER_ARRAY:
+    case ADJUST_CHARACTER_ARRAY:
       return {
         ...state,
        [action.target]: action.newArray
@@ -24,7 +24,7 @@ const reducer = (state, action) => {
   }
 };
 
-const CreatePlayerProvider = ({ ...props }) => {
+const CreateCharacterProvider = ({ ...props }) => {
   const [state, dispatch] = useReducer(reducer, {
     name: "",
     hit_points: 1,
@@ -58,8 +58,8 @@ const CreatePlayerProvider = ({ ...props }) => {
   return <Provider value={[state, dispatch]} {...props} />;
 };
 
-const useCreatePlayerContext = () => {
-  return useContext(CreatePlayerContext);
+const useCreateCharacterContext = () => {
+  return useContext(CreateCharacterContext);
 };
 
-export { CreatePlayerProvider, useCreatePlayerContext };
+export { CreateCharacterProvider, useCreateCharacterContext };

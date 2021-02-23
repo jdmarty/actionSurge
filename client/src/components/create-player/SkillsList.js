@@ -1,35 +1,35 @@
-import React, { useState, useRef, useEffect } from "react";
+import React from "react";
 // Context
-import { useCreatePlayerContext } from "../../utils/CreatePlayerState";
+import { useCreateCharacterContext } from "../../utils/CreateCharacterState";
 import { skills } from "./selectorOptions";
 
-function SkillsList(props) {
+function SkillsList() {
   // Global State
-  const [playerState, playerDispatch] = useCreatePlayerContext();
+  const [characterState] = useCreateCharacterContext();
 
   //Map the skills into a a list
   const renderSkills = (skills) => {
     // map the skills array
     return skills.map((skill, index) => {
       // calculate base bonus
-      const baseStat = playerState[skill.base];
+      const baseStat = characterState[skill.base];
       const baseBonus = Math.floor((baseStat - 10) / 2);
       let bonus = baseBonus;
 
       // check if the player is proficient or expert
-      const isProf = playerState.skill_proficiencies.includes(skill.value);
-      const isExpert = playerState.skill_expertise.includes(skill.value);
+      const isProf = characterState.skill_proficiencies.includes(skill.value);
+      const isExpert = characterState.skill_expertise.includes(skill.value);
       const marker = isExpert ? "x" : isProf ? "o" : "-";
 
       // add proficiency bonus
       if (isProf) {
-        bonus = baseBonus + playerState.proficiency;
+        bonus = baseBonus + characterState.proficiency;
       }
 
       // add expert bonus
       if (isExpert) {
         console.log("here");
-        bonus = baseBonus + playerState.proficiency * 2;
+        bonus = baseBonus + characterState.proficiency * 2;
       }
 
       // return basic skills card

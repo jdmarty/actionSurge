@@ -1,12 +1,12 @@
 import React, { useRef, useState } from "react";
 // Context
-import { useCreatePlayerContext } from "../../utils/CreatePlayerState";
-import { ADJUST_PLAYER_TOP } from "../../utils/actions";
+import { useCreateCharacterContext } from "../../utils/CreateCharacterState";
+import { ADJUST_CHARACTER_TOP } from "../../utils/actions";
 
 function HitPointsInput() {
   // State and context
-  const [playerState, playerDispatch] = useCreatePlayerContext();
-  const [hp, setHp] = useState(playerState.hit_points);
+  const [characterState, characterDispatch] = useCreateCharacterContext()
+  const [hp, setHp] = useState(characterState.hit_points);
 
 
   // References
@@ -19,8 +19,8 @@ function HitPointsInput() {
       return
     }
     setHp(hpInput.current.value);
-    playerDispatch({
-      type: ADJUST_PLAYER_TOP,
+    characterDispatch({
+      type: ADJUST_CHARACTER_TOP,
       target: "hit_points",
       value: Number(hpInput.current.value),
     });

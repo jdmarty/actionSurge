@@ -27,41 +27,42 @@ import {
   potions,
 } from "../components/create-player/selectorOptions";
 // Global Context
-import { useCreatePlayerContext } from "../utils/CreatePlayerState";
+import { useCreateCharacterContext } from "../utils/CreateCharacterState";
 import { useAuthContext } from "../utils/AuthState";
 import API from "../utils/API"
 import { toast } from "react-toast";
+import { createCharacter } from "../../../controllers/characterController";
 
-function CreatePlayer(props) {
+function CreateCharacter(props) {
   // Global state for create player state
-  const [playerState] = useCreatePlayerContext();
+  const [characterState] = useCreateCharacterContext()
   const [authState] = useAuthContext();
 
   // function to log current state for now
   const logState = (e) => {
     e.preventDefault();
-    console.log(playerState);
+    console.log(characterState);
   };
 
   // function to validate form for submission
   const checkValid = () => {
-    if (!playerState.name) return false;
-    if (!playerState.race) return false;
-    if (!playerState.classType) return false;
+    if (!characterState.name) return false;
+    if (!characterState.race) return false;
+    if (!characterState.classType) return false;
     return true;
   };
 
   // api call to create a new character
-  const createPlayer = (e) => {
+  const createCharacter = (e) => {
     e.preventDefault()
     // attach user id
-    const playerData = {...playerState}
-    playerData.user_id = authState.userId
+    const characterData = {...characterState}
+    characterData.user_id = authState.userId
     // create player
-    API.createPlayer(playerData)
+    API.createCharacter(characterData)
       .then(({data}) => {
         console.log(data)
-        toast.success(`New Player ${data.name} successfully created!`);
+        toast.success(`New Character ${data.name} successfully created!`);
         setTimeout(() => window.location.pathname = "/", 3000);
       })
       .catch(err => {
@@ -91,7 +92,7 @@ function CreatePlayer(props) {
           ) : (
             <SubmitButton
               text="Create Character"
-              onClick={createPlayer}
+              onClick={createCharacter}
               checkValid={checkValid}
             />
           )}
@@ -120,7 +121,7 @@ function CreatePlayer(props) {
             <div className="col-span-1">
               <SingleSelector
                 label="Sub-Race"
-                options={subraceOptions[playerState.race]}
+                options={subraceOptions[characterState.race]}
                 type="subrace"
               />
             </div>
@@ -136,7 +137,7 @@ function CreatePlayer(props) {
             <div className="col-span-1">
               <SingleSelector
                 label="Sub-Class"
-                options={subclassOptions[playerState.classType]}
+                options={subclassOptions[characterState.classType]}
                 type="subclass"
               />
             </div>
@@ -253,4 +254,4 @@ function CreatePlayer(props) {
   );
 }
 
-export default CreatePlayer;
+export default CreateCharacter;

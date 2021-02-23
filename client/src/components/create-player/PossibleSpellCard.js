@@ -1,17 +1,18 @@
 import React from "react";
-import { useCreatePlayerContext } from "../../utils/CreatePlayerState";
-import { ADJUST_PLAYER_ARRAY } from "../../utils/actions";
+import { useCreateCharacterContext } from "../../utils/CreateCharacterState";
+import { ADJUST_CHARACTER_ARRAY } from "../../utils/actions";
 
 function PossibleSpellCard(props) {
-  const [playerState, playerDispatch] = useCreatePlayerContext();
+  const [characterState, characterDispatch] = useCreateCharacterContext();
 
   // handler to add item to spell list when clicked
   const handleAddClick = () => {
-    let currentSpells = [...playerState.spells];
+    let currentSpells = [...characterState.spells];
+    // do not add if spell is already on list
     if (currentSpells.includes(props.name)) return
     currentSpells.push(props.name);
-    playerDispatch({
-      type: ADJUST_PLAYER_ARRAY,
+    characterDispatch({
+      type: ADJUST_CHARACTER_ARRAY,
       target: "spells",
       newArray: currentSpells,
     });
