@@ -8,7 +8,7 @@ function PossibleSpells() {
 
   // render spells from a filtered list baed on search term
   const renderSpells = (spells) => {
-    const filteredSpells = allSpells.filter(spell => {
+    const filteredSpells = spells.filter(spell => {
       return spell.name.match(new RegExp(search,"gi"))
     })
     return filteredSpells.map((spell, index) => {

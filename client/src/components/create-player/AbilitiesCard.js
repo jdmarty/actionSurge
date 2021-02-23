@@ -4,11 +4,12 @@ import { useCreatePlayerContext } from "../../utils/CreatePlayerState";
 import { ADJUST_PLAYER_TOP } from "../../utils/actions";
 
 function AbilitiesCard(props) {
-  // State
-  const [score, setScore] = useState(10);
+  // Global and Local State
   const [playerState, playerDispatch] = useCreatePlayerContext();
+  const [score, setScore] = useState(playerState[props.type.toLowerCase()]);
 
-  // Reference
+
+  // Reference to input
   const thisScore = useRef()
 
   // Change handler

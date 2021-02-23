@@ -3,11 +3,19 @@ import Select from "react-select";
 // Context
 import { useCreatePlayerContext } from "../../utils/CreatePlayerState"
 import { ADJUST_PLAYER_TOP } from "../../utils/actions"
+import parseIndexName from "../../utils/parseIndexName"
 
 function Selector(props) {
-  const [selectedOption, setSelectedOption] = useState(null);
-  const [playerState, playerDispatch ] = useCreatePlayerContext()
+  const [playerState, playerDispatch] = useCreatePlayerContext();
+  // determine default value from state
+  const defaultValue = {
+    value: playerState[props.type],
+    label: playerState[props.type] ? parseIndexName(playerState[props.type].toString()) : null,
+  };
+  // set default value
+  const [selectedOption, setSelectedOption] = useState(defaultValue);
 
+  // when selection changes, adjust the state
   useEffect(() => {
     playerDispatch({
       type: ADJUST_PLAYER_TOP,

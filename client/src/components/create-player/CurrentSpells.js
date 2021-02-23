@@ -10,7 +10,7 @@ function CurrentSpells() {
   const searchRef = useRef();
 
   const renderSpells = (spells) => {
-    const filteredSpells = playerState.spells.filter((spell) => {
+    const filteredSpells = spells.filter((spell) => {
       return spell.match(new RegExp(search,"gi"));
     }).sort()
     return filteredSpells.map((spell, index) => {

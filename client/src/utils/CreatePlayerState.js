@@ -27,13 +27,13 @@ const reducer = (state, action) => {
 const CreatePlayerProvider = ({ ...props }) => {
   const [state, dispatch] = useReducer(reducer, {
     name: "",
-    hit_points: 0,
+    hit_points: 1,
     armor_class: 10,
     speed: 30,
-    race: null,
-    subrace: null,
-    classType: null,
-    subclass: null,
+    race: "",
+    subrace: "",
+    classType: "",
+    subclass: "",
     level: 1,
     proficiency: 2,
     strength: 10,

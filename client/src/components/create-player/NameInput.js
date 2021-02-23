@@ -1,12 +1,12 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 // Context
 import { useCreatePlayerContext } from "../../utils/CreatePlayerState";
 import { ADJUST_PLAYER_TOP } from "../../utils/actions";
 
-function NameInput(props) {
+function NameInput() {
   // State and context
-  const [name, setName] = useState("");
   const [playerState, playerDispatch] = useCreatePlayerContext();
+  const [name, setName] = useState(playerState.name);
 
   // References
   const nameInput = useRef()

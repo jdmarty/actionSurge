@@ -5,8 +5,9 @@ import { ADJUST_PLAYER_TOP } from "../../utils/actions";
 
 function HitPointsInput() {
   // State and context
-  const [hp, setHp] = useState(1);
   const [playerState, playerDispatch] = useCreatePlayerContext();
+  const [hp, setHp] = useState(playerState.hit_points);
+
 
   // References
   const hpInput = useRef();

@@ -4,9 +4,10 @@ import { useCreatePlayerContext } from "../../utils/CreatePlayerState";
 import { ADJUST_PLAYER_TOP } from "../../utils/actions";
 
 function SpeedInput() {
-  // State and context
-  const [speed, setSpeed] = useState(30);
+  // Global and Local State
   const [playerState, playerDispatch] = useCreatePlayerContext();
+  const [speed, setSpeed] = useState(playerState.speed);
+
 
   // References
   const speedInput = useRef();

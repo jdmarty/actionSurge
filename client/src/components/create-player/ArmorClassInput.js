@@ -5,8 +5,9 @@ import { ADJUST_PLAYER_TOP } from "../../utils/actions";
 
 function ArmorClassInput() {
   // State and context
-  const [hp, setHp] = useState(10);
   const [playerState, playerDispatch] = useCreatePlayerContext();
+  const [ac, setAc] = useState(playerState.armor_class);
+
 
   // References
   const acInput = useRef();
@@ -14,10 +15,10 @@ function ArmorClassInput() {
   // Handler for name change
   const handleAcChange = (e) => {
     if (acInput.current.value < 1) {
-      setHp(1);
+      setAc(1);
       return;
     }
-    setHp(acInput.current.value);
+    setAc(acInput.current.value);
     playerDispatch({
       type: ADJUST_PLAYER_TOP,
       target: "armor_class",
@@ -34,7 +35,7 @@ function ArmorClassInput() {
         name="AC"
         type="number"
         className="mx-2 rounded text-2xl text-black text-center w-1/2"
-        value={hp}
+        value={ac}
         ref={acInput}
         onChange={handleAcChange}
       ></input>

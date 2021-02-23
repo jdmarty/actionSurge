@@ -40,6 +40,14 @@ function CreatePlayer() {
     console.log(playerState);
   };
 
+  // function to validate form for submission
+  const checkValid = () => {
+    if (!playerState.name) return false
+    if (!playerState.race) return false
+    if (!playerState.classType) return false
+    return true
+  }
+
 
   return (
     <form className="py-9 md:px-9 sm:px-36 px-4 flex justify-center">
@@ -53,7 +61,7 @@ function CreatePlayer() {
         </div>
         {/* Submit Button */}
         <div className="bg-gray-900 col-span-2 border text-center py-2">
-          <SubmitButton text="Create" onClick={logState} />
+          <SubmitButton text="Create" onClick={logState} checkValid={checkValid}/>
         </div>
 
         {/* Middle Row */}
@@ -176,7 +184,7 @@ function CreatePlayer() {
         {/* Bottom Row: Skills, Spells, and Weapons */}
         <div className="bg-gray-900 col-span-3 border text-white">
           <h1 className="text-center mt-2 text-3xl">Abilities</h1>
-          <div className="my-2 mx-6 p-2 text-2xl">
+          <div className="my-2 mx-6 p-2l">
             <MultiSelector
               label="Proficient Skills"
               options={skills}

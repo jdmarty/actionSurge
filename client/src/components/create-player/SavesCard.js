@@ -4,11 +4,12 @@ import { useCreatePlayerContext } from "../../utils/CreatePlayerState"
 import { ADJUST_PLAYER_ARRAY } from "../../utils/actions"
 
 function SavesCard(props) {
-  // State
+  // Global and Local State
   const [playerState, playerDispatch] = useCreatePlayerContext();
-  const [proficient, setProficient] = useState(false)
+  // Set initial state to reference player state
+  const [proficient, setProficient] = useState(playerState.save_proficiencies.includes(props.type))
 
-  // Reference
+  // Reference to checkbox
   const isProf = useRef()
 
   // Check handler
