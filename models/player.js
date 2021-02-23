@@ -74,6 +74,6 @@ const PlayerSchema = new Schema({
   potions: [String]
 });
 
-const Player = mongoos.model("Player", PlayerSchema);
+const Player = mongoose.model("Player", PlayerSchema);
 
 module.exports = Player;
