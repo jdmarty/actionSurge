@@ -22,25 +22,29 @@ function EditCharacterDirectory() {
   }, []);
 
   // Update create player context and prepare for update
-  const runUpdate = (id) => {
+  const runUpdate = (id, name) => {
     API.getCharacter(id)
     .then(({data}) => {
+      console.log(data)
       characterDispatch({
         type: ADJUST_CHARACTER_ALL,
-        nweState: data
+        newState: data
       })
-      setReady(id)
+      // set state for run button
+      setReady(true);
+      setId(id);
+      setName(name);
     })
   }
   
   // component describing list item link
   const DirectoryLink = (props) => {
     return (
-      <Link to={`/edit-character/${props.id}`}>
+      <div onClick={() => runUpdate(props.id, props.name)}>
         <li className="text-center text-2xl bg-yellow-900 border hover:bg-gray-300 hover:text-black p-2 m-4">
           {props.name}
         </li>
-      </Link>
+      </div>
     );
   };
 
@@ -60,14 +64,14 @@ function EditCharacterDirectory() {
         <ul>
           {renderLinks(characters)}
           <Link to="/create-character">
-            <li className="text-center text-2xl bg-green-900 border hover:bg-gray-300 hover:text-black p-2 m-4">
+            <li className="text-center text-2xl bg-gray-900 border hover:bg-gray-300 hover:text-black p-2 m-4">
               + Create New Character
             </li>
           </Link>
           {ready && (
-            <Link to={`/edit-character/${ready}`}>
+            <Link to={`/edit-character/${id}`}>
               <li className="text-center text-2xl bg-green-900 border hover:bg-gray-300 hover:text-black p-2 m-4">
-                Go to edit page
+                Edit {name}?
               </li>
             </Link>
           )}
