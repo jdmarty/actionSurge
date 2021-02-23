@@ -1,5 +1,6 @@
 const { Player } = require("../models");
 
+// function to create a new player
 async function createPlayer(req, res) {
   try {
     const newPlayer = await Player.create(req.body);
@@ -12,4 +13,4 @@ async function createPlayer(req, res) {
 
 module.exports = {
   createPlayer
-}
+};
