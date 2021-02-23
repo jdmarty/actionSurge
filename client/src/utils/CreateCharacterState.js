@@ -1,5 +1,5 @@
 import React, { useContext, useReducer, createContext } from "react";
-import { ADJUST_CHARACTER_ARRAY, ADJUST_CHARACTER_TOP } from "./actions";
+import { ADJUST_CHARACTER_ARRAY, ADJUST_CHARACTER_TOP, ADJUST_CHARACTER_ALL } from "./actions";
 
 const CreateCharacterContext = createContext({});
 const { Provider } = CreateCharacterContext;
@@ -18,6 +18,11 @@ const reducer = (state, action) => {
       return {
         ...state,
        [action.target]: action.newArray
+      }
+    case ADJUST_CHARACTER_ALL:
+      return {
+        ...state,
+        ...action.newState
       }
     default:
       return state;

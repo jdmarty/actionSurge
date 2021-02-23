@@ -11,7 +11,7 @@ async function createCharacter(req, res) {
   }
 }
 
-// function to get all characters for this user
+// function to get all characters for a user
 async function getUserCharacters(req, res) {
   try {
     const userCharacters = await Character.find({ user_id: req.params.id });
@@ -22,7 +22,19 @@ async function getUserCharacters(req, res) {
   }
 }
 
+// function to get a single character
+async function getCharacter(req, res) {
+  try {
+    const userCharacter = await Character.findOne({ _id: req.params.id });
+    res.json(userCharacter);
+  } catch (err) {
+    console.log(err);
+    res.status(400).json(err);
+  }
+}
+
 module.exports = {
   createCharacter,
-  getUserCharacters
+  getUserCharacters,
+  getCharacter,
 };

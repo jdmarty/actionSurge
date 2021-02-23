@@ -4,7 +4,10 @@ const playerController = require("../../controllers/characterController");
 
 // route to create a new player
 router.post("/create", playerController.createCharacter);
+// route to get a single player character
+router.get("/:id", playerController.getCharacter);
 // route to get all player characters
 router.get("/user/:id", playerController.getUserCharacters);
+
 
 module.exports = router;
