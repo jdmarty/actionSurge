@@ -76,4 +76,4 @@ const PlayerSchema = new Schema({
 
 const Player = mongoos.model("Player", PlayerSchema);
 
-module.exports = Player
+module.exports = Player;
