@@ -20,6 +20,11 @@ const API = {
   createPlayer: function (playerData) {
     return axios.post("/api/player/create", playerData);
   },
+
+  // get all players for a user
+  getUserPlayers: function(userId) {
+    return axios.get(`/api/player/all/${userId}`);
+  }
 };
 
 export default API

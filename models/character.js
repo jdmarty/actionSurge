@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const PlayerSchema = new Schema({
+const CharacterSchema = new Schema({
   user_id: String,
   name: {
     type: String,
@@ -75,6 +75,6 @@ const PlayerSchema = new Schema({
   potions: [String]
 });
 
-const Player = mongoose.model("Player", PlayerSchema);
+const Character = mongoose.model("Character", CharacterSchema);
 
-module.exports = Player;
+module.exports = Character;

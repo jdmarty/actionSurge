@@ -4,6 +4,6 @@ const userRoutes = require("./user");
 const playerRoutes = require("./player");
 
 router.use("/user", userRoutes);
-router.use("/player", playerRoutes);
+router.use("/character", playerRoutes);
 
 module.exports = router;

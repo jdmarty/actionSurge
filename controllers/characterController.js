@@ -1,7 +1,7 @@
-const { Player } = require("../models");
+const { Character } = require("../models");
 
 // function to create a new player
-async function createPlayer(req, res) {
+async function createCharacter(req, res) {
   try {
     const newPlayer = await Player.create(req.body);
     res.json(newPlayer);
@@ -12,10 +12,10 @@ async function createPlayer(req, res) {
 }
 
 // function to get all characters for this user
-async function getUserPlayers(req, res) {
+async function getUserCharacters(req, res) {
   try {
-    const userPlayers = await Player.find({ user_id: req.params.id });
-    res.json(userPlayers);
+    const userCharacters = await Character.find({ user_id: req.params.id });
+    res.json(userCharacters);
   } catch (err) {
     console.log(err);
     res.status(400).json(err);
@@ -23,6 +23,6 @@ async function getUserPlayers(req, res) {
 }
 
 module.exports = {
-  createPlayer,
-  getUserPlayers
+  createCharacter,
+  getUserCharacters
 };

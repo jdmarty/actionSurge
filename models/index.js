@@ -1,4 +1,4 @@
 module.exports = {
   User: require("./user"),
-  Player: require("./player")
+  Character: require("./character")
 };
