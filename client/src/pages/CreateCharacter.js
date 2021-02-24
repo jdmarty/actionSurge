@@ -62,8 +62,7 @@ function CreateCharacter(props) {
     // create player
     API.createCharacter(characterData)
       .then(({ data }) => {
-        console.log(data);
-        toast.success(`New Character ${data.name} successfully created!`);
+        toast.success(`New Character ${characterData.name} successfully created!`);
         setTimeout(() => (window.location.pathname = "/"), 3000);
       })
       .catch((err) => {
@@ -78,11 +77,10 @@ function CreateCharacter(props) {
   const updateCharacter = (e) => {
     e.preventDefault();
     const characterData = { ...characterState };
+    console.log(id, characterData)
     API.updateCharacter(id, characterData)
       .then(({ data }) => {
-        console.log(data);
-        toast.success(`New Character ${data.name} successfully updated!`);
-        setTimeout(() => (window.location.pathname = "/"), 3000);
+        toast.success(`Character successfully updated!`);
       })
       .catch((err) => {
         console.log(err);

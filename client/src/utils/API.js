@@ -33,8 +33,8 @@ const API = {
   },
 
   // update a single character
-  updateCharacter: function(characterId) {
-    return axios.put(`/api/character/${characterId}`)
+  updateCharacter: function(characterId, characterData) {
+    return axios.put(`/api/character/${characterId}`, characterData)
   },
 
   // get all monsters
