@@ -3,18 +3,18 @@ import React, { useEffect, useState } from "react";
 import Modal from "react-modal";
 import { toast } from "react-toast";
 // Context and API
-import { useAuthContext } from "../utils/AuthState"
-import API from "../utils/API"
+import { useAuthContext } from "../utils/AuthState";
+import API from "../utils/API";
 // components
 import AddPlayerModal from "../components/battle/AddPlayerModal";
 import AddMonsterModal from "../components/battle/AddMonsterModal";
-
 
 function Battle() {
   //state variables
   const [authState] = useAuthContext();
   const [allPlayers, setAllPlayers] = useState([]);
   const [players, setPlayers] = useState([]);
+  const [allMonsters, setAllMonsters] = useState([]);
   const [monsters, setMonsters] = useState([]);
   const [playerModalIsOpen, setPlayerModalIsOpen] = useState(false);
   const [monsterModalIsOpen, setMonsterModalIsOpen] = useState(false);
@@ -22,22 +22,34 @@ function Battle() {
   // Use effect to load user characters on mount
   useEffect(() => {
     const id = authState.userId;
+    // get all characters for this user
     API.getUserCharacters(id).then(({ data }) => {
-      const characters = [...data];
       // give each character a base initiative and health
-      characters.map((character) => {
-        character.initiative = 0;
-        character.current_hp = character.hp;
-      });
-      // set the all players variable
-      setAllPlayers(data);
+      const characters = data
+        .map((character) => {
+          character.initiative = 0;
+          character.current_hp = character.hp;
+          return character;
+        })
+        .catch((err) => console.log(err));
+      // set the all players state
+      setAllPlayers(characters);
     });
+    // get all monsters from external API
+    API.getAllMonsters()
+      .then(({ data }) => {
+        // set the all monsters state
+        setAllMonsters(data);
+      })
+      .catch((err) => console.log(err));
   }, []);
 
-  // methods to update state
+  // methods to update state=========================
+  // Method to add a player
   const handleAddPlayer = (index) => {
     const currentPlayers = [...players];
     const newPlayer = allPlayers[index];
+    // check for duplicates
     const isDuplicate = currentPlayers.find(
       (player) => player._id === newPlayer._id
     );
@@ -45,8 +57,29 @@ function Battle() {
       toast.error("Selected Player is already in battle");
       return;
     }
-    currentPlayers.push(allPlayers[index]);
+    // push the new player to the current array and set state
+    currentPlayers.push(newPlayer);
     setPlayers(currentPlayers);
+  };
+
+  // Method to add a monster
+  const handleAddMonster = (index) => {
+    const currentMonsters = [...monsters];
+
+    // call the api to populate the monster details
+    API.getMonster(allMonsters[index].url).then(({ data }) => {
+      const newMonster = data;
+      //check for duplicates and update name accordingly
+      const modifier = 1;
+      while (
+        currentMonsters.find((monster) => monster.name === newMonster.name)
+      ) {
+        newMonster.name = newMonster.name + `(${modifier})`;
+      }
+      // push the new monster to the current array and set state
+      currentMonsters.push(newMonster);
+      setMonsters(currentMonsters);
+    });
   };
 
   // grid generation for now=======================
@@ -162,14 +195,14 @@ function Battle() {
         allPlayers={allPlayers}
         handleAddPlayer={handleAddPlayer}
       />
-
+      {/* Add Monster Modal */}
       <AddMonsterModal
         isOpen={monsterModalIsOpen}
         onRequestClose={closeMonsterModal}
         style={modalStyles}
         contentLabel="add monster modal"
         closeModal={closeMonsterModal}
-        allPlayers={allPlayers}
+        allMonsters={allPlayers}
         handleAddPlayer={handleAddPlayer}
       />
     </div>

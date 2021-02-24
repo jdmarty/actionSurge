@@ -35,6 +35,16 @@ const API = {
   // update a single character
   updateCharacter: function(characterId) {
     return axios.put(`/api/character/${characterId}`)
+  },
+
+  // get all monsters
+  getAllMonsters: function() {
+    return axios.get("https://www.dnd5eapi.co/api/monsters/")
+  },
+
+  // get a single monster
+  getMonster: function(url) {
+    return axios.get(`https://www.dnd5eapi.co${url}`)
   }
 };
 
