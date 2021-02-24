@@ -6,6 +6,7 @@ import { useAuthContext } from "../utils/AuthState"
 import API from "../utils/API"
 // components
 import AddPlayerModal from "../components/battle/AddPlayerModal";
+import { toast } from "react-toast";
 
 function Battle() {
   //state variables
@@ -20,7 +21,13 @@ function Battle() {
     const id = authState.userId;
     API.getUserCharacters(id)
       .then(({data}) => {
-        console.log(data)
+        const characters = [...data]
+        // give each character a base initiative and health
+        characters.map(character => {
+          character.initiative = 0;
+          character.current_hp = character.hp
+        })
+        // set the all players variable 
         setAllPlayers(data)
       })
   }, [])
@@ -28,6 +35,12 @@ function Battle() {
   // methods to update state
   const handleAddPlayer = (index) => {
     const currentPlayers = [...players]
+    const newPlayer = allPlayers[index];
+    const isDuplicate = currentPlayers.find((player) => player._id === newPlayer._id)
+    if (isDuplicate) {
+      toast.error("Selected Player is already in battle")
+      return
+    }
     currentPlayers.push(allPlayers[index])
     setPlayers(currentPlayers)
   }
@@ -117,9 +130,9 @@ function Battle() {
       </div>
       {/* Right Column */}
       <div className="col-span-3 border-black border">
-        <div className="border border-black">
+        <div className="">
           <h1>Initiative</h1>
-          {players.map(player => <div className="border border-black">{player.name}</div>)}
+          {players.map(player => <div className="border border-black my-4">{player.name}</div>)}
         </div>
       </div>
       {/* Add Player Modal */}
