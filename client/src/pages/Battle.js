@@ -83,7 +83,6 @@ function Battle() {
       newMonster.current_hit_points = newMonster.hit_points;
       // push the new monster to the current array and set state
       currentMonsters.push(newMonster);
-      console.log(currentMonsters);
       setMonsters(currentMonsters);
     });
   };
@@ -182,12 +181,14 @@ function Battle() {
       </div>
       {/* Right Column */}
       <div className="col-span-3 border-black border">
-        <div className="">
-          <h1>Initiative</h1>
-          {players.map((player) => (
-            <div className="border border-black my-4">{player.name}</div>
-          ))}
-        </div>
+        <h1>Initiative</h1>
+        {players.concat(monsters).map((combatant) => (
+          <div className="border border-black my-4 flex justify-between p-2">
+            <dt className="w-1/3">{combatant.name}</dt>
+            <dt className="w-1/3 text-center">Intiative {combatant.initiative}</dt>
+            <dt className="w-1/3 text-right">X</dt>
+          </div>
+        ))}
       </div>
       {/* Add Player Modal */}
       <AddPlayerModal

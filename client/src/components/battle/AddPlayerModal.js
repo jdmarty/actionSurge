@@ -16,9 +16,9 @@ function AddPlayerModal(props) {
           props.closeModal()
         }}
       >
-        <dt className="border-black w-1/3">{props.name}</dt>
-        <dt className="border-black w-1/3 text-center">Level: {props.level}</dt>
-        <dt className="border-black w-1/3 text-right">
+        <dt className="w-1/3">{props.name}</dt>
+        <dt className="w-1/3 text-center">Level: {props.level}</dt>
+        <dt className="w-1/3 text-right">
           {parseName(props.classType)}
         </dt>
       </li>
