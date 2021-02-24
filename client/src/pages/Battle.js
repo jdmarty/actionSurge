@@ -23,28 +23,28 @@ function Battle() {
   useEffect(() => {
     const id = authState.userId;
     // get all characters for this user
-    API.getUserCharacters(id).then(({ data }) => {
-      // give each character a base initiative and health
-      const characters = data
-        .map((character) => {
+    API.getUserCharacters(id)
+      .then(({ data }) => {
+        // give each character a base initiative and health
+        const characters = data.map((character) => {
           character.initiative = 0;
-          character.current_hp = character.hp;
+          character.current_hit_points = character.hit_points;
           return character;
-        })
-        .catch((err) => console.log(err));
-      // set the all players state
-      setAllPlayers(characters);
-    });
+        });
+        // set the all players state
+        setAllPlayers(characters);
+      })
+      .catch((err) => console.log(err));
     // get all monsters from external API
     API.getAllMonsters()
       .then(({ data }) => {
         // set the all monsters state
-        setAllMonsters(data);
+        setAllMonsters(data.results);
       })
       .catch((err) => console.log(err));
   }, []);
 
-  // methods to update state=========================
+  // methods to update state===========================
   // Method to add a player
   const handleAddPlayer = (index) => {
     const currentPlayers = [...players];
@@ -70,19 +70,25 @@ function Battle() {
     API.getMonster(allMonsters[index].url).then(({ data }) => {
       const newMonster = data;
       //check for duplicates and update name accordingly
-      const modifier = 1;
+      let modifier = 0;
       while (
         currentMonsters.find((monster) => monster.name === newMonster.name)
       ) {
-        newMonster.name = newMonster.name + `(${modifier})`;
+        modifier++;
       }
+      if (modifier > 0) newMonster.name=`${newMonster.name} (${modifier})`
+      // give the new monster a base initiative and a health
+      newMonster.initiative = 0;
+      newMonster.current_hit_points = newMonster.hit_points;
       // push the new monster to the current array and set state
       currentMonsters.push(newMonster);
+      console.log(currentMonsters);
       setMonsters(currentMonsters);
     });
   };
+  // =================================================
 
-  // grid generation for now=======================
+  // grid generation for now==========================
   const squaresPerLine = 10;
 
   const GridSquare = () => {
@@ -109,12 +115,12 @@ function Battle() {
   // Modals=========================================
   const modalStyles = {
     content: {
-      top: "25%",
+      top: "10%",
       left: "50%",
       right: "auto",
       bottom: "auto",
       marginRight: "-50%",
-      transform: "translate(-50%, -50%)",
+      transform: "translate(-50%)",
       width: "75%",
     },
   };
@@ -166,10 +172,7 @@ function Battle() {
             Reset Battle
           </button>
         </div>
-        <div
-          className="flex flex-wrap overflow-hidden"
-          style={{ height: "75vh" }}
-        >
+        <div className="flex flex-wrap" style={{ height: "75vh" }}>
           {generateGrid()}
         </div>
         <div className="border border-black p-4">
@@ -193,7 +196,7 @@ function Battle() {
         contentLabel="add player modal"
         closeModal={closePlayerModal}
         allPlayers={allPlayers}
-        handleAddPlayer={handleAddPlayer}
+        handleAdd={handleAddPlayer}
       />
       {/* Add Monster Modal */}
       <AddMonsterModal
@@ -202,8 +205,8 @@ function Battle() {
         style={modalStyles}
         contentLabel="add monster modal"
         closeModal={closeMonsterModal}
-        allMonsters={allPlayers}
-        handleAddPlayer={handleAddPlayer}
+        allMonsters={allMonsters}
+        handleAdd={handleAddMonster}
       />
     </div>
   );

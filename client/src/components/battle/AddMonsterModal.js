@@ -1,38 +1,49 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Modal from "react-modal";
-import parseName from "../../utils/parseIndexName";
+import { toast } from "react-toast";
 
 function AddMonsterModal(props) {
+  // state for filtered list
+  const [search, setSearch] = useState();
+  const searchRef = useRef();
+
+  // handle change to input searchbar
+  const handleSearch = () => {
+    setSearch(searchRef.current.value);
+  };
+
   // assign modal for reader
   Modal.setAppElement("#root");
 
-  // cards for each character
-  const AddPlayerCard = (props) => {
+  // cards for each monster
+  const AddMonsterCard = (props) => {
     return (
       <li
         className="text-2xl border border-red-500 flex px-3 hover:bg-green-300 hover:text-white"
         onClick={() => {
-          props.onClick(props.index);
-          props.closeModal();
+          props.onClick(props.index)
+          toast.success(`${props.name} added to battle`)
         }}
       >
         <dt className="border-black w-1/3">{props.name}</dt>
-        <dt className="border-black w-1/3 text-center">Level: {props.level}</dt>
-        <dt className="border-black w-1/3 text-right">
-          {parseName(props.classType)}
-        </dt>
       </li>
     );
   };
 
-  const renderPlayerCards = (players) => {
-    return players.map((player, index) => {
+  // render monsters
+  const renderPlayerCards = (monsters) => {
+    // filter monsters to those that match search term
+    const filteredMonsters = monsters.filter((monster) => {
+      return monster.name.match(new RegExp(search, "gi"));
+    });
+    // map out filtered list of monsters to components
+    return filteredMonsters.map((monster, index) => {
       return (
-        <AddPlayerCard
-          {...player}
-          key={"addPlayer" + index}
+        <AddMonsterCard
+          {...monster}
+          key={"addMonster" + index}
           index={index}
-          onClick={props.handleAddPlayer}
+          onClick={props.handleAdd}
           closeModal={props.closeModal}
         />
       );
@@ -41,9 +52,19 @@ function AddMonsterModal(props) {
 
   return (
     <Modal {...props}>
-      <h1 className="text-3xl text-center mb-4">Click to add a monster</h1>
-      <ul className="flex flex-col space-y-4">
-        {renderPlayerCards(props.allPlayers)}
+      <h1 className="text-3xl text-center mb-2">Click to add a monster</h1>
+      <input
+        type="text"
+        className="text-2xl text-center mb-4 border-black border"
+        placeholder="Search Monster"
+        ref={searchRef}
+        onChange={handleSearch}
+      ></input>
+      <ul
+        className="flex flex-col space-y-4"
+        style={{ height: "75vh", overflow: "auto" }}
+      >
+        {renderPlayerCards(props.allMonsters)}
       </ul>
     </Modal>
   );

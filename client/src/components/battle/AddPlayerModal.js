@@ -32,7 +32,7 @@ function AddPlayerModal(props) {
           {...player}
           key={"addPlayer" + index}
           index={index}
-          onClick={props.handleAddPlayer}
+          onClick={props.handleAdd}
           closeModal={props.closeModal}
         />
       );
