@@ -229,6 +229,7 @@ function Battle() {
         closeModal={closeCharacterModal}
         allCharacters={allCharacters}
         handleAdd={handleAddCharacter}
+        closeTimeoutMS={100}
       />
       {/* Add Monster Modal */}
       <AddMonsterModal
@@ -239,6 +240,7 @@ function Battle() {
         closeModal={closeMonsterModal}
         allMonsters={allMonsters}
         handleAdd={handleAddMonster}
+        closeTimeoutMS={100}
       />
     </div>
   );
