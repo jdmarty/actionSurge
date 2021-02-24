@@ -237,12 +237,12 @@ function Battle() {
         </div>
       </div>
       {/* Right Column */}
-      <div className="col-span-3 border-black border">
+      <div className="col-span-3 border-black border p-5">
         <h1>Initiative</h1>
         {renderInitiativeCards(characters, monsters)}
       </div>
 
-      
+
       {/* Add Player Modal */}
       <AddPlayerModal
         isOpen={characterModalIsOpen}
