@@ -17,10 +17,8 @@ function Battle() {
   const [characters, setCharacters] = useState([]);
   const [allMonsters, setAllMonsters] = useState([]);
   const [monsters, setMonsters] = useState([]);
-  const [characterModalIsOpen, setCharacterModalIsOpen] = useState(false);
-  const [monsterModalIsOpen, setMonsterModalIsOpen] = useState(false);
 
-  // Use effect to load user characters on mount
+  // Use effect to load user characters and monsters on mount
   useEffect(() => {
     const id = authState.userId;
     // get all characters for this user
@@ -46,7 +44,7 @@ function Battle() {
   }, []);
 
   // methods to update state===========================
-  // Method to add a character to the battle
+  // Add a character to the battle
   const handleAddCharacter = (index) => {
     const currentCharacters = [...characters];
     const newCharacter = allCharacters[index];
@@ -54,6 +52,7 @@ function Battle() {
     const isDuplicate = currentCharacters.find(
       (character) => character._id === newCharacter._id
     );
+    // if a duplicate is found, alert alert the user
     if (isDuplicate) {
       toast.error("Selected Player is already in battle");
       return;
@@ -63,10 +62,9 @@ function Battle() {
     setCharacters(currentCharacters);
   };
 
-  // Function to add a monster to the battle
+  // Add a monster to the battle
   const handleAddMonster = (index) => {
     const currentMonsters = [...monsters];
-
     // call the api to populate the monster details
     API.getMonster(allMonsters[index].url).then(({ data }) => {
       const newMonster = data;
@@ -88,23 +86,30 @@ function Battle() {
     });
   };
 
-  // Function to remove a combatant
+  // Remove a combatant
   const handleRemoveCombatant = (name, id) => {
     // if there is a character id, filter the characters list
     if (id) {
+      // filter out combatants with matching ids
       const newCharacters = characters.filter((character) => {
         return character._id !== id;
       });
       setCharacters(newCharacters);
       return newCharacters;
-      // otherwise filter the monsters list
     } else {
+      // filter out monsters with matching ids
       const newMonsters = monsters.filter((monster) => {
         return monster.name !== name;
       });
       setMonsters(newMonsters);
       return newMonsters;
     }
+  };
+
+  // Remove all combatants
+  const handleReset = () => {
+    setCharacters([]);
+    setMonsters([]);
   };
   // =================================================
 
@@ -133,6 +138,10 @@ function Battle() {
   //===============================================
 
   // Modals=========================================
+  const [characterModalIsOpen, setCharacterModalIsOpen] = useState(false);
+  const [monsterModalIsOpen, setMonsterModalIsOpen] = useState(false);
+  const [confirmModalIsOpen, setConfirmModalIsOpen] = useState(false);
+
   const modalStyles = {
     content: {
       top: "10%",
@@ -162,10 +171,19 @@ function Battle() {
   const closeMonsterModal = () => {
     setMonsterModalIsOpen(false);
   };
+
+  // Handlers for confirm modal
+  const openConfirmModal = () => {
+    setConfirmModalIsOpen(true);
+  };
+
+  const closeConfirmModal = () => {
+    setConfirmModalIsOpen(false);
+  };
+
   // ==============================================
 
   // Render Functions==============================
-
   const renderInitiativeCards = (characters, monsters) => {
     const allCombatants = characters.concat(monsters);
     return allCombatants.map((combatant) => {
@@ -182,37 +200,40 @@ function Battle() {
   // ==============================================
 
   return (
-    <div className="grid grid-cols-12 bg-white m-4">
+    <div className="grid grid-cols-12 bg-white m-4" style={{ height: "88vh" }}>
       {/* Left Column */}
-      <div className="col-span-3 border-black border">
+      <div className="col-span-3 border-black border overflow-auto">
         <div className="border border-black">
           <h1>View Character / Monster</h1>
         </div>
       </div>
       {/* Middle Column */}
-      <div className="col-span-6 border-black border">
-        <div className="border border-black p-4">
+      <div className="col-span-6 border-black border overflow-auto">
+        <div className="p-4 flex justify-between" style={{ height: "10%" }}>
           <button
-            className="bg-green-500 px-4 py-2 rounded-lg mx-6 border-black"
+            className="bg-green-500 px-4 py-2 rounded-lg mx-6"
             onClick={openCharacterModal}
           >
             Add Character
           </button>
           <button
-            className="bg-yellow-500 px-4 py-2 rounded-lg mx-6 border-black"
+            className="bg-yellow-500 px-4 py-2 rounded-lg mx-6"
             onClick={openMonsterModal}
           >
             Add Monster
           </button>
-          <button className="bg-red-500 px-4 py-2 rounded-lg mx-6 border-black">
+          <button className="bg-blue-500 px-4 py-2 rounded-lg mx-6">
+            Dice Roller
+          </button>
+          <button
+            className="bg-red-500 px-4 py-2 rounded-lg mx-6"
+            onClick={openConfirmModal}
+          >
             Reset Battle
           </button>
         </div>
-        <div className="flex flex-wrap" style={{ height: "75vh" }}>
+        <div className="flex flex-wrap" style={{ height: "90%" }}>
           {generateGrid()}
-        </div>
-        <div className="border border-black p-4">
-          <h1>rules bar? update grid?</h1>
         </div>
       </div>
       {/* Right Column */}
@@ -220,6 +241,8 @@ function Battle() {
         <h1>Initiative</h1>
         {renderInitiativeCards(characters, monsters)}
       </div>
+
+      
       {/* Add Player Modal */}
       <AddPlayerModal
         isOpen={characterModalIsOpen}
@@ -242,6 +265,33 @@ function Battle() {
         handleAdd={handleAddMonster}
         closeTimeoutMS={100}
       />
+      {/* Confirm Modal */}
+      <Modal
+        isOpen={confirmModalIsOpen}
+        onRequestClose={closeConfirmModal}
+        style={modalStyles}
+        contentLabel="confirm reset modal"
+        closeTimeoutMS={100}
+      >
+        <div className="text-3xl text-center">
+          <h1 className="mb-4">Are you sure you want to reset this battle?</h1>
+          <button
+            className="bg-red-500 px-4 py-2 rounded-lg mx-6"
+            onClick={() => {
+              handleReset();
+              closeConfirmModal();
+            }}
+          >
+            Yes
+          </button>
+          <button
+            className="bg-yellow-500 px-4 py-2 rounded-lg mx-6"
+            onClick={closeConfirmModal}
+          >
+            No
+          </button>
+        </div>
+      </Modal>
     </div>
   );
 }
