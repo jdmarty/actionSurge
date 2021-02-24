@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Modal from "react-modal";
 import parseName from "../../utils/parseIndexName";
 
-function AddPlayerModal(props) {
+function AddMonsterModal(props) {
   // assign modal for reader
   Modal.setAppElement("#root");
 
@@ -12,8 +12,8 @@ function AddPlayerModal(props) {
       <li
         className="text-2xl border border-red-500 flex px-3 hover:bg-green-300 hover:text-white"
         onClick={() => {
-          props.onClick(props.index)
-          props.closeModal()
+          props.onClick(props.index);
+          props.closeModal();
         }}
       >
         <dt className="border-black w-1/3">{props.name}</dt>
@@ -41,7 +41,7 @@ function AddPlayerModal(props) {
 
   return (
     <Modal {...props}>
-      <h1 className="text-3xl text-center mb-4">Click to add a character</h1>
+      <h1 className="text-3xl text-center mb-4">Click to add a monster</h1>
       <ul className="flex flex-col space-y-4">
         {renderPlayerCards(props.allPlayers)}
       </ul>
@@ -49,4 +49,4 @@ function AddPlayerModal(props) {
   );
 }
 
-export default AddPlayerModal;
+export default AddMonsterModal;
