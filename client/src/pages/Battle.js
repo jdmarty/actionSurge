@@ -2,9 +2,10 @@
 import React, { useEffect, useState } from "react";
 import Modal from "react-modal";
 import { toast } from "react-toast";
-// Context and API
+// Context and Utilities
 import { useAuthContext } from "../utils/AuthState";
 import API from "../utils/API";
+import { rollDice, getBonusFromStat } from "../utils/battleFunctions";
 // components
 import AddPlayerModal from "../components/battle/AddPlayerModal";
 import AddMonsterModal from "../components/battle/AddMonsterModal";
@@ -14,9 +15,8 @@ function Battle() {
   //state variables
   const [authState] = useAuthContext();
   const [allCharacters, setAllCharacters] = useState([]);
-  const [characters, setCharacters] = useState([]);
   const [allMonsters, setAllMonsters] = useState([]);
-  const [monsters, setMonsters] = useState([]);
+  const [combatants, setCombatants] = useState([]);
 
   // Use effect to load user characters and monsters on mount
   useEffect(() => {
@@ -46,10 +46,10 @@ function Battle() {
   // methods to update state===========================
   // Add a character to the battle
   const handleAddCharacter = (index) => {
-    const currentCharacters = [...characters];
+    const currentCombatants = [...combatants];
     const newCharacter = allCharacters[index];
     // check for duplicates
-    const isDuplicate = currentCharacters.find(
+    const isDuplicate = currentCombatants.find(
       (character) => character._id === newCharacter._id
     );
     // if a duplicate is found, alert alert the user
@@ -58,21 +58,22 @@ function Battle() {
       return;
     }
     // push the new player to the current array and set state
-    currentCharacters.push(newCharacter);
-    setCharacters(currentCharacters);
+    currentCombatants.push(newCharacter);
+    setCombatants(currentCombatants);
   };
 
   // Add a monster to the battle
-  const handleAddMonster = (index) => {
-    const currentMonsters = [...monsters];
+  const handleAddMonster = (name) => {
+    const currentCombatants = [...combatants];
+    const targetMonster = allMonsters.find((monster) => monster.name === name);
     // call the api to populate the monster details
-    API.getMonster(allMonsters[index].url).then(({ data }) => {
+    API.getMonster(targetMonster.url).then(({ data }) => {
       const newMonster = data;
       //check for duplicates and update name accordingly
       let modifier = 1;
       const originalName = newMonster.name;
       while (
-        currentMonsters.find((monster) => monster.name === newMonster.name)
+        currentCombatants.find((monster) => monster.name === newMonster.name)
       ) {
         newMonster.name = `${originalName} (${modifier})`;
         modifier++;
@@ -81,8 +82,8 @@ function Battle() {
       newMonster.initiative = 0;
       newMonster.current_hit_points = newMonster.hit_points;
       // push the new monster to the current array and set state
-      currentMonsters.push(newMonster);
-      setMonsters(currentMonsters);
+      currentCombatants.push(newMonster);
+      setCombatants(currentCombatants);
     });
   };
 
@@ -91,25 +92,56 @@ function Battle() {
     // if there is a character id, filter the characters list
     if (id) {
       // filter out combatants with matching ids
-      const newCharacters = characters.filter((character) => {
+      const newCombatants = combatants.filter((character) => {
         return character._id !== id;
       });
-      setCharacters(newCharacters);
-      return newCharacters;
+      setCombatants(newCombatants);
+      return newCombatants;
     } else {
       // filter out monsters with matching ids
-      const newMonsters = monsters.filter((monster) => {
+      const newCombatants = combatants.filter((monster) => {
         return monster.name !== name;
       });
-      setMonsters(newMonsters);
-      return newMonsters;
+      setCombatants(newCombatants);
+      return newCombatants;
     }
   };
 
   // Remove all combatants
   const handleReset = () => {
-    setCharacters([]);
-    setMonsters([]);
+    setCombatants([]);
+  };
+
+  // Roll initiative for all
+  const rollInitiative = () => {
+    const newCombatants = combatants.map((combatant) => {
+      return {
+        ...combatant,
+        initiative: rollDice(20) + getBonusFromStat(combatant.dexterity),
+      };
+    });
+    setCombatants(newCombatants);
+    return newCombatants;
+  };
+
+  // Update a single initiative value
+  const handleUpdateInitiative = (value, name, id) => {
+    const currentCombatants = [...combatants];
+    let newCombatants = [];
+    // search by id if one is provided, otherwise use name
+    if (id) {
+      newCombatants = currentCombatants.map((combatant) => {
+        if (combatant._id === id) return { ...combatant, initiative: value };
+        else return combatant;
+      });
+    } else {
+      newCombatants = currentCombatants.map((combatant) => {
+        if (combatant.name === name) return { ...combatant, initiative: value };
+        else return combatant;
+      });
+    }
+    // set the state to the update combatants list
+    setCombatants(newCombatants);
   };
   // =================================================
 
@@ -184,15 +216,19 @@ function Battle() {
   // ==============================================
 
   // Render Functions==============================
-  const renderInitiativeCards = (characters, monsters) => {
-    const allCombatants = characters.concat(monsters);
-    return allCombatants.map((combatant) => {
+  const renderInitiativeCards = (combatants) => {
+    // sort by initiative, and map out cards for each
+    const sortedCombatants = combatants.sort(
+      (a, b) => b.initiative - a.initiative
+    );
+    console.log(sortedCombatants)
+    return sortedCombatants.map((combatant, index) => {
       return (
         <InitiativeCard
-          name={combatant.name}
-          initiative={combatant.initiative}
-          id={combatant._id}
+          {...combatant}
           onClick={handleRemoveCombatant}
+          onChange={handleUpdateInitiative}
+          key={"initiative"+index}
         />
       );
     });
@@ -238,10 +274,16 @@ function Battle() {
       </div>
       {/* Right Column */}
       <div className="col-span-3 border-black border p-5">
-        <h1>Initiative</h1>
-        {renderInitiativeCards(characters, monsters)}
+        <div className="flex justify-center">
+          <button
+            className="bg-green-500 px-4 py-2 rounded-lg mx-6"
+            onClick={rollInitiative}
+          >
+            Roll Initiative
+          </button>
+        </div>
+        {renderInitiativeCards(combatants)}
       </div>
-
 
       {/* Add Player Modal */}
       <AddPlayerModal

@@ -21,7 +21,7 @@ function AddMonsterModal(props) {
       <li
         className="text-2xl border border-red-500 flex px-3 hover:bg-green-300 hover:text-white"
         onClick={() => {
-          props.onClick(props.index)
+          props.onClick(props.name)
           toast.success(`${props.name} added to battle`)
         }}
       >
@@ -31,7 +31,7 @@ function AddMonsterModal(props) {
   };
 
   // render monsters
-  const renderPlayerCards = (monsters) => {
+  const renderMonsterCards = (monsters) => {
     // filter monsters to those that match search term
     const filteredMonsters = monsters.filter((monster) => {
       return monster.name.match(new RegExp(search, "gi"));
@@ -42,7 +42,6 @@ function AddMonsterModal(props) {
         <AddMonsterCard
           {...monster}
           key={"addMonster" + index}
-          index={index}
           onClick={props.handleAdd}
           closeModal={props.closeModal}
         />
@@ -64,7 +63,7 @@ function AddMonsterModal(props) {
         className="flex flex-col space-y-4"
         style={{ height: "75vh", overflow: "auto" }}
       >
-        {renderPlayerCards(props.allMonsters)}
+        {renderMonsterCards(props.allMonsters)}
       </ul>
     </Modal>
   );
