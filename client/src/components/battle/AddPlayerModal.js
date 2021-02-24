@@ -7,7 +7,7 @@ function AddPlayerModal(props) {
   Modal.setAppElement("#root");
 
   // cards for each character
-  const AddPlayerCard = (props) => {
+  const AddCharacterCard = (props) => {
     return (
       <li
         className="text-2xl border border-red-500 flex px-3 hover:bg-green-300 hover:text-white"
@@ -25,12 +25,12 @@ function AddPlayerModal(props) {
     );
   };
 
-  const renderPlayerCards = (players) => {
-    return players.map((player, index) => {
+  const renderCharacterCards = (characters) => {
+    return characters.map((character, index) => {
       return (
-        <AddPlayerCard
-          {...player}
-          key={"addPlayer" + index}
+        <AddCharacterCard
+          {...character}
+          key={"addCharacter" + index}
           index={index}
           onClick={props.handleAdd}
           closeModal={props.closeModal}
@@ -43,7 +43,7 @@ function AddPlayerModal(props) {
     <Modal {...props}>
       <h1 className="text-3xl text-center mb-4">Click to add a character</h1>
       <ul className="flex flex-col space-y-4">
-        {renderPlayerCards(props.allPlayers)}
+        {renderCharacterCards(props.allCharacters)}
       </ul>
     </Modal>
   );

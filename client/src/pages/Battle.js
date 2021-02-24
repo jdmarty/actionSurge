@@ -8,15 +8,16 @@ import API from "../utils/API";
 // components
 import AddPlayerModal from "../components/battle/AddPlayerModal";
 import AddMonsterModal from "../components/battle/AddMonsterModal";
+import InitiativeCard from "../components/battle/InitiativeCard";
 
 function Battle() {
   //state variables
   const [authState] = useAuthContext();
-  const [allPlayers, setAllPlayers] = useState([]);
-  const [players, setPlayers] = useState([]);
+  const [allCharacters, setAllCharacters] = useState([]);
+  const [characters, setCharacters] = useState([]);
   const [allMonsters, setAllMonsters] = useState([]);
   const [monsters, setMonsters] = useState([]);
-  const [playerModalIsOpen, setPlayerModalIsOpen] = useState(false);
+  const [characterModalIsOpen, setCharacterModalIsOpen] = useState(false);
   const [monsterModalIsOpen, setMonsterModalIsOpen] = useState(false);
 
   // Use effect to load user characters on mount
@@ -32,7 +33,7 @@ function Battle() {
           return character;
         });
         // set the all players state
-        setAllPlayers(characters);
+        setAllCharacters(characters);
       })
       .catch((err) => console.log(err));
     // get all monsters from external API
@@ -45,24 +46,24 @@ function Battle() {
   }, []);
 
   // methods to update state===========================
-  // Method to add a player
-  const handleAddPlayer = (index) => {
-    const currentPlayers = [...players];
-    const newPlayer = allPlayers[index];
+  // Method to add a character to the battle
+  const handleAddCharacter = (index) => {
+    const currentCharacters = [...characters];
+    const newCharacter = allCharacters[index];
     // check for duplicates
-    const isDuplicate = currentPlayers.find(
-      (player) => player._id === newPlayer._id
+    const isDuplicate = currentCharacters.find(
+      (character) => character._id === newCharacter._id
     );
     if (isDuplicate) {
       toast.error("Selected Player is already in battle");
       return;
     }
     // push the new player to the current array and set state
-    currentPlayers.push(newPlayer);
-    setPlayers(currentPlayers);
+    currentCharacters.push(newCharacter);
+    setCharacters(currentCharacters);
   };
 
-  // Method to add a monster
+  // Function to add a monster to the battle
   const handleAddMonster = (index) => {
     const currentMonsters = [...monsters];
 
@@ -71,11 +72,11 @@ function Battle() {
       const newMonster = data;
       //check for duplicates and update name accordingly
       let modifier = 1;
-      const originalName = newMonster.name
+      const originalName = newMonster.name;
       while (
         currentMonsters.find((monster) => monster.name === newMonster.name)
       ) {
-        newMonster.name = `${originalName} (${modifier})`
+        newMonster.name = `${originalName} (${modifier})`;
         modifier++;
       }
       // give the new monster a base initiative and a health
@@ -86,15 +87,34 @@ function Battle() {
       setMonsters(currentMonsters);
     });
   };
+
+  // Function to remove a combatant
+  const handleRemoveCombatant = (name, id) => {
+    // if there is a character id, filter the characters list
+    if (id) {
+      const newCharacters = characters.filter((character) => {
+        return character._id !== id;
+      });
+      setCharacters(newCharacters);
+      return newCharacters;
+      // otherwise filter the monsters list
+    } else {
+      const newMonsters = monsters.filter((monster) => {
+        return monster.name !== name;
+      });
+      setMonsters(newMonsters);
+      return newMonsters;
+    }
+  };
   // =================================================
 
   // grid generation for now==========================
-  const squaresPerLine = 10;
+  const squaresPerLine = 20;
 
   const GridSquare = () => {
     return (
       <div
-        className="border-black border bg-blue-100"
+        className="border-gray-100 border bg-blue-100"
         style={{
           width: `${100 / squaresPerLine}%`,
           height: `${100 / squaresPerLine}%`,
@@ -126,15 +146,15 @@ function Battle() {
   };
 
   // Handlers for add player modal
-  const openPlayerModal = () => {
-    setPlayerModalIsOpen(true);
+  const openCharacterModal = () => {
+    setCharacterModalIsOpen(true);
   };
 
-  const closePlayerModal = () => {
-    setPlayerModalIsOpen(false);
+  const closeCharacterModal = () => {
+    setCharacterModalIsOpen(false);
   };
 
-  // Handlers for add player modal
+  // Handlers for add monster modal
   const openMonsterModal = () => {
     setMonsterModalIsOpen(true);
   };
@@ -142,7 +162,23 @@ function Battle() {
   const closeMonsterModal = () => {
     setMonsterModalIsOpen(false);
   };
+  // ==============================================
 
+  // Render Functions==============================
+
+  const renderInitiativeCards = (characters, monsters) => {
+    const allCombatants = characters.concat(monsters);
+    return allCombatants.map((combatant) => {
+      return (
+        <InitiativeCard
+          name={combatant.name}
+          initiative={combatant.initiative}
+          id={combatant._id}
+          onClick={handleRemoveCombatant}
+        />
+      );
+    });
+  };
   // ==============================================
 
   return (
@@ -158,7 +194,7 @@ function Battle() {
         <div className="border border-black p-4">
           <button
             className="bg-green-500 px-4 py-2 rounded-lg mx-6 border-black"
-            onClick={openPlayerModal}
+            onClick={openCharacterModal}
           >
             Add Character
           </button>
@@ -182,23 +218,17 @@ function Battle() {
       {/* Right Column */}
       <div className="col-span-3 border-black border">
         <h1>Initiative</h1>
-        {players.concat(monsters).map((combatant) => (
-          <div className="border border-black my-4 flex justify-between p-2">
-            <dt className="w-1/3">{combatant.name}</dt>
-            <dt className="w-1/3 text-center">Intiative {combatant.initiative}</dt>
-            <dt className="w-1/3 text-right">X</dt>
-          </div>
-        ))}
+        {renderInitiativeCards(characters, monsters)}
       </div>
       {/* Add Player Modal */}
       <AddPlayerModal
-        isOpen={playerModalIsOpen}
-        onRequestClose={closePlayerModal}
+        isOpen={characterModalIsOpen}
+        onRequestClose={closeCharacterModal}
         style={modalStyles}
         contentLabel="add player modal"
-        closeModal={closePlayerModal}
-        allPlayers={allPlayers}
-        handleAdd={handleAddPlayer}
+        closeModal={closeCharacterModal}
+        allCharacters={allCharacters}
+        handleAdd={handleAddCharacter}
       />
       {/* Add Monster Modal */}
       <AddMonsterModal
