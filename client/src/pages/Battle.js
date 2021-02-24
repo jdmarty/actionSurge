@@ -70,13 +70,14 @@ function Battle() {
     API.getMonster(allMonsters[index].url).then(({ data }) => {
       const newMonster = data;
       //check for duplicates and update name accordingly
-      let modifier = 0;
+      let modifier = 1;
+      const originalName = newMonster.name
       while (
         currentMonsters.find((monster) => monster.name === newMonster.name)
       ) {
+        newMonster.name = `${originalName} (${modifier})`
         modifier++;
       }
-      if (modifier > 0) newMonster.name=`${newMonster.name} (${modifier})`
       // give the new monster a base initiative and a health
       newMonster.initiative = 0;
       newMonster.current_hit_points = newMonster.hit_points;
