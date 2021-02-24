@@ -120,8 +120,13 @@ function Battle() {
         initiative: rollDice(20) + getBonusFromStat(combatant.dexterity),
       };
     });
-    setCombatants(newCombatants);
-    return newCombatants;
+    // sort by combatants by initiative
+    const sortedCombatants = newCombatants.sort(
+      (a, b) => b.initiative - a.initiative
+    );
+    // set state to the updated combatant list
+    setCombatants(sortedCombatants);
+    return sortedCombatants;
   };
 
   // Update a single initiative value
@@ -140,9 +145,24 @@ function Battle() {
         else return combatant;
       });
     }
+    // sort by combatants by initiative
+    const sortedCombatants = newCombatants.sort(
+      (a, b) => b.initiative - a.initiative
+    );
     // set the state to the update combatants list
-    setCombatants(newCombatants);
+    setCombatants(sortedCombatants);
+    return sortedCombatants
   };
+
+  // Advance initiative count
+  const advanceInitiative = () => {
+    const currentCombatants = [...combatants];
+    // shift the first combatant to the back
+    const firstCombatant = currentCombatants.shift()
+    currentCombatants.push(firstCombatant);
+    setCombatants(currentCombatants)
+    return currentCombatants
+  }
   // =================================================
 
   // grid generation for now==========================
@@ -217,14 +237,11 @@ function Battle() {
 
   // Render Functions==============================
   const renderInitiativeCards = (combatants) => {
-    // sort by initiative, and map out cards for each
-    const sortedCombatants = combatants.sort(
-      (a, b) => b.initiative - a.initiative
-    );
-    console.log(sortedCombatants)
-    return sortedCombatants.map((combatant, index) => {
+
+    return combatants.map((combatant, index) => {
       return (
         <InitiativeCard
+          first = {index === 0 ? true : false}
           {...combatant}
           onClick={handleRemoveCombatant}
           onChange={handleUpdateInitiative}
@@ -274,12 +291,18 @@ function Battle() {
       </div>
       {/* Right Column */}
       <div className="col-span-3 border-black border p-5">
-        <div className="flex justify-center">
+        <div className="flex justify-around">
           <button
-            className="bg-green-500 px-4 py-2 rounded-lg mx-6"
+            className="bg-green-500 px-4 py-2 rounded-lg"
             onClick={rollInitiative}
           >
             Roll Initiative
+          </button>
+          <button
+            className="bg-yellow-500 px-4 py-2 rounded-lg"
+            onClick={advanceInitiative}
+          >
+            Next Turn
           </button>
         </div>
         {renderInitiativeCards(combatants)}
