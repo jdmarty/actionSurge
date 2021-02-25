@@ -9,7 +9,9 @@ import { rollDice, getBonusFromStat } from "../utils/battleFunctions";
 // components
 import AddPlayerModal from "../components/battle/AddPlayerModal";
 import AddMonsterModal from "../components/battle/AddMonsterModal";
+import ConfirmResetModal from "../components/battle/ConfirmRestModal";
 import InitiativeCard from "../components/battle/InitiativeCard";
+import DiceRoller from "../components/battle/DiceRoller"
 
 function Battle() {
   //state variables
@@ -43,7 +45,7 @@ function Battle() {
       .catch((err) => console.log(err));
   }, []);
 
-  // methods to update state===========================
+  // ADD OR REMOVE COMBATANTS===============================================
   // Add a character to the battle
   const handleAddCharacter = (index) => {
     const currentCombatants = [...combatants];
@@ -111,7 +113,9 @@ function Battle() {
   const handleReset = () => {
     setCombatants([]);
   };
+  // ====================================================================
 
+  // INITIATIVE TRACKING================================================
   // Roll initiative for all
   const rollInitiative = () => {
     const newCombatants = combatants.map((combatant) => {
@@ -163,9 +167,9 @@ function Battle() {
     setCombatants(currentCombatants)
     return currentCombatants
   }
-  // =================================================
+  // ===================================================================
 
-  // grid generation for now==========================
+  // grid generation for now============================================
   const squaresPerLine = 20;
 
   const GridSquare = () => {
@@ -187,9 +191,9 @@ function Battle() {
     }
     return grid;
   };
-  //===============================================
+  //=================================================================
 
-  // Modals=========================================
+  // MODALS==========================================================
   const [characterModalIsOpen, setCharacterModalIsOpen] = useState(false);
   const [monsterModalIsOpen, setMonsterModalIsOpen] = useState(false);
   const [confirmModalIsOpen, setConfirmModalIsOpen] = useState(false);
@@ -233,9 +237,9 @@ function Battle() {
     setConfirmModalIsOpen(false);
   };
 
-  // ==============================================
+  // ===============================================================
 
-  // Render Functions==============================
+  // Render Functions===============================================
   const renderInitiativeCards = (combatants) => {
 
     return combatants.map((combatant, index) => {
@@ -250,19 +254,32 @@ function Battle() {
       );
     });
   };
-  // ==============================================
+  // ===============================================================
 
   return (
     <div className="grid grid-cols-12 bg-white m-4" style={{ height: "88vh" }}>
       {/* Left Column */}
       <div className="col-span-3 border-black border overflow-auto">
-        <div className="border border-black">
+        {/* Display Character / Monster */}
+        <div
+          className="border border-black bg-indigo-300 overflow-auto"
+          style={{ height: "60%" }}
+        >
           <h1>View Character / Monster</h1>
+        </div>
+        {/* Dice Roller */}
+        <div
+          className="border border-black bg-indigo-300"
+          style={{ height: "40%" }}
+        >
+          <h1 className="text-center border">Dice Roller</h1>
+          <DiceRoller />
         </div>
       </div>
       {/* Middle Column */}
-      <div className="col-span-6 border-black border overflow-auto">
-        <div className="p-4 flex justify-between" style={{ height: "10%" }}>
+      <div className="col-span-6 border-black border h-full">
+        {/* Header row with buttons */}
+        <div className="p-4 flex justify-between">
           <button
             className="bg-green-500 px-4 py-2 rounded-lg mx-6"
             onClick={openCharacterModal}
@@ -285,12 +302,14 @@ function Battle() {
             Reset Battle
           </button>
         </div>
+        {/* Grid */}
         <div className="flex flex-wrap" style={{ height: "90%" }}>
           {generateGrid()}
         </div>
       </div>
       {/* Right Column */}
-      <div className="col-span-3 border-black border p-5">
+      <div className="col-span-3 border-black border p-5 overflow-auto">
+        {/* Header with buttons */}
         <div className="flex justify-around">
           <button
             className="bg-green-500 px-4 py-2 rounded-lg"
@@ -305,7 +324,10 @@ function Battle() {
             Next Turn
           </button>
         </div>
-        {renderInitiativeCards(combatants)}
+        {/* Initiative tracker */}
+        <ul className="overflow-auto">
+          {renderInitiativeCards(combatants)}
+        </ul>
       </div>
 
       {/* Add Player Modal */}
@@ -331,32 +353,15 @@ function Battle() {
         closeTimeoutMS={100}
       />
       {/* Confirm Modal */}
-      <Modal
+      <ConfirmResetModal
         isOpen={confirmModalIsOpen}
         onRequestClose={closeConfirmModal}
         style={modalStyles}
         contentLabel="confirm reset modal"
+        closeModal={closeConfirmModal}
+        handleReset={handleReset}
         closeTimeoutMS={100}
-      >
-        <div className="text-3xl text-center">
-          <h1 className="mb-4">Are you sure you want to reset this battle?</h1>
-          <button
-            className="bg-red-500 px-4 py-2 rounded-lg mx-6"
-            onClick={() => {
-              handleReset();
-              closeConfirmModal();
-            }}
-          >
-            Yes
-          </button>
-          <button
-            className="bg-yellow-500 px-4 py-2 rounded-lg mx-6"
-            onClick={closeConfirmModal}
-          >
-            No
-          </button>
-        </div>
-      </Modal>
+      />
     </div>
   );
 }
