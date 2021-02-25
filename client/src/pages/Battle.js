@@ -323,7 +323,7 @@ function Battle() {
           </button>
         </div>
         {/* Initiative tracker */}
-        <ul className="overflow-auto">{renderInitiativeCards(combatants)}</ul>
+        <ul className="overflow-auto px-2">{renderInitiativeCards(combatants)}</ul>
       </div>
 
       {/* Add Player Modal */}
