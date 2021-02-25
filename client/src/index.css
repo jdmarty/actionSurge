@@ -2,15 +2,34 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Modal Animations */
 .ReactModal__Overlay {
-    opacity: 0;
-    transition: opacity 100ms ease-in-out;
+  opacity: 0;
+  transition: opacity 100ms ease-in-out;
 }
 
-.ReactModal__Overlay--after-open{
-    opacity: 1;
+.ReactModal__Overlay--after-open {
+  opacity: 1;
 }
 
-.ReactModal__Overlay--before-close{
-    opacity: 0;
+.ReactModal__Overlay--before-close {
+  opacity: 0;
+}
+
+/* Dice Spin animation */
+
+.diceSpin {
+  animation: quickSpin 100ms ease-in-out;
+}
+
+@keyframes quickSpin {
+  0% {
+    transform: rotate(0);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
