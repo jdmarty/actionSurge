@@ -259,20 +259,18 @@ function Battle() {
   return (
     <div className="grid grid-cols-12 bg-white m-4" style={{ height: "88vh" }}>
       {/* Left Column */}
-      <div className="col-span-3 border-black border overflow-auto">
+      <div className="col-span-3 border-black border">
         {/* Display Character / Monster */}
         <div
           className="border border-black bg-indigo-300 overflow-auto"
           style={{ height: "60%" }}
         >
-          <h1>View Character / Monster</h1>
         </div>
         {/* Dice Roller */}
         <div
-          className="border border-black bg-indigo-300"
+          className="border border-black bg-indigo-300 overflow-auto"
           style={{ height: "40%" }}
         >
-          <h1 className="text-center border">Dice Roller</h1>
           <DiceRoller />
         </div>
       </div>
@@ -325,9 +323,7 @@ function Battle() {
           </button>
         </div>
         {/* Initiative tracker */}
-        <ul className="overflow-auto">
-          {renderInitiativeCards(combatants)}
-        </ul>
+        <ul className="overflow-auto">{renderInitiativeCards(combatants)}</ul>
       </div>
 
       {/* Add Player Modal */}
