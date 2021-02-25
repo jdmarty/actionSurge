@@ -1,19 +1,24 @@
 import React from "react";
-import { BrowserRouter as Router, Redirect, Route, Switch, Link } from "react-router-dom";
-import { useAuthContext } from "./utils/AuthState"
+import {
+  BrowserRouter as Router,
+  Redirect,
+  Route,
+  Switch,
+} from "react-router-dom";
+import { useAuthContext } from "./utils/AuthState";
+import { CreateCharacterProvider } from "./utils/CreateCharacterState";
 
 // Raw Components
 import Nav from "./components/Nav";
 // Pages
-import Home from "./pages/Home"
-import Login from "./pages/Login"
-import Signup from "./pages/Signup"
-import NoMatch from "./pages/NoMatch"
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import NoMatch from "./pages/NoMatch";
 import CreateCharacter from "./pages/CreateCharacter";
-import EditCharacterDirectory from "./pages/EditCharacterDirectory"
-import EditCharacter from "./pages/EditCharacter"
+import EditCharacterDirectory from "./pages/EditCharacterDirectory";
+import EditCharacter from "./pages/EditCharacter";
 import Battle from "./pages/Battle";
-
 
 function MainRouter() {
   // get current auth context
@@ -39,13 +44,25 @@ function MainRouter() {
           <Home />
         </Route>
         <Route exact path="/create-character">
-          {authState.loggedIn ? <CreateCharacter /> : <Redirect to="/login" />}
+          <CreateCharacterProvider>
+            {authState.loggedIn ? (
+              <CreateCharacter />
+            ) : (
+              <Redirect to="/login" />
+            )}
+          </CreateCharacterProvider>
         </Route>
         <Route exact path="/edit-character">
-          {authState.loggedIn ? <EditCharacterDirectory /> : <Redirect to="/login" />}
+          {authState.loggedIn ? (
+            <EditCharacterDirectory />
+          ) : (
+            <Redirect to="/login" />
+          )}
         </Route>
         <Route exact path="/edit-character/:id">
-          {authState.loggedIn ? <EditCharacter /> : <Redirect to="/login" />}
+          <CreateCharacterProvider>
+            {authState.loggedIn ? <EditCharacter /> : <Redirect to="/login" />}
+          </CreateCharacterProvider>
         </Route>
         <Route exact path="/battle">
           {authState.loggedIn ? <Battle /> : <Redirect to="/login" />}
