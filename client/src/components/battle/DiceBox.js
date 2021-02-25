@@ -1,35 +1,62 @@
 import React from "react";
-import { rollDice } from "../../utils/battleFunctions";
 
 function DiceBox(props) {
   // Component for a single di
   const Di = (props) => {
-    return <div className={"bg-white m-2 p-2 hover:bg-black hover:text-white border-2 border-white"+props.animation}>{props.roll}</div>
-  }
+    return (
+      <span
+        className={
+          "bg-white m-2 p-2 hover:bg-black hover:text-white border-2 border-white text-center rounded-md cursor-pointer " +
+          props.animation
+        }
+        style={{ minWidth: 50 }}
+        onClick={(e) => props.onClick(e, props.index)}
+      >
+        {props.roll}
+      </span>
+    );
+  };
 
   // render a group of divs to represent dice
   const renderDice = () => {
-    return props.rolls.map((roll) => {
+    // map out and array of dice
+    return props.rolls.map((roll, index) => {
       if (typeof roll === "string") {
-        return <Di roll={"d"+roll} animation=""/>
+        return (
+          <Di
+            roll={"d" + roll}
+            animation=""
+            key={"di" + index}
+            index={index}
+            onClick={props.onClick}
+          />
+        );
       } else {
-        return <Di roll={roll} animation="diceSpin"/>;
+        return (
+          <Di
+            roll={roll}
+            animation="diceSpin"
+            key={"di" + index}
+            index={index}
+            onClick={props.onClick}
+          />
+        );
       }
     });
   };
 
   return (
     <div className="grid grid-cols-12">
-      <div className="flex flex-wrap justify-around py-2 border border-red-800 overflow-auto col-span-8">
+      <div className="flex flex-wrap justify-around py-2 overflow-auto col-span-8">
         {renderDice()}
       </div>
-      <div className="border border-red-800 col-span-2 py-2">
-        <h3 className="text-center py-2">Modifier</h3>
-        <p className="text-center">{props.mod >= 0 ? "+"+ props.mod : props.mod}</p>
+      <div className="col-span-2 py-2 text-center">
+        <h3>Modifier</h3>
+        <p>{props.mod >= 0 ? "+" + props.mod : props.mod}</p>
       </div>
-      <div className="border border-red-800 col-span-2 py-2">
-        <h3 className="text-center py-2">Result</h3>
-        <p className="text-center">{props.result}</p>
+      <div className="col-span-2 py-2 text-center">
+        <h3>Result</h3>
+        <p>{props.result}</p>
       </div>
     </div>
   );

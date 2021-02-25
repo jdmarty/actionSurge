@@ -263,13 +263,13 @@ function Battle() {
         {/* Display Character / Monster */}
         <div
           className="border border-black bg-indigo-300 overflow-auto"
-          style={{ height: "60%" }}
+          style={{ height: "70%" }}
         >
         </div>
         {/* Dice Roller */}
         <div
           className="border border-black bg-indigo-300 overflow-auto"
-          style={{ height: "40%" }}
+          style={{ height: "30%" }}
         >
           <DiceRoller />
         </div>

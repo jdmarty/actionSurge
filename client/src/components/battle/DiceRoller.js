@@ -4,7 +4,7 @@ import DiceBox from "./DiceBox";
 
 function DiceRoller() {
   // Local states
-  const [number, setNumber] = useState(1);
+  const [number, setNumber] = useState(0);
   const [type, setType] = useState("20");
   const [mod, setMod] = useState(0);
   const [rolls, setRolls] = useState([]);
@@ -80,10 +80,24 @@ function DiceRoller() {
     setResult(newResult);
   };
 
+  // handle single dice roll
+  const handleSingleRoll = (e, index) => {
+    const newRolls = [...rolls]
+    // change the roll at the target index
+    newRolls[index] = rollDice(type);
+    setRolls(newRolls)
+    // sum up all number values in the rolls array
+    const newResult = newRolls.reduce((a,b) => {
+      if (typeof b == "string") return a
+      else return a + b
+    }, 0)
+    setResult(newResult)
+  }
+
   return (
-    <div className="h-full">
+    <div className="h-full overflow-auto">
       {/* Selection Header */}
-      <div className="flex flex-wrap justify-around py-2 border">
+      <div className="flex flex-wrap justify-around py-2">
         {/* Inputs */}
         <div className="p-2 flex justify-center space-x-2">
           {/* Dice Number Input */}
@@ -141,7 +155,7 @@ function DiceRoller() {
         </div>
       </div>
       {/* Dice Box */}
-      <DiceBox rolls={rolls} result={result} mod={mod} />
+      <DiceBox rolls={rolls} result={result} mod={mod} onClick={handleSingleRoll}/>
     </div>
   );
 }
