@@ -1,14 +1,13 @@
 import React, { useState, useRef, useEffect } from "react";
-import { getBonusFromStat } from "../../utils/battleFunctions"
 
-function DisplayCharacter(props) {
+function DisplayMonster(props) {
   // state to track hitpoints
   const [hitPoints, setHitPoints] = useState(props.current_hit_points);
 
   // update hitpoints when props change
   useEffect(() => {
-    setHitPoints(props.current_hit_points)
-  }, [props.current_hit_points])
+    setHitPoints(props.current_hit_points);
+  }, [props.current_hit_points]);
 
   // input references
   const hitPointsInput = useRef();
@@ -17,24 +16,11 @@ function DisplayCharacter(props) {
   const handleChange = () => {
     // maintain hitpoints above 0
     let newHitPoints = hitPointsInput.current.value;
-    if (newHitPoints < 0) newHitPoints = 0
+    if (newHitPoints < 0) newHitPoints = 0;
     // set hit points locally and globally
-    setHitPoints(newHitPoints)
+    setHitPoints(newHitPoints);
     props.onChange(newHitPoints, props.name, props._id);
-  }
-
-  // render ability score cards
-  const renderAbilityCard = (name, stat) => {
-    const bonus = getBonusFromStat(stat)
-
-    return (
-      <div className="text-center border w-12">
-        <h2>{name}</h2>
-        <p>{stat}</p>
-        <p>{bonus >= 0 ? "+ "+bonus : bonus}</p>
-      </div>
-    )
-  }
+  };
 
   return (
     <>
@@ -62,17 +48,8 @@ function DisplayCharacter(props) {
           </span>
         </div>
       </div>
-      {/* Ability Score Cards */}
-      <div className="px-6 flex flex-wrap justify-around">
-        {renderAbilityCard("STR", props.strength)}
-        {renderAbilityCard("DEX", props.dexterity)}
-        {renderAbilityCard("CON", props.constitution)}
-        {renderAbilityCard("INT", props.intelligence)}
-        {renderAbilityCard("WIS", props.wisdom)}
-        {renderAbilityCard("CHA", props.charisma)}
-      </div>
     </>
   );
 }
 
-export default DisplayCharacter;
+export default DisplayMonster;

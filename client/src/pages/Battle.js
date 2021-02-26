@@ -10,8 +10,9 @@ import AddPlayerModal from "../components/battle/AddPlayerModal";
 import AddMonsterModal from "../components/battle/AddMonsterModal";
 import ConfirmResetModal from "../components/battle/ConfirmRestModal";
 import InitiativeCard from "../components/battle/InitiativeCard";
-import DiceRoller from "../components/battle/DiceRoller"
-import DisplayCharacter from "../components/battle/DisplayCharacter"
+import DiceRoller from "../components/battle/DiceRoller";
+import DisplayCharacter from "../components/battle/DisplayCharacter";
+import DisplayMonster from "../components/battle/DisplayMonster"
 
 function Battle() {
   //state variables
@@ -19,7 +20,7 @@ function Battle() {
   const [allCharacters, setAllCharacters] = useState([]);
   const [allMonsters, setAllMonsters] = useState([]);
   const [combatants, setCombatants] = useState([]);
-  const [viewCombatant, setViewCombatant] = useState({})
+  const [viewCombatant, setViewCombatant] = useState({});
 
   // Use effect to load user characters and monsters on mount
   useEffect(() => {
@@ -62,12 +63,12 @@ function Battle() {
     }
     // give the character a base initiative and health
     newCharacter.initiative = 0;
-    newCharacter.current_hit_points = newCharacter.hit_points
+    newCharacter.current_hit_points = newCharacter.hit_points;
     // push the new player to the current array and set state
     currentCombatants.push(newCharacter);
     setCombatants(currentCombatants);
     // set to view the current combatant
-    setViewCombatant(currentCombatants[0])
+    setViewCombatant(currentCombatants[0]);
   };
 
   // Add a monster to the battle
@@ -180,7 +181,32 @@ function Battle() {
     // set to view the current combatant
     setViewCombatant(currentCombatants[0]);
     return currentCombatants;
-  }
+  };
+  // ===================================================================
+
+  // HIT POINTS TRACKING================================================
+  // Handle manual change of hit points
+  const handleHPChange = (value, name, id) => {
+    console.log(combatants)
+    // remap the combatants array by either id or name
+    const newCombatants = id
+      ? combatants.map((combatant) => {
+          if (combatant._id === id) {
+            return { ...combatant, current_hit_points: Number(value) };
+          }
+          return combatant;
+        })
+      : combatants.map((combatant) => {
+          if (combatant.name === name) {
+            return { ...combatant, current_hit_points: Number(value) };
+          }
+          return combatant;
+        });
+    // set combatants to the new array
+    setCombatants(newCombatants);
+    setViewCombatant(newCombatants[0]);
+  };
+
   // ===================================================================
 
   // grid generation for now============================================
@@ -255,15 +281,14 @@ function Battle() {
 
   // Render Functions===============================================
   const renderInitiativeCards = (combatants) => {
-
     return combatants.map((combatant, index) => {
       return (
         <InitiativeCard
-          first = {index === 0 ? true : false}
+          first={index === 0 ? true : false}
           {...combatant}
           onClick={handleRemoveCombatant}
           onChange={handleUpdateInitiative}
-          key={"initiative"+index}
+          key={"initiative" + index}
         />
       );
     });
@@ -279,7 +304,12 @@ function Battle() {
           className="border border-black bg-indigo-300 overflow-auto"
           style={{ height: "70%" }}
         >
-          <DisplayCharacter {...viewCombatant}/>
+          {viewCombatant.name &&
+            (viewCombatant._id ? (
+              <DisplayCharacter {...viewCombatant} onChange={handleHPChange} />
+            ) : (
+              <DisplayMonster {...viewCombatant} onChange={handleHPChange} />
+            ))}
         </div>
         {/* Dice Roller */}
         <div
@@ -338,7 +368,9 @@ function Battle() {
           </button>
         </div>
         {/* Initiative tracker */}
-        <ul className="overflow-auto px-2">{renderInitiativeCards(combatants)}</ul>
+        <ul className="overflow-auto px-2">
+          {renderInitiativeCards(combatants)}
+        </ul>
       </div>
 
       {/* Add Player Modal */}
