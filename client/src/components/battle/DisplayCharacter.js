@@ -100,24 +100,6 @@ function DisplayCharacter(props) {
     );
   };
 
-  // Weapon Cards
-  const renderWeaponCards = (props) => {
-    return props.weapons.map((weapon) => {
-      return <li className="bg-white px-2 rounded-md hover:underline cursor-pointer">{parseIndexName(weapon)}</li>
-    })
-  }
-
-  // Spell Cards
-  const renderSpellCards = (props) => {
-    return props.spells.map((spell) => {
-      return (
-        <li className="bg-white px-2 rounded-md hover:underline cursor-pointer">
-          {parseIndexName(spell)}
-        </li>
-      );
-    });
-  }
-
   // Skill Cards
   const renderSkillCards = (props) => {
     return skills.map((skill) => {
@@ -131,6 +113,28 @@ function DisplayCharacter(props) {
         <li className="flex justify-between" key={skill.label}>
           <span>{skill.label}</span>
           <span>{bonus >= 0 ? "+" + bonus : bonus}</span>
+        </li>
+      );
+    });
+  };
+
+  // Weapon Cards
+  const renderWeaponCards = (props) => {
+    return props.weapons.map((weapon) => {
+      return (
+        <li className="bg-white my-2 px-2 rounded-md hover:underline cursor-pointer">
+          {parseIndexName(weapon)}
+        </li>
+      );
+    });
+  };
+
+  // Spell Cards
+  const renderSpellCards = (props) => {
+    return props.spells.map((spell) => {
+      return (
+        <li className="bg-white my-2 px-2 rounded-md hover:underline cursor-pointer">
+          {parseIndexName(spell)}
         </li>
       );
     });
@@ -201,12 +205,12 @@ function DisplayCharacter(props) {
       <ul className="px-10 my-2">{renderSkillCards(props)}</ul>
       {/* Weapons */}
       <h2 className="border-b">Weapons</h2>
-      <ul className="px-10 my-2 flex justify-around space-x-2">
+      <ul className="px-10 my-2 flex flex-wrap justify-around space-x-2">
         {renderWeaponCards(props)}
       </ul>
       {/* Spells */}
       <h2 className="border-b">Spells</h2>
-      <ul className="px-10 my-2 flex justify-around space-x-2">
+      <ul className="px-10 my-2 flex flex-wrap justify-around space-x-2">
         {renderSpellCards(props)}
       </ul>
     </div>

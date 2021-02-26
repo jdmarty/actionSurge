@@ -3,7 +3,6 @@ import React, { useEffect, useRef, useState } from "react";
 function InitiativeCard(props) {
   // conditional class for monster and first
   const monster = props._id ? false : true;
-  const first = props.first;
   // state to track initiative value
   const [initiative, setInitiative] = useState(0);
   const initiativeInput = useRef();
@@ -21,9 +20,10 @@ function InitiativeCard(props) {
 
   return (
     <li
-      className={`border border-black my-4 flex justify-between px-4 py-2 rounded-md ${
+      className={`border border-black my-4 flex justify-between px-4 py-2 rounded-md cursor-pointer ${
         monster ? "bg-red-300 " : "bg-green-300 "
-      }${first && "ring-4 ring-blue-500"}`}
+      }${props.first && "ring-4 ring-blue-500"}`}
+      onClick={() => props.onViewClick(props.name, props._id)}
     >
       {/* Display Name */}
       <dt className="w-1/2">{props.name}</dt>

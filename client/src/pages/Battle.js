@@ -185,6 +185,16 @@ function Battle() {
     console.log(currentCombatants[0]);
     return currentCombatants;
   };
+
+  // Click to view combatant
+  const handleViewClick = (name, id) => {
+    // Search for target by id or name
+    const target = id
+      ? combatants.find((combatant) => combatant._id === id)
+      : combatants.find((combatant) => combatant.name === name);
+    // set viewCombatant to the target
+    setViewCombatant(target)
+  }
   // ===================================================================
 
   // HIT POINTS TRACKING================================================
@@ -290,6 +300,7 @@ function Battle() {
           first={index === 0 ? true : false}
           {...combatant}
           onClick={handleRemoveCombatant}
+          onViewClick={handleViewClick}
           onChange={handleUpdateInitiative}
           key={"initiative" + index}
         />
