@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { getBonusFromStat } from "../../utils/battleFunctions"
+import { getBonusFromStat, parseIndexName } from "../../utils/battleFunctions";
 
 function DisplayCharacter(props) {
   // state to track hitpoints
@@ -7,8 +7,8 @@ function DisplayCharacter(props) {
 
   // update hitpoints when props change
   useEffect(() => {
-    setHitPoints(props.current_hit_points)
-  }, [props.current_hit_points])
+    setHitPoints(props.current_hit_points);
+  }, [props.current_hit_points]);
 
   // input references
   const hitPointsInput = useRef();
@@ -17,33 +17,79 @@ function DisplayCharacter(props) {
   const handleChange = () => {
     // maintain hitpoints above 0
     let newHitPoints = hitPointsInput.current.value;
-    if (newHitPoints < 0) newHitPoints = 0
+    if (newHitPoints < 0) newHitPoints = 0;
     // set hit points locally and globally
-    setHitPoints(newHitPoints)
+    setHitPoints(newHitPoints);
     props.onChange(newHitPoints, props.name, props._id);
-  }
+  };
 
-  // render ability score cards
-  const renderAbilityCard = (name, stat) => {
-    const bonus = getBonusFromStat(stat)
-
+  // Ability score cards
+  const AbilityCard = (props) => {
+    const bonus = getBonusFromStat(props.stat);
+    const getColor = (stat) => {
+      if (stat > 10) return "bg-green-500";
+      if (stat === 10) return "bg-yellow-500";
+      return "bg-red-500";
+    };
     return (
-      <div className="text-center border w-12">
-        <h2>{name}</h2>
-        <p>{stat}</p>
-        <p>{bonus >= 0 ? "+ "+bonus : bonus}</p>
+      <div
+        className={`text-center border w-12 rounded-md ${getColor(props.stat)}`}
+      >
+        <h2>{props.name}</h2>
+        <p>{props.stat}</p>
+        <p>{bonus >= 0 ? "+ " + bonus : bonus}</p>
       </div>
-    )
-  }
+    );
+  };
+
+  // Saving Throw Cards
+  const SaveCard = (props) => {
+    let bonus = getBonusFromStat(props.stat);
+    if (props.proficient) bonus += props.profBonus;
+    return (
+      <div className="text-center border w-12 rounded-md bg-white">
+        <h2>{props.name}</h2>
+        <p>{bonus >= 0 ? "+ " + bonus : bonus}</p>
+      </div>
+    );
+  };
+
+  // Render Save Cards
+  const renderSaveCards = () => {
+    // array of all stats
+    const stats = [
+      "strength",
+      "dexterity",
+      "constitution",
+      "intelligence",
+      "wisdom",
+      "charisma",
+    ];
+    // map these stats to an array of save cards
+    return stats.map((stat) => {
+      return (
+        <SaveCard
+          name={stat.slice(0, 3).toUpperCase()}
+          stat={props[stat]}
+          proficient={props.save_proficiencies.includes(stat)}
+          profBonus={props.proficiency}
+        />
+      );
+    });
+  };
 
   return (
-    <>
+    <div className="text-center">
       {/* Name Header */}
-      <h1 className="text-center m-2 text-2xl">{props.name}</h1>
+      <h1 className="m-2 text-2xl">
+        {props.name}{" "}
+        {props.classType &&
+          ` | Lvl ${props.level + " "}${parseIndexName(props.classType)}`}
+      </h1>
       {/* Hit Points and Armor Class */}
       <div className="px-6 flex flex-wrap justify-around">
         {/* Hit Points */}
-        <div className="text-center flex text-red-500 text-2xl">
+        <div className="flex text-red-500 text-2xl">
           <i className="fas fa-2x fa-heart"></i>
           <input
             className="mx-2 w-16 text-center bg-transparent"
@@ -55,23 +101,33 @@ function DisplayCharacter(props) {
           <span className="font-bold">/ {props.hit_points}</span>
         </div>
         {/* Armor Class */}
-        <div className="text-center flex text-2xl relative">
+        <div className="flex text-2xl relative">
           <i className="fas fa-2x fa-shield"></i>
           <span className="absolute text-white" style={{ right: "25%" }}>
             {props.armor_class}
           </span>
         </div>
+        {/* Speed */}
+        <span className="text-black text-2xl" style={{ right: "25%" }}>
+          {props.speed+" ft"}
+        </span>
       </div>
       {/* Ability Score Cards */}
-      <div className="px-6 flex flex-wrap justify-around">
-        {renderAbilityCard("STR", props.strength)}
-        {renderAbilityCard("DEX", props.dexterity)}
-        {renderAbilityCard("CON", props.constitution)}
-        {renderAbilityCard("INT", props.intelligence)}
-        {renderAbilityCard("WIS", props.wisdom)}
-        {renderAbilityCard("CHA", props.charisma)}
+      <h2>Ability Scores</h2>
+      <div className="px-6 mb-2 flex flex-wrap justify-around">
+        <AbilityCard name="STR" stat={props.strength} />
+        <AbilityCard name="DEX" stat={props.dexterity} />
+        <AbilityCard name="CON" stat={props.constitution} />
+        <AbilityCard name="INT" stat={props.intelligence} />
+        <AbilityCard name="WIS" stat={props.wisdom} />
+        <AbilityCard name="CHA" stat={props.charisma} />
       </div>
-    </>
+      {/* Saving Throws */}
+      <h2>Saving Throws</h2>
+      <div className="px-6 flex flex-wrap justify-around">
+        {renderSaveCards()}
+      </div>
+    </div>
   );
 }
 

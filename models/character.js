@@ -19,6 +19,8 @@ const CharacterSchema = new Schema({
     validate: [(num) => num >= 0, "Armor class must be greater than 0"],
   },
 
+  speed: Number,
+
   race: {
     type: String,
     required: "A race is required",

@@ -141,6 +141,7 @@ function Battle() {
     );
     // set state to the updated combatant list
     setCombatants(sortedCombatants);
+    setViewCombatant(sortedCombatants[0]);
     return sortedCombatants;
   };
 
@@ -180,6 +181,7 @@ function Battle() {
     setCombatants(currentCombatants);
     // set to view the current combatant
     setViewCombatant(currentCombatants[0]);
+    console.log(currentCombatants[0])
     return currentCombatants;
   };
   // ===================================================================
@@ -304,12 +306,11 @@ function Battle() {
           className="border border-black bg-indigo-300 overflow-auto"
           style={{ height: "70%" }}
         >
-          {viewCombatant.name &&
-            (viewCombatant._id ? (
-              <DisplayCharacter {...viewCombatant} onChange={handleHPChange} />
-            ) : (
-              <DisplayMonster {...viewCombatant} onChange={handleHPChange} />
-            ))}
+          {viewCombatant.name && (viewCombatant._id ? (
+            <DisplayCharacter {...viewCombatant} onChange={handleHPChange} />
+          ) : (
+            <DisplayMonster {...viewCombatant} onChange={handleHPChange} />
+          ))}
         </div>
         {/* Dice Roller */}
         <div
