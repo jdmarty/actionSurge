@@ -13,6 +13,11 @@ import InitiativeCard from "../components/battle/InitiativeCard";
 import DiceRoller from "../components/battle/DiceRoller";
 import DisplayCharacter from "../components/battle/DisplayCharacter";
 import DisplayMonster from "../components/battle/DisplayMonster";
+// grid components
+import Token from "../components/battle/grid/Token"
+import Square from "../components/battle/grid/Square"
+import Board from "../components/battle/grid/Board"
+
 
 function Battle() {
   //state variables
@@ -222,9 +227,10 @@ function Battle() {
   // ===================================================================
 
   // grid generation for now============================================
-  const squaresPerLine = 20;
+ 
 
   const GridSquare = () => {
+    const squaresPerLine = 20
     return (
       <div
         className="border-gray-100 border bg-blue-100"
@@ -237,6 +243,7 @@ function Battle() {
   };
 
   const generateGrid = () => {
+    const squaresPerLine = 20;
     const grid = [];
     for (let i = 0; i < squaresPerLine * squaresPerLine; i++) {
       grid.push(<GridSquare key={"square" + i} />);
@@ -348,9 +355,6 @@ function Battle() {
           >
             Add Monster
           </button>
-          <button className="bg-blue-500 px-4 py-2 rounded-lg mx-6">
-            Dice Roller
-          </button>
           <button
             className="bg-red-500 px-4 py-2 rounded-lg mx-6"
             onClick={openConfirmModal}
@@ -359,9 +363,7 @@ function Battle() {
           </button>
         </div>
         {/* Grid */}
-        <div className="flex flex-wrap" style={{ height: "90%" }}>
-          {generateGrid()}
-        </div>
+        <Board squaresPerLine={20} combatants={combatants}/>
       </div>
       {/* Right Column */}
       <div className="col-span-3 border-black border p-5 overflow-auto">

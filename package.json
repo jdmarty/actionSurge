@@ -35,6 +35,8 @@
     "mongojs": "^3.1.0",
     "mongoose": "^5.3.16",
     "morgan": "^1.10.0",
+    "react-dnd": "^13.1.1",
+    "react-dnd-html5-backend": "^12.1.1",
     "react-modal": "^3.12.1",
     "react-router-dom": "^5.2.0",
     "react-select": "^4.1.0",
