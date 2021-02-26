@@ -39,17 +39,21 @@ function DisplayMonster(props) {
   const AbilityCard = (props) => {
     const bonus = getBonusFromStat(props.stat);
     const getColor = (stat) => {
-      if (stat > 10) return "bg-green-500";
-      if (stat === 10) return "bg-yellow-500";
+      if (stat > 11) return "bg-green-500";
+      if (stat === 10 || stat === 11) return "bg-yellow-500";
       return "bg-red-500";
     };
     return (
       <div
-        className={`text-center border w-12 rounded-md ${getColor(props.stat)}`}
+        className={`text-center w-12 shadow-xl rounded-md border ${getColor(
+          props.stat
+        )}`}
       >
-        <h2>{props.name}</h2>
+        <h2 className="font-bold">{props.name}</h2>
         <p>{props.stat}</p>
-        <p>{bonus >= 0 ? "+ " + bonus : bonus}</p>
+        <p className="bg-white rounded w-3/4 mx-auto transform translate-y-1 border border-black">
+          {bonus >= 0 ? "+ " + bonus : bonus}
+        </p>
       </div>
     );
   };
@@ -86,22 +90,12 @@ function DisplayMonster(props) {
   };
 
   // Render Actions
-  const renderActions = (props) => {
-    return props.actions.map(action => {
-      return <div className="mt-2">
-        <h3 className="bg-red-300">{action.name}</h3>
-        <p className="bg-white">{action.desc}</p>
-      </div>
-    })
-  }
-
-  //Render Special Abilities
-  const renderSpecial = (props) => {
-    return props.special_abilities.map((action) => {
+  const renderActions = (array) => {
+    return array.map((action) => {
       return (
-        <div className="mt-2">
-          <h3 className="bg-red-300">{action.name}</h3>
-          <p className="bg-white">{action.desc}</p>
+        <div className="mt-2 rounded-md shadow-lg">
+          <h3 className="bg-red-900 text-white">{action.name}</h3>
+          <p className="bg-white p-2">{action.desc}</p>
         </div>
       );
     });
@@ -115,7 +109,11 @@ function DisplayMonster(props) {
       <div className="px-6 flex flex-wrap justify-around">
         {/* Hit Points */}
         <div className="text-center flex text-red-500 text-2xl">
-          <i className="fas fa-2x fa-heart"></i>
+          {hitPoints > 0 ? (
+            <i className="fas fa-2x fa-heart"></i>
+          ) : (
+            <i className="fas fa-2x fa-skull text-black"></i>
+          )}
           <input
             className="mx-2 w-16 text-center bg-transparent"
             type="number"
@@ -138,7 +136,7 @@ function DisplayMonster(props) {
         {renderSpeeds(props)}
       </div>
       {/* Ability Score Cards */}
-      <h2 className="border-b">Ability Scores</h2>
+      <h2 className="bg-gray-800 text-white">- Ability Scores -</h2>
       <div className="px-6 my-2 flex flex-wrap justify-around">
         <AbilityCard name="STR" stat={props.strength} />
         <AbilityCard name="DEX" stat={props.dexterity} />
@@ -148,7 +146,7 @@ function DisplayMonster(props) {
         <AbilityCard name="CHA" stat={props.charisma} />
       </div>
       {/* Defenses */}
-      <h2 className="border-b">Defenses</h2>
+      <h2 className="bg-gray-800 text-white">- Defenses -</h2>
       <div className="px-6 my-2 flex flex-wrap justify-around space-x-2">
         <DefenseCard
           name="Immune"
@@ -158,14 +156,14 @@ function DisplayMonster(props) {
         <DefenseCard name="Vulnerable" array={props.damage_vulnerabilities} />
       </div>
       {/* Proficiencies */}
-      <h2 className="border-b">Proficiencies</h2>
+      <h2 className="bg-gray-800 text-white">- Proficiencies -</h2>
       <ul className="px-10 my-2">{renderProficiencies(props)}</ul>
       {/* Actions */}
-      <h2 className="border-b">Actions</h2>
-      <div className="px-10 my-2">{renderActions(props)}</div>
+      <h2 className="bg-gray-800 text-white">- Actions -</h2>
+      <div className="px-10 my-2">{renderActions(props.actions)}</div>
       {/* Special Abilities */}
-      <h2 className="border-b">Special Abilities</h2>
-      <div className="px-10 my-2">{renderSpecial(props)}</div>
+      <h2 className="bg-gray-800 text-white">- Special Abilities -</h2>
+      <div className="px-10 my-2">{renderActions(props.special_abilities)}</div>
     </div>
   );
 }

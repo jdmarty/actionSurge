@@ -4,10 +4,10 @@ import DiceBox from "./DiceBox";
 
 function DiceRoller() {
   // Local states
-  const [number, setNumber] = useState(0);
+  const [number, setNumber] = useState(1);
   const [type, setType] = useState("20");
   const [mod, setMod] = useState(0);
-  const [rolls, setRolls] = useState([]);
+  const [rolls, setRolls] = useState(["20"]);
   const [result, setResult] = useState(0);
 
   // References

@@ -31,17 +31,21 @@ function DisplayCharacter(props) {
   const AbilityCard = (props) => {
     const bonus = getBonusFromStat(props.stat);
     const getColor = (stat) => {
-      if (stat > 10) return "bg-green-500";
-      if (stat === 10) return "bg-yellow-500";
+      if (stat > 11) return "bg-green-500";
+      if (stat === 10 || stat === 11) return "bg-yellow-500";
       return "bg-red-500";
     };
     return (
       <div
-        className={`text-center border w-12 rounded-md ${getColor(props.stat)}`}
+        className={`text-center w-12 shadow-xl rounded-md border ${getColor(
+          props.stat
+        )}`}
       >
-        <h2>{props.name}</h2>
+        <h2 className="font-bold">{props.name}</h2>
         <p>{props.stat}</p>
-        <p>{bonus >= 0 ? "+ " + bonus : bonus}</p>
+        <p className="bg-white rounded w-3/4 mx-auto transform translate-y-1 border border-black">
+          {bonus >= 0 ? "+ " + bonus : bonus}
+        </p>
       </div>
     );
   };
@@ -50,10 +54,19 @@ function DisplayCharacter(props) {
   const SaveCard = (props) => {
     let bonus = getBonusFromStat(props.stat);
     if (props.proficient) bonus += props.profBonus;
+    const getColor = (bonus) => {
+      if (bonus > 0) return "bg-green-500";
+      if (bonus === 0) return "bg-yellow-500";
+      return "bg-red-500";
+    };
     return (
-      <div className="text-center border w-12 rounded-md bg-white">
-        <h2>{props.name}</h2>
-        <p>{bonus >= 0 ? "+ " + bonus : bonus}</p>
+      <div
+        className={`text-center w-12 shadow-xl rounded-md ${getColor(bonus)}`}
+      >
+        <h2 className="font-bold">{props.name}</h2>
+        <p className="bg-white rounded w-3/4 mx-auto transform translate-y-1 border border-black">
+          {bonus >= 0 ? "+ " + bonus : bonus}
+        </p>
       </div>
     );
   };
@@ -88,7 +101,9 @@ function DisplayCharacter(props) {
     if (props.array.length < 1) return <></>;
     return (
       <div className="text-center border w-24 rounded-md bg-white">
-        <h2 className="border-b bg-black text-white rounded-md">{props.name}</h2>
+        <h2 className="border-b bg-black text-white rounded-md">
+          {props.name}
+        </h2>
         {props.array.map((item, index) => {
           return (
             <p className="text-sm" key={props.name + index}>
@@ -111,6 +126,7 @@ function DisplayCharacter(props) {
         : baseBonus;
       return (
         <li className="flex justify-between" key={skill.label}>
+          <span>{skill.base.slice(0, 3).toUpperCase()}</span>
           <span>{skill.label}</span>
           <span>{bonus >= 0 ? "+" + bonus : bonus}</span>
         </li>
@@ -146,10 +162,10 @@ function DisplayCharacter(props) {
       <h1 className="m-2 text-2xl">
         {props.name}{" "}
         {props.classType &&
-          ` | Lvl ${props.level + " "}${parseIndexName(props.classType)}`}
+          ` - Lvl ${props.level + " "}${parseIndexName(props.classType)}`}
       </h1>
       {/* Hit Points and Armor Class */}
-      <div className="px-6 flex flex-wrap justify-around">
+      <div className="m-2 flex flex-wrap justify-around">
         {/* Hit Points */}
         <div className="flex text-red-500 text-2xl">
           <i className="fas fa-2x fa-heart"></i>
@@ -170,12 +186,10 @@ function DisplayCharacter(props) {
           </span>
         </div>
         {/* Speed */}
-        <span className="text-black text-2xl">
-          {props.speed + " ft"}
-        </span>
+        <span className="text-black text-2xl">{props.speed + " ft"}</span>
       </div>
       {/* Ability Score Cards */}
-      <h2 className="border-b">Ability Scores</h2>
+      <h2 className="bg-gray-800 text-white">- Ability Scores -</h2>
       <div className="px-6 my-2 flex flex-wrap justify-around">
         <AbilityCard name="STR" stat={props.strength} />
         <AbilityCard name="DEX" stat={props.dexterity} />
@@ -185,12 +199,12 @@ function DisplayCharacter(props) {
         <AbilityCard name="CHA" stat={props.charisma} />
       </div>
       {/* Saving Throws */}
-      <h2 className="border-b">Saving Throws</h2>
+      <h2 className="bg-gray-800 text-white mt-4">- Saving Throws -</h2>
       <div className="px-6 my-2 flex flex-wrap justify-around">
         {renderSaveCards()}
       </div>
       {/* Defenses */}
-      <h2 className="border-b">Defenses</h2>
+      <h2 className="bg-gray-800 text-white mt-4">- Defenses -</h2>
       <div className="px-6 my-2 flex flex-wrap justify-around space-x-2">
         <DefenseCard
           name="Immune"
@@ -201,15 +215,15 @@ function DisplayCharacter(props) {
       </div>
 
       {/* Skills */}
-      <h2 className="border-b">Skills</h2>
+      <h2 className="border-b bg-gray-800 text-white mt-4">- Skills -</h2>
       <ul className="px-10 my-2">{renderSkillCards(props)}</ul>
       {/* Weapons */}
-      <h2 className="border-b">Weapons</h2>
+      <h2 className="border-b bg-gray-800 text-white mt-4">- Weapons -</h2>
       <ul className="px-10 my-2 flex flex-wrap justify-around space-x-2">
         {renderWeaponCards(props)}
       </ul>
       {/* Spells */}
-      <h2 className="border-b">Spells</h2>
+      <h2 className="border-b bg-gray-800 text-white mt-4">- Spells -</h2>
       <ul className="px-10 my-2 flex flex-wrap justify-around space-x-2">
         {renderSpellCards(props)}
       </ul>

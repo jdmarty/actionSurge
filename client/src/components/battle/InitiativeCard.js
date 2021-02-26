@@ -18,6 +18,8 @@ function InitiativeCard(props) {
     setInitiative(newInitiative);
   };
 
+  console.log(props.current_hit_points)
+
   return (
     <li
       className={`border border-black my-4 flex justify-between px-4 py-2 rounded-md cursor-pointer ${
@@ -26,7 +28,7 @@ function InitiativeCard(props) {
       onClick={() => props.onViewClick(props.name, props._id)}
     >
       {/* Display Name */}
-      <dt className="w-1/2">{props.name}</dt>
+      <dt className={`w-1/2 ${props.current_hit_points <= 0 && "line-through"}`}>{props.name}</dt>
       {/* Flexbox containing initiative input */}
       <div className="text-right flex justify-between">
         <label>Initiative</label>

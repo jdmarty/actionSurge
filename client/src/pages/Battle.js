@@ -217,7 +217,6 @@ function Battle() {
         });
     // set combatants to the new array
     setCombatants(newCombatants);
-    setViewCombatant(newCombatants[0]);
   };
 
   // ===================================================================
@@ -315,7 +314,7 @@ function Battle() {
       <div className="col-span-3 overflow-auto">
         {/* Display Character / Monster */}
         <div
-          className="border border-black bg-indigo-300 overflow-auto"
+          className="border border-black bg-indigo-100 overflow-auto"
           style={{ height: "70%" }}
         >
           {viewCombatant.name &&
