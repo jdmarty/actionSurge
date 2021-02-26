@@ -312,7 +312,7 @@ function Battle() {
   return (
     <div className="grid grid-cols-12 bg-white m-4" style={{ height: "88vh" }}>
       {/* Left Column */}
-      <div className="col-span-3 border-black border overflow-auto">
+      <div className="col-span-3 overflow-auto">
         {/* Display Character / Monster */}
         <div
           className="border border-black bg-indigo-300 overflow-auto"

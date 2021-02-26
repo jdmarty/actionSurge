@@ -85,10 +85,10 @@ function DisplayCharacter(props) {
 
   // Defense Cards
   const DefenseCard = (props) => {
-    if (props.array.length < 1) return <div>-</div>;
+    if (props.array.length < 1) return <></>;
     return (
       <div className="text-center border w-24 rounded-md bg-white">
-        <h2 className="border-b">{props.name}</h2>
+        <h2 className="border-b bg-black text-white rounded-md">{props.name}</h2>
         {props.array.map((item, index) => {
           return (
             <p className="text-sm" key={props.name + index}>
@@ -170,7 +170,7 @@ function DisplayCharacter(props) {
           </span>
         </div>
         {/* Speed */}
-        <span className="text-black text-2xl" style={{ right: "25%" }}>
+        <span className="text-black text-2xl">
           {props.speed + " ft"}
         </span>
       </div>
