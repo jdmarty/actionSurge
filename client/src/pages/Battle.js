@@ -12,7 +12,7 @@ import ConfirmResetModal from "../components/battle/ConfirmRestModal";
 import InitiativeCard from "../components/battle/InitiativeCard";
 import DiceRoller from "../components/battle/DiceRoller";
 import DisplayCharacter from "../components/battle/DisplayCharacter";
-import DisplayMonster from "../components/battle/DisplayMonster"
+import DisplayMonster from "../components/battle/DisplayMonster";
 
 function Battle() {
   //state variables
@@ -123,6 +123,7 @@ function Battle() {
   // Remove all combatants
   const handleReset = () => {
     setCombatants([]);
+    setViewCombatant({})
   };
   // ====================================================================
 
@@ -181,7 +182,7 @@ function Battle() {
     setCombatants(currentCombatants);
     // set to view the current combatant
     setViewCombatant(currentCombatants[0]);
-    console.log(currentCombatants[0])
+    console.log(currentCombatants[0]);
     return currentCombatants;
   };
   // ===================================================================
@@ -189,7 +190,7 @@ function Battle() {
   // HIT POINTS TRACKING================================================
   // Handle manual change of hit points
   const handleHPChange = (value, name, id) => {
-    console.log(combatants)
+    console.log(combatants);
     // remap the combatants array by either id or name
     const newCombatants = id
       ? combatants.map((combatant) => {
@@ -300,17 +301,18 @@ function Battle() {
   return (
     <div className="grid grid-cols-12 bg-white m-4" style={{ height: "88vh" }}>
       {/* Left Column */}
-      <div className="col-span-3 border-black border h-full">
+      <div className="col-span-3 border-black border overflow-auto">
         {/* Display Character / Monster */}
         <div
           className="border border-black bg-indigo-300 overflow-auto"
           style={{ height: "70%" }}
         >
-          {viewCombatant.name && (viewCombatant._id ? (
-            <DisplayCharacter {...viewCombatant} onChange={handleHPChange} />
-          ) : (
-            <DisplayMonster {...viewCombatant} onChange={handleHPChange} />
-          ))}
+          {viewCombatant.name &&
+            (viewCombatant._id ? (
+              <DisplayCharacter {...viewCombatant} onChange={handleHPChange} />
+            ) : (
+              <DisplayMonster {...viewCombatant} onChange={handleHPChange} />
+            ))}
         </div>
         {/* Dice Roller */}
         <div

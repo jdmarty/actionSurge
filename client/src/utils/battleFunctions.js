@@ -15,3 +15,24 @@ export const parseIndexName = (index) => {
  })
  return parsedName.join(" ")
 }
+
+export const skills = [
+  { value: "acrobatics", label: "Acrobatics", base: "dexterity" },
+  { value: "animal-handling", label: "Animal Handling", base: "wisdom" },
+  { value: "arcana", label: "Arcana", base: "intelligence" },
+  { value: "athletics", label: "Athletics", base: "strength" },
+  { value: "deception", label: "Deception", base: "charisma" },
+  { value: "history", label: "History", base: "intelligence" },
+  { value: "insight", label: "Insight", base: "wisdom" },
+  { value: "intimidation", label: "Intimidation", base: "charisma" },
+  { value: "investigation", label: "Investigation", base: "intelligence" },
+  { value: "medicine", label: "Medicine", base: "wisdom" },
+  { value: "nature", label: "Nature", base: "intelligence" },
+  { value: "perception", label: "Perception", base: "wisdom" },
+  { value: "performance", label: "Performance", base: "charisma" },
+  { value: "persuasion", label: "Persuasion", base: "charisma" },
+  { value: "religion", label: "Religion", base: "intelligence" },
+  { value: "sleight-of-hand", label: "Sleight of Hand", base: "dexterity" },
+  { value: "stealth", label: "Stealth", base: "dexterity" },
+  { value: "survival", label: "Survival", base: "wisdom" },
+];

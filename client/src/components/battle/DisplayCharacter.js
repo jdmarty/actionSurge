@@ -1,5 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
-import { getBonusFromStat, parseIndexName } from "../../utils/battleFunctions";
+import {
+  getBonusFromStat,
+  parseIndexName,
+  skills,
+} from "../../utils/battleFunctions";
 
 function DisplayCharacter(props) {
   // state to track hitpoints
@@ -66,14 +70,50 @@ function DisplayCharacter(props) {
       "charisma",
     ];
     // map these stats to an array of save cards
-    return stats.map((stat) => {
+    return stats.map((stat, index) => {
       return (
         <SaveCard
           name={stat.slice(0, 3).toUpperCase()}
           stat={props[stat]}
           proficient={props.save_proficiencies.includes(stat)}
           profBonus={props.proficiency}
+          key={"save" + index}
         />
+      );
+    });
+  };
+
+  // Defense Cards
+  const DefenseCard = (props) => {
+    if (props.array.length < 1) return <div></div>;
+    return (
+      <div className="text-center border w-24 rounded-md bg-white">
+        <h2 className="border-b">{props.name}</h2>
+        {props.array.map((item, index) => {
+          return (
+            <p className="text-sm" key={props.name + index}>
+              {parseIndexName(item)}
+            </p>
+          );
+        })}
+      </div>
+    );
+  };
+
+  // Skill Cards
+  const renderSkillCards = (props) => {
+    return skills.map((skill) => {
+      const baseBonus = getBonusFromStat(props[skill.base]);
+      const bonus = props.skill_expertise.includes(skill.value)
+        ? baseBonus + props.proficiency * 2
+        : props.skill_proficiencies.includes(skill.value)
+        ? baseBonus + props.proficiency
+        : baseBonus;
+      return (
+        <div className="flex justify-between">
+          <span>{skill.label}</span>
+          <span>{bonus >= 0 ? "+" + bonus : bonus}</span>
+        </div>
       );
     });
   };
@@ -109,12 +149,12 @@ function DisplayCharacter(props) {
         </div>
         {/* Speed */}
         <span className="text-black text-2xl" style={{ right: "25%" }}>
-          {props.speed+" ft"}
+          {props.speed + " ft"}
         </span>
       </div>
       {/* Ability Score Cards */}
-      <h2>Ability Scores</h2>
-      <div className="px-6 mb-2 flex flex-wrap justify-around">
+      <h2 className="border-b">Ability Scores</h2>
+      <div className="px-6 my-2 flex flex-wrap justify-around">
         <AbilityCard name="STR" stat={props.strength} />
         <AbilityCard name="DEX" stat={props.dexterity} />
         <AbilityCard name="CON" stat={props.constitution} />
@@ -123,10 +163,28 @@ function DisplayCharacter(props) {
         <AbilityCard name="CHA" stat={props.charisma} />
       </div>
       {/* Saving Throws */}
-      <h2>Saving Throws</h2>
-      <div className="px-6 flex flex-wrap justify-around">
+      <h2 className="border-b">Saving Throws</h2>
+      <div className="px-6 my-2 flex flex-wrap justify-around">
         {renderSaveCards()}
       </div>
+      {/* Defenses */}
+      <h2 className="border-b">Defenses</h2>
+      <div className="px-6 my-2 flex flex-wrap justify-around space-x-2">
+        <DefenseCard
+          name="Immune"
+          array={props.damage_immunities.concat(props.condition_immunities)}
+        />
+        <DefenseCard name="Resistant" array={props.damage_resistances} />
+        <DefenseCard name="Vulnerable" array={props.damage_vulnerabilities} />
+      </div>
+      {/* Weapons */}
+      <h2 className="border-b">Weapons</h2>
+      {/* Weapons */}
+      <h2 className="border-b">Spells</h2>
+      <ul className="px-10 my-2"></ul>
+      {/* Skills */}
+      <h2 className="border-b">Skills</h2>
+      <ul className="px-10 my-2">{renderSkillCards(props)}</ul>
     </div>
   );
 }
