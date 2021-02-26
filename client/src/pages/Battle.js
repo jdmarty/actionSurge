@@ -1,6 +1,5 @@
 // modules
 import React, { useEffect, useState } from "react";
-import Modal from "react-modal";
 import { toast } from "react-toast";
 // Context and Utilities
 import { useAuthContext } from "../utils/AuthState";
@@ -12,6 +11,7 @@ import AddMonsterModal from "../components/battle/AddMonsterModal";
 import ConfirmResetModal from "../components/battle/ConfirmRestModal";
 import InitiativeCard from "../components/battle/InitiativeCard";
 import DiceRoller from "../components/battle/DiceRoller"
+import DisplayCharacter from "../components/battle/DisplayCharacter"
 
 function Battle() {
   //state variables
@@ -19,6 +19,7 @@ function Battle() {
   const [allCharacters, setAllCharacters] = useState([]);
   const [allMonsters, setAllMonsters] = useState([]);
   const [combatants, setCombatants] = useState([]);
+  const [viewCombatant, setViewCombatant] = useState({})
 
   // Use effect to load user characters and monsters on mount
   useEffect(() => {
@@ -59,9 +60,14 @@ function Battle() {
       toast.error("Selected Player is already in battle");
       return;
     }
+    // give the character a base initiative and health
+    newCharacter.initiative = 0;
+    newCharacter.current_hit_points = newCharacter.hit_points
     // push the new player to the current array and set state
     currentCombatants.push(newCharacter);
     setCombatants(currentCombatants);
+    // set to view the current combatant
+    setViewCombatant(currentCombatants[0])
   };
 
   // Add a monster to the battle
@@ -86,6 +92,8 @@ function Battle() {
       // push the new monster to the current array and set state
       currentCombatants.push(newMonster);
       setCombatants(currentCombatants);
+      // set to view the current combatant
+      setViewCombatant(currentCombatants[0]);
     });
   };
 
@@ -105,6 +113,8 @@ function Battle() {
         return monster.name !== name;
       });
       setCombatants(newCombatants);
+      // set to view the current combatant
+      setViewCombatant(newCombatants[0]);
       return newCombatants;
     }
   };
@@ -155,17 +165,21 @@ function Battle() {
     );
     // set the state to the update combatants list
     setCombatants(sortedCombatants);
-    return sortedCombatants
+    // set to view the current combatant
+    setViewCombatant(sortedCombatants[0]);
+    return sortedCombatants;
   };
 
   // Advance initiative count
   const advanceInitiative = () => {
     const currentCombatants = [...combatants];
     // shift the first combatant to the back
-    const firstCombatant = currentCombatants.shift()
+    const firstCombatant = currentCombatants.shift();
     currentCombatants.push(firstCombatant);
-    setCombatants(currentCombatants)
-    return currentCombatants
+    setCombatants(currentCombatants);
+    // set to view the current combatant
+    setViewCombatant(currentCombatants[0]);
+    return currentCombatants;
   }
   // ===================================================================
 
@@ -259,12 +273,13 @@ function Battle() {
   return (
     <div className="grid grid-cols-12 bg-white m-4" style={{ height: "88vh" }}>
       {/* Left Column */}
-      <div className="col-span-3 border-black border">
+      <div className="col-span-3 border-black border h-full">
         {/* Display Character / Monster */}
         <div
           className="border border-black bg-indigo-300 overflow-auto"
           style={{ height: "70%" }}
         >
+          <DisplayCharacter {...viewCombatant}/>
         </div>
         {/* Dice Roller */}
         <div

@@ -95,7 +95,7 @@ function DiceRoller() {
   }
 
   return (
-    <div className="h-full overflow-auto">
+    <>
       {/* Selection Header */}
       <div className="flex flex-wrap justify-around py-2">
         {/* Inputs */}
@@ -156,7 +156,7 @@ function DiceRoller() {
       </div>
       {/* Dice Box */}
       <DiceBox rolls={rolls} result={result} mod={mod} onClick={handleSingleRoll}/>
-    </div>
+    </>
   );
 }
 
