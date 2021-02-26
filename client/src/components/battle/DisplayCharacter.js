@@ -85,7 +85,7 @@ function DisplayCharacter(props) {
 
   // Defense Cards
   const DefenseCard = (props) => {
-    if (props.array.length < 1) return <div></div>;
+    if (props.array.length < 1) return <div>-</div>;
     return (
       <div className="text-center border w-24 rounded-md bg-white">
         <h2 className="border-b">{props.name}</h2>
@@ -100,6 +100,24 @@ function DisplayCharacter(props) {
     );
   };
 
+  // Weapon Cards
+  const renderWeaponCards = (props) => {
+    return props.weapons.map((weapon) => {
+      return <li className="bg-white px-2 rounded-md hover:underline cursor-pointer">{parseIndexName(weapon)}</li>
+    })
+  }
+
+  // Spell Cards
+  const renderSpellCards = (props) => {
+    return props.spells.map((spell) => {
+      return (
+        <li className="bg-white px-2 rounded-md hover:underline cursor-pointer">
+          {parseIndexName(spell)}
+        </li>
+      );
+    });
+  }
+
   // Skill Cards
   const renderSkillCards = (props) => {
     return skills.map((skill) => {
@@ -110,10 +128,10 @@ function DisplayCharacter(props) {
         ? baseBonus + props.proficiency
         : baseBonus;
       return (
-        <div className="flex justify-between">
+        <li className="flex justify-between" key={skill.label}>
           <span>{skill.label}</span>
           <span>{bonus >= 0 ? "+" + bonus : bonus}</span>
-        </div>
+        </li>
       );
     });
   };
@@ -177,14 +195,20 @@ function DisplayCharacter(props) {
         <DefenseCard name="Resistant" array={props.damage_resistances} />
         <DefenseCard name="Vulnerable" array={props.damage_vulnerabilities} />
       </div>
-      {/* Weapons */}
-      <h2 className="border-b">Weapons</h2>
-      {/* Weapons */}
-      <h2 className="border-b">Spells</h2>
-      <ul className="px-10 my-2"></ul>
+
       {/* Skills */}
       <h2 className="border-b">Skills</h2>
       <ul className="px-10 my-2">{renderSkillCards(props)}</ul>
+      {/* Weapons */}
+      <h2 className="border-b">Weapons</h2>
+      <ul className="px-10 my-2 flex justify-around space-x-2">
+        {renderWeaponCards(props)}
+      </ul>
+      {/* Spells */}
+      <h2 className="border-b">Spells</h2>
+      <ul className="px-10 my-2 flex justify-around space-x-2">
+        {renderSpellCards(props)}
+      </ul>
     </div>
   );
 }
