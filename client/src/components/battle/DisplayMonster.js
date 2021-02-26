@@ -95,6 +95,18 @@ function DisplayMonster(props) {
     })
   }
 
+  //Render Special Abilities
+  const renderSpecial = (props) => {
+    return props.special_abilities.map((action) => {
+      return (
+        <div className="mt-2">
+          <h3 className="bg-red-300">{action.name}</h3>
+          <p className="bg-white">{action.desc}</p>
+        </div>
+      );
+    });
+  };
+
   return (
     <div className="text-center">
       {/* Name Header */}
@@ -148,9 +160,12 @@ function DisplayMonster(props) {
       {/* Proficiencies */}
       <h2 className="border-b">Proficiencies</h2>
       <ul className="px-10 my-2">{renderProficiencies(props)}</ul>
-      {/* Proficiencies */}
+      {/* Actions */}
       <h2 className="border-b">Actions</h2>
       <div className="px-10 my-2">{renderActions(props)}</div>
+      {/* Special Abilities */}
+      <h2 className="border-b">Special Abilities</h2>
+      <div className="px-10 my-2">{renderSpecial(props)}</div>
     </div>
   );
 }
