@@ -20,15 +20,15 @@ function Board({ spl, combatants, mover, setMover, move }) {
       // if there is a combatant there, render a token, otherwise an empty square
       if (isTokenHere) {
         grid.push(
-          <Square spl={spl} onClick={() => {}} key={i}>
-            <Token {...isTokenHere} onClick={setMover} mover={mover}/>
+          <Square spl={spl} onMouseUp={() => move(x, y)} key={i}>
+            <Token {...isTokenHere} onMouseDown={setMover} mover={mover} />
           </Square>
         );
       } else {
         grid.push(
           <Square
             spl={spl}
-            onClick={() => move(x, y)}
+            onMouseUp={() => move(x, y)}
             key={i}
             active={active}
           />

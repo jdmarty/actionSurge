@@ -1,6 +1,6 @@
 import React from "react";
 
-function Square({ spl, children, active, onClick }) {
+function Square({ spl, children, active, onMouseUp }) {
   // set width for each square
   const squareStyle = {
     width: `${100 / spl}%`,
@@ -11,7 +11,7 @@ function Square({ spl, children, active, onClick }) {
     <div
       className={`border-gray-100 border bg-blue-100 overflow-visible ${active && "hover:bg-gray-300 bg-blue-200"}`}
       style={squareStyle}
-      onClick={() => onClick()}
+      onMouseUp={() => onMouseUp()}
     >
       {children}
     </div>

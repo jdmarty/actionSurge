@@ -30,9 +30,9 @@ function Token(props) {
   // return a div containing the health bar, token name, and possible overlay
   return (
     <div
-      className={`${type} ${isMover} text-black text-center text-sm truncate cursor-pointer relative`}
+      className={`${type} ${isMover} text-black text-center text-sm truncate cursor-move relative noselect`}
       style={style}
-      onClick={() => props.onClick(props.name, props._id)}
+      onMouseDown={() => props.onMouseDown(props.name, props._id)}
     >
       {/* Health Bar */}
       <HealthBar health={remainingHealth} height={5}/>
