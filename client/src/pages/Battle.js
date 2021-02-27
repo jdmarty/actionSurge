@@ -243,17 +243,23 @@ function Battle() {
     const newCombatants = combatants.map((combatant) => {
       // match mover by id or name
       if (mover._id && combatant._id === mover._id) {
-        return {...combatant, xPos: x, yPos: y}
+        return { ...combatant, xPos: x, yPos: y };
       } else if (combatant.name === mover.name) {
-        return {...combatant, xPos: x, yPos: y}
+        return { ...combatant, xPos: x, yPos: y };
       } else {
-        return combatant
+        return combatant;
       }
-    })
+    });
     // set combatants to the new array
     setCombatants(newCombatants);
-    setMover({})
+    setMover({});
   };
+
+  // handle grid size change
+  const handleGridResize = (e) => {
+    console.log(e.target.value)
+    setSquaresPerLine(Number(e.target.value / 5))
+  }
   //====================================================================
 
   // MODALS=============================================================
@@ -317,10 +323,19 @@ function Battle() {
       );
     });
   };
+
+  const renderGridSizeOptions = () => {
+    let options = []
+    options.push(<option value={100}>{`Default`}</option>);
+    for (let i=25; i <= 200; i+=5) {
+      options.push(<option value={i}>{`${i} ft`}</option>)
+    }
+    return options
+  }
   // ===============================================================
 
   return (
-    <div className="grid grid-cols-12 bg-white m-4" style={{ height: "88vh" }}>
+    <div className="grid grid-cols-12 bg-white m-4" style={{ height: "90vh" }}>
       {/* Left Column */}
       <div className="col-span-3 overflow-auto">
         {/* Display Character / Monster */}
@@ -346,7 +361,7 @@ function Battle() {
       {/* Middle Column */}
       <div className="col-span-6 border-black border h-full">
         {/* Header row with buttons */}
-        <div className="p-4 flex justify-between">
+        <div className="p-4 flex flex-wrap justify-between">
           <button
             className="bg-green-500 px-4 py-2 rounded-lg mx-6"
             onClick={openCharacterModal}
@@ -360,16 +375,20 @@ function Battle() {
             Add Monster
           </button>
           <button
-            className="bg-gray-500 px-4 py-2 rounded-lg mx-6 line-through"
-          >
-            Damage / Heal
-          </button>
-          <button
             className="bg-red-500 px-4 py-2 rounded-lg mx-6"
             onClick={openConfirmModal}
           >
             Reset Battle
           </button>
+          <div className="bg-gray-500 text-white px-4 py-2 rounded-lg mx-6 flex justify-around space-x-2">
+            <label>Grid Size</label>
+            <select
+              className="w-24 text-black text-center"
+              onChange={handleGridResize}
+            >
+              {renderGridSizeOptions()}
+            </select>
+          </div>
         </div>
         {/* Game Board*/}
         <Board
