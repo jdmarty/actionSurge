@@ -14,8 +14,7 @@ import DiceRoller from "../components/battle/DiceRoller";
 import DisplayCharacter from "../components/battle/DisplayCharacter";
 import DisplayMonster from "../components/battle/DisplayMonster";
 // grid components
-import Board from "../components/battle/grid/Board"
-
+import Board from "../components/battle/grid/Board";
 
 function Battle() {
   //state variables
@@ -25,6 +24,7 @@ function Battle() {
   const [combatants, setCombatants] = useState([]);
   const [viewCombatant, setViewCombatant] = useState({});
   const [squaresPerLine, setSquaresPerLine] = useState(20);
+  const [mover, setMover] = useState(null);
 
   // Use effect to load user characters and monsters on mount
   useEffect(() => {
@@ -125,7 +125,7 @@ function Battle() {
   // Remove all combatants
   const handleReset = () => {
     setCombatants([]);
-    setViewCombatant({})
+    setViewCombatant({});
   };
   // ====================================================================
 
@@ -195,14 +195,13 @@ function Battle() {
       ? combatants.find((combatant) => combatant._id === id)
       : combatants.find((combatant) => combatant.name === name);
     // set viewCombatant to the target
-    setViewCombatant(target)
-  }
+    setViewCombatant(target);
+  };
   // ===================================================================
 
   // HIT POINTS TRACKING================================================
   // Handle manual change of hit points
   const handleHPChange = (value, name, id) => {
-    console.log(combatants);
     // remap the combatants array by either id or name
     const newCombatants = id
       ? combatants.map((combatant) => {
@@ -220,10 +219,30 @@ function Battle() {
     // set combatants to the new array
     setCombatants(newCombatants);
   };
-
   // ===================================================================
 
-  // MODALS==========================================================
+  // MOVEMENT===========================================================
+  // Set a token to be the active mover
+  const handleSetMover = (name, id) => {
+    if (id) {
+      const newMover = combatants.find((combatant) => combatant._id === id);
+      setMover(newMover);
+    } else {
+      const newMover = combatants.find((combatant) => combatant.name === name);
+      setMover(newMover);
+    }
+  };
+  // move a token to a new position
+  const handleMove = (x, y) => {
+    if (mover === null) return;
+    console.log(x,y)
+    // remap combatants where
+    // set combatants to the new array
+    // setCombatants(newCombatants);
+  };
+  //====================================================================
+
+  // MODALS=============================================================
   const [characterModalIsOpen, setCharacterModalIsOpen] = useState(false);
   const [monsterModalIsOpen, setMonsterModalIsOpen] = useState(false);
   const [confirmModalIsOpen, setConfirmModalIsOpen] = useState(false);
@@ -327,6 +346,12 @@ function Battle() {
             Add Monster
           </button>
           <button
+            className="bg-yellow-500 px-4 py-2 rounded-lg mx-6"
+            onClick={() => handleMove("Wolf")}
+          >
+            Move Monster
+          </button>
+          <button
             className="bg-red-500 px-4 py-2 rounded-lg mx-6"
             onClick={openConfirmModal}
           >
@@ -334,7 +359,12 @@ function Battle() {
           </button>
         </div>
         {/* Grid */}
-        <Board spl={squaresPerLine} combatants={combatants}/>
+        <Board
+          spl={squaresPerLine}
+          combatants={combatants}
+          setMover={handleSetMover}
+          move={handleMove}
+        />
       </div>
       {/* Right Column */}
       <div className="col-span-3 border-black border p-5 overflow-auto">

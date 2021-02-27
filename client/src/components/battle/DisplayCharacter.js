@@ -138,7 +138,7 @@ function DisplayCharacter(props) {
   const renderWeaponCards = (props) => {
     return props.weapons.map((weapon) => {
       return (
-        <li className="bg-white my-2 px-2 rounded-md hover:underline cursor-pointer">
+        <li className="bg-white my-2 px-2 rounded-md hover:underline cursor-pointer" key={weapon}>
           {parseIndexName(weapon)}
         </li>
       );
@@ -149,7 +149,7 @@ function DisplayCharacter(props) {
   const renderSpellCards = (props) => {
     return props.spells.map((spell) => {
       return (
-        <li className="bg-white my-2 px-2 rounded-md hover:underline cursor-pointer">
+        <li className="bg-white my-2 px-2 rounded-md hover:underline cursor-pointer" key={spell}>
           {parseIndexName(spell)}
         </li>
       );

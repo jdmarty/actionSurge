@@ -18,8 +18,6 @@ function InitiativeCard(props) {
     setInitiative(newInitiative);
   };
 
-  console.log(props.current_hit_points)
-
   return (
     <li
       className={`border border-black my-4 flex justify-between px-4 py-2 rounded-md cursor-pointer ${

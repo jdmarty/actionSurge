@@ -26,9 +26,9 @@ function DisplayMonster(props) {
   // Render Speed Cards
   const renderSpeeds = (props) => {
     const speeds = Object.keys(props.speed);
-    return speeds.map((speed) => {
+    return speeds.map((speed, index) => {
       return (
-        <span className="text-xl">
+        <span className="text-xl" key={"speed"+index}>
           {parseIndexName(speed)}: {props.speed[speed]}
         </span>
       );
@@ -81,7 +81,7 @@ function DisplayMonster(props) {
   const renderProficiencies = (props) => {
     return props.proficiencies.map((prof) => {
       return (
-        <li className="flex justify-between">
+        <li className="flex justify-between" key={prof.proficiency.name.length*Math.random()}>
           <span>{prof.proficiency.name}</span>
           <span>{prof.value >= 0 ? "+" + prof.value : prof.value}</span>
         </li>
@@ -93,7 +93,7 @@ function DisplayMonster(props) {
   const renderActions = (array) => {
     return array.map((action) => {
       return (
-        <div className="mt-2 rounded-md shadow-lg">
+        <div className="mt-2 rounded-md shadow-lg" key={action.name.length*Math.random()}>
           <h3 className="bg-red-900 text-white">{action.name}</h3>
           <p className="bg-white p-2">{action.desc}</p>
         </div>

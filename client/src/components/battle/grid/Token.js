@@ -12,9 +12,15 @@ function Token(props) {
     width: "100",
     height: "100%",
   };
-  // return a simple span containing the first letter the combatants name
+  // return a simple div containing the token name
   return (
-    <div style={tokenStyle} className={`${props._id ? "bg-green-300" : "bg-red-300"} text-black text-center`}>
+    <div
+      style={tokenStyle}
+      className={`${
+        props._id ? "bg-green-300" : "bg-red-300"
+      } text-black text-center`}
+      onClick={() => props.onClick(props.name, props._id)}
+    >
       {tokenName || "x"}
     </div>
   );
