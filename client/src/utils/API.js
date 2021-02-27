@@ -22,30 +22,35 @@ const API = {
   },
 
   // get all players for a user
-  getUserCharacters: function(userId) {
+  getUserCharacters: function (userId) {
     return axios.get(`/api/character/user/${userId}`);
   },
 
   // get a single character
   // make this more secure later
-  getCharacter: function(characterId) {
+  getCharacter: function (characterId) {
     return axios.get(`/api/character/${characterId}`);
   },
 
   // update a single character
-  updateCharacter: function(characterId, characterData) {
-    return axios.put(`/api/character/${characterId}`, characterData)
+  updateCharacter: function (characterId, characterData) {
+    return axios.put(`/api/character/${characterId}`, characterData);
+  },
+
+  // delete a single character
+  deleteCharacter: function (characterId) {
+    return axios.delete(`/api/character/${characterId}`);
   },
 
   // get all monsters
-  getAllMonsters: function() {
-    return axios.get("https://www.dnd5eapi.co/api/monsters/")
+  getAllMonsters: function () {
+    return axios.get("https://www.dnd5eapi.co/api/monsters/");
   },
 
   // get a single monster
-  getMonster: function(url) {
-    return axios.get(`https://www.dnd5eapi.co${url}`)
-  }
+  getMonster: function (url) {
+    return axios.get(`https://www.dnd5eapi.co${url}`);
+  },
 };
 
 export default API

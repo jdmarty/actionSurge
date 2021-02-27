@@ -36,10 +36,26 @@ async function getCharacter(req, res) {
 // function to update a single character
 async function updateCharacter(req, res) {
   try {
-    const updatedCharacter = await Character.updateOne({
-      _id: req.params.id
-    }, req.body);
+    const updatedCharacter = await Character.updateOne(
+      {
+        _id: req.params.id,
+      },
+      req.body
+    );
     res.json(updatedCharacter);
+  } catch (err) {
+    console.log(err);
+    res.status(400).json(err);
+  }
+}
+
+// function to update a single character
+async function deleteCharacter(req, res) {
+  try {
+    const deletedCharacter = await Character.deleteOne({
+      _id: req.params.id,
+    });
+    res.json(deletedCharacter);
   } catch (err) {
     console.log(err);
     res.status(400).json(err);
@@ -50,5 +66,6 @@ module.exports = {
   createCharacter,
   getUserCharacters,
   getCharacter,
-  updateCharacter
+  updateCharacter,
+  deleteCharacter,
 };

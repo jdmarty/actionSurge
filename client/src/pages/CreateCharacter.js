@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 import React from "react";
 import { useParams } from "react-router-dom"
 // Components
@@ -38,12 +39,6 @@ function CreateCharacter(props) {
   const [characterState, characterDispatch] = useCreateCharacterContext();
   const [authState] = useAuthContext();
   let { id } = useParams();
-
-  // function to log current state for now
-  const logState = (e) => {
-    e.preventDefault();
-    console.log(characterState);
-  };
 
   // function to validate form for submission
   const checkValid = () => {
@@ -90,6 +85,54 @@ function CreateCharacter(props) {
       });
   }
 
+  // api call to delete and existing character
+  const deleteCharacter = e => {
+    e.preventDefault();
+    // Ask for confirmation
+    const proceed = confirm(`Are you sure you want to delete ${characterState.name}?`)
+    // If confirmed, delete the character and redirect
+    if (proceed) {
+      API.deleteCharacter(id).then(() => {
+        window.location.pathname = "/";
+      }).catch(err => {
+        console.log(err);
+        toast.error(
+          "Oh No! Something went wrong! Check your inputs and try again"
+        );
+      })
+    } else {
+      return
+    }
+  }
+
+  // render button type
+  const renderButtons = (type) => {
+    if (type === "edit") {
+      return (
+        <div className="space-x-6">
+          <SubmitButton
+            text="Update"
+            onClick={updateCharacter}
+            checkValid={checkValid}
+          />
+          <SubmitButton
+            text="Delete"
+            onClick={deleteCharacter}
+            checkValid={() => true}
+          />
+        </div>
+      );
+    } else {
+      return (
+        <SubmitButton
+          text="Create Character"
+          onClick={createCharacter}
+          checkValid={checkValid}
+        />
+      );
+    }
+  }
+
   return (
     <form className="py-9 md:px-9 sm:px-36 px-4 flex justify-center">
       {/* Main Grid */}
@@ -102,15 +145,7 @@ function CreateCharacter(props) {
         </div>
         {/* Submit Button */}
         <div className="bg-gray-900 col-span-2 border text-center py-2">
-          {props.type === "edit" ? <SubmitButton
-            text="Edit Character"
-            onClick={updateCharacter}
-            checkValid={checkValid}
-          /> : <SubmitButton
-            text="Create Character"
-            onClick={createCharacter}
-            checkValid={checkValid}
-          />}
+          {renderButtons(props.type)}
         </div>
 
         {/* Middle Row */}
