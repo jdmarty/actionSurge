@@ -132,6 +132,9 @@ function Battle() {
   // INITIATIVE TRACKING================================================
   // Roll initiative for all
   const rollInitiative = () => {
+    // do not run if there are no combatants
+    if (combatants.length < 1) return;
+    // roll initiative for each combatant
     const newCombatants = combatants.map((combatant) => {
       return {
         ...combatant,
@@ -177,6 +180,8 @@ function Battle() {
 
   // Advance initiative count
   const advanceInitiative = () => {
+    // do not run if there are no combatants
+    if (combatants.length < 1) return;
     const currentCombatants = [...combatants];
     // shift the first combatant to the back
     const firstCombatant = currentCombatants.shift();

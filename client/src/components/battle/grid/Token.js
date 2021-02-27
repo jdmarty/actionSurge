@@ -13,7 +13,7 @@ function Token(props) {
   //style to fit in token
   const style = {
     height: "100%",
-    width: "100%"
+    width: "100%",
   }
 
   // conditional styles
@@ -30,7 +30,7 @@ function Token(props) {
   // return a div containing the health bar, token name, and possible overlay
   return (
     <div
-      className={`${type} ${isMover} text-black text-center text-sm truncate cursor-move relative noselect`}
+      className={`${type} ${isMover} text-black text-center truncate cursor-move relative noselect`}
       style={style}
       onMouseDown={() => props.onMouseDown(props.name, props._id)}
     >
