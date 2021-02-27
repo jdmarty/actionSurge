@@ -1,12 +1,12 @@
 import React from "react";
 
-function Square({ squaresPerLine, children }) {
+function Square({ spl, children }) {
   return (
     <div
       className="border-gray-100 border bg-blue-100"
       style={{
-        width: `${100 / squaresPerLine}%`,
-        height: `${100 / squaresPerLine}%`,
+        width: `${100 / spl}%`,
+        height: `${100 / spl}%`,
       }}
     >
       {children}

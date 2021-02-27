@@ -14,8 +14,6 @@ import DiceRoller from "../components/battle/DiceRoller";
 import DisplayCharacter from "../components/battle/DisplayCharacter";
 import DisplayMonster from "../components/battle/DisplayMonster";
 // grid components
-import Token from "../components/battle/grid/Token"
-import Square from "../components/battle/grid/Square"
 import Board from "../components/battle/grid/Board"
 
 
@@ -26,6 +24,7 @@ function Battle() {
   const [allMonsters, setAllMonsters] = useState([]);
   const [combatants, setCombatants] = useState([]);
   const [viewCombatant, setViewCombatant] = useState({});
+  const [squaresPerLine, setSquaresPerLine] = useState(20);
 
   // Use effect to load user characters and monsters on mount
   useEffect(() => {
@@ -33,14 +32,8 @@ function Battle() {
     // get all characters for this user
     API.getUserCharacters(id)
       .then(({ data }) => {
-        // give each character a base initiative and health
-        const characters = data.map((character) => {
-          character.initiative = 0;
-          character.current_hit_points = character.hit_points;
-          return character;
-        });
         // set the all players state
-        setAllCharacters(characters);
+        setAllCharacters(data);
       })
       .catch((err) => console.log(err));
     // get all monsters from external API
@@ -66,9 +59,11 @@ function Battle() {
       toast.error("Selected Player is already in battle");
       return;
     }
-    // give the character a base initiative and health
+    // give the character a base initiative, health, and position
     newCharacter.initiative = 0;
     newCharacter.current_hit_points = newCharacter.hit_points;
+    newCharacter.xPos = combatants.length % squaresPerLine;
+    newCharacter.yPos = Math.floor(combatants.length / squaresPerLine);
     // push the new player to the current array and set state
     currentCombatants.push(newCharacter);
     setCombatants(currentCombatants);
@@ -92,9 +87,11 @@ function Battle() {
         newMonster.name = `${originalName} (${modifier})`;
         modifier++;
       }
-      // give the new monster a base initiative and a health
+      // give the new monster a base initiative, health, and position
       newMonster.initiative = 0;
       newMonster.current_hit_points = newMonster.hit_points;
+      newMonster.xPos = combatants.length % squaresPerLine;
+      newMonster.yPos = Math.floor(combatants.length / squaresPerLine);
       // push the new monster to the current array and set state
       currentCombatants.push(newMonster);
       setCombatants(currentCombatants);
@@ -226,32 +223,6 @@ function Battle() {
 
   // ===================================================================
 
-  // grid generation for now============================================
- 
-
-  const GridSquare = () => {
-    const squaresPerLine = 20
-    return (
-      <div
-        className="border-gray-100 border bg-blue-100"
-        style={{
-          width: `${100 / squaresPerLine}%`,
-          height: `${100 / squaresPerLine}%`,
-        }}
-      ></div>
-    );
-  };
-
-  const generateGrid = () => {
-    const squaresPerLine = 20;
-    const grid = [];
-    for (let i = 0; i < squaresPerLine * squaresPerLine; i++) {
-      grid.push(<GridSquare key={"square" + i} />);
-    }
-    return grid;
-  };
-  //=================================================================
-
   // MODALS==========================================================
   const [characterModalIsOpen, setCharacterModalIsOpen] = useState(false);
   const [monsterModalIsOpen, setMonsterModalIsOpen] = useState(false);
@@ -363,7 +334,7 @@ function Battle() {
           </button>
         </div>
         {/* Grid */}
-        <Board squaresPerLine={20} combatants={combatants}/>
+        <Board spl={squaresPerLine} combatants={combatants}/>
       </div>
       {/* Right Column */}
       <div className="col-span-3 border-black border p-5 overflow-auto">
