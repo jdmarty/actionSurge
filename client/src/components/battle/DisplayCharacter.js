@@ -138,7 +138,7 @@ function DisplayCharacter(props) {
   const renderWeaponCards = (props) => {
     return props.weapons.map((weapon) => {
       return (
-        <li className="bg-white my-2 px-2 rounded-md hover:underline cursor-pointer" key={weapon}>
+        <li className="bg-white my-2 px-2 rounded-md" key={weapon}>
           {parseIndexName(weapon)}
         </li>
       );
@@ -149,7 +149,7 @@ function DisplayCharacter(props) {
   const renderSpellCards = (props) => {
     return props.spells.map((spell) => {
       return (
-        <li className="bg-white my-2 px-2 rounded-md hover:underline cursor-pointer" key={spell}>
+        <li className="bg-white my-2 px-2 rounded-md" key={spell}>
           {parseIndexName(spell)}
         </li>
       );
@@ -168,7 +168,11 @@ function DisplayCharacter(props) {
       <div className="m-2 flex flex-wrap justify-around">
         {/* Hit Points */}
         <div className="flex text-red-500 text-2xl">
-          <i className="fas fa-2x fa-heart"></i>
+          {hitPoints > 0 ? (
+            <i className="fas fa-2x fa-heart"></i>
+          ) : (
+            <i className="fas fa-2x fa-skull text-black"></i>
+          )}
           <input
             className="mx-2 w-16 text-center bg-transparent"
             type="number"

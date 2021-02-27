@@ -9,7 +9,7 @@ function Square({ spl, children, active, onClick }) {
 
   return (
     <div
-      className={`border-gray-100 border bg-blue-100 ${active && "hover:bg-gray-300"}`}
+      className={`border-gray-100 border bg-blue-100 overflow-visible ${active && "hover:bg-gray-300"}`}
       style={squareStyle}
       onClick={() => onClick()}
     >

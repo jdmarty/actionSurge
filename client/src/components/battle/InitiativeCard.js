@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import HealthBar from "../battle/HealthBar";
 
 function InitiativeCard(props) {
   // conditional class for monster and first
@@ -18,6 +19,9 @@ function InitiativeCard(props) {
     setInitiative(newInitiative);
   };
 
+  // current health
+  const remainingHealth = (props.current_hit_points / props.hit_points) * 100;
+
   return (
     <li
       className={`border border-black my-4 flex justify-between px-4 py-2 rounded-md cursor-pointer ${
@@ -26,7 +30,12 @@ function InitiativeCard(props) {
       onClick={() => props.onViewClick(props.name, props._id)}
     >
       {/* Display Name */}
-      <dt className={`w-1/2 ${props.current_hit_points <= 0 && "line-through"}`}>{props.name}</dt>
+      <dt
+        className={`w-1/2 ${props.current_hit_points <= 0 && "line-through"}`}
+      >
+        {props.name}
+        <HealthBar health={remainingHealth} height={5}/>
+      </dt>
       {/* Flexbox containing initiative input */}
       <div className="text-right flex justify-between">
         <label>Initiative</label>
