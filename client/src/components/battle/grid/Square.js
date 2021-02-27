@@ -1,7 +1,7 @@
 import React from "react";
 
 function Square({ spl, children, active, onMouseUp }) {
-  // set width for each square
+  // set width for each square and font size
   const squareStyle = {
     width: `${100 / spl}%`,
     height: `${100 / spl}%`,
@@ -10,7 +10,7 @@ function Square({ spl, children, active, onMouseUp }) {
 
   return (
     <div
-      className={`border-gray-100 border bg-blue-100 overflow-visible ${active && "hover:bg-gray-300 bg-blue-200"}`}
+      className={`border-gray-300 border bg-blue-100 overflow-visible ${active && "hover:bg-gray-300 bg-blue-200"}`}
       style={squareStyle}
       onMouseUp={() => onMouseUp()}
     >
