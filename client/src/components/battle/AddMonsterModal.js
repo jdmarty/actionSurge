@@ -19,7 +19,7 @@ function AddMonsterModal(props) {
   const AddMonsterCard = (props) => {
     return (
       <li
-        className="text-2xl border border-red-500 flex px-3 hover:bg-green-300 hover:text-white"
+        className="text-2xl bg-gray-800 text-gray-300 py-2 mx-6 rounded-md border border-white flex px-3 hover:bg-green-500 hover:text-black cursor-pointer"
         onClick={() => {
           props.onClick(props.name)
           toast.success(`${props.name} added to battle`)
@@ -51,20 +51,20 @@ function AddMonsterModal(props) {
 
   return (
     <Modal {...props}>
-      <h1 className="text-3xl text-center mb-2">Click to add a monster</h1>
-      <input
-        type="text"
-        className="text-2xl text-center mb-4 border-black border"
-        placeholder="Search Monster"
-        ref={searchRef}
-        onChange={handleSearch}
-      ></input>
-      <ul
-        className="flex flex-col space-y-4"
-        style={{ height: "75vh", overflow: "auto" }}
-      >
-        {renderMonsterCards(props.allMonsters)}
-      </ul>
+        <h1 className="text-3xl text-center mb-2 border-b border-gray-800">Click to add a monster</h1>
+        <input
+          type="text"
+          className="text-2xl text-center mb-4 border-black border mx-6"
+          placeholder="Search Monsters"
+          ref={searchRef}
+          onChange={handleSearch}
+        ></input>
+        <ul
+          className="flex flex-col space-y-4"
+          style={{ height: "75vh", overflow: "auto" }}
+        >
+          {renderMonsterCards(props.allMonsters)}
+        </ul>
     </Modal>
   );
 }

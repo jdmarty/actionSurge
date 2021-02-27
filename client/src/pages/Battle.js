@@ -281,6 +281,7 @@ function Battle() {
       marginRight: "-50%",
       transform: "translate(-50%)",
       width: "75%",
+      backgroundColor: "rgba(209, 213, 219",
     },
   };
 
@@ -340,7 +341,10 @@ function Battle() {
   // ===============================================================
 
   return (
-    <div className="grid grid-cols-12 bg-white m-4" style={{ height: "90vh" }}>
+    <div
+      className="grid grid-cols-12 bg-indigo-100 m-4"
+      style={{ height: "90vh" }}
+    >
       {/* Left Column */}
       <div className="col-span-3 overflow-auto">
         {/* Display Character / Monster */}
@@ -357,7 +361,7 @@ function Battle() {
         </div>
         {/* Dice Roller */}
         <div
-          className="border border-black bg-indigo-300 overflow-auto"
+          className="border border-black bg-gray-800 overflow-auto"
           style={{ height: "30%" }}
         >
           <DiceRoller />
@@ -366,21 +370,21 @@ function Battle() {
       {/* Middle Column */}
       <div className="col-span-6 border-black border h-full">
         {/* Header row with buttons */}
-        <div className="p-4 flex flex-wrap justify-between">
+        <div className="border-t border-b border-black p-4 flex flex-wrap justify-between">
           <button
-            className="bg-green-500 px-4 py-2 rounded-lg mx-6"
+            className="bg-indigo-800 text-white px-4 py-2 rounded-lg mx-6"
             onClick={openCharacterModal}
           >
             Add Character
           </button>
           <button
-            className="bg-yellow-500 px-4 py-2 rounded-lg mx-6"
+            className="bg-indigo-800 text-white px-4 py-2 rounded-lg mx-6"
             onClick={openMonsterModal}
           >
             Add Monster
           </button>
           <button
-            className="bg-red-500 px-4 py-2 rounded-lg mx-6"
+            className="bg-red-800 text-white px-4 py-2 rounded-lg mx-6"
             onClick={openConfirmModal}
           >
             Reset Battle
@@ -409,13 +413,17 @@ function Battle() {
         {/* Header with buttons */}
         <div className="flex justify-around">
           <button
-            className="bg-green-500 px-4 py-2 rounded-lg"
+            className={`bg-gray-800 text-white px-4 py-2 rounded-lg ${
+              combatants.length < 1 && "hidden"
+            }`}
             onClick={rollInitiative}
           >
             Roll Initiative
           </button>
           <button
-            className="bg-yellow-500 px-4 py-2 rounded-lg"
+            className={`bg-gray-800 text-white px-4 py-2 rounded-lg ${
+              combatants.length < 1 && "hidden"
+            }`}
             onClick={advanceInitiative}
           >
             Next Turn

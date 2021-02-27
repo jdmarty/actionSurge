@@ -6,7 +6,7 @@ function DiceBox(props) {
     return (
       <span
         className={
-          "bg-white m-2 p-2 hover:bg-black hover:text-white border-2 border-white text-center rounded-md cursor-pointer " +
+          "bg-indigo-800 text-white m-2 p-2 hover:bg-white hover:text-black border-2 border-white text-center rounded-md cursor-pointer " +
           props.animation
         }
         style={{ minWidth: 50 }}
@@ -46,7 +46,7 @@ function DiceBox(props) {
   };
 
   return (
-    <div className="grid grid-cols-12">
+    <div className="grid grid-cols-12 text-white">
       <div className="flex flex-wrap justify-around py-2 overflow-auto col-span-8">
         {renderDice()}
       </div>

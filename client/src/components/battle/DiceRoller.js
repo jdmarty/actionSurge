@@ -58,7 +58,7 @@ function DiceRoller() {
   const handleAdvRoll = () => {
     // set roller for 2d20 rolls
     setNumber(2);
-    setType(20);
+    setType("20");
     // roll two dice and set the result to the higher value
     const newRolls = [rollDice(20), rollDice(20)];
     const newResult = Math.max(...newRolls) + mod;
@@ -111,7 +111,7 @@ function DiceRoller() {
             onChange={handleNumberChange}
             value={number}
           ></input>
-          <span>D</span>
+          <span className="text-white">d</span>
           {/* Dice Type Input */}
           <select ref={typeRef} onChange={handleTypeChange} value={type}>
             <option value={20}>20</option>
@@ -120,8 +120,9 @@ function DiceRoller() {
             <option value={8}>8</option>
             <option value={6}>6</option>
             <option value={4}>4</option>
+            <option value={100}>100</option>
           </select>
-          <dt>{mod >= 0 ? "+" : ""}</dt>
+          <dt className="text-white">{mod >= 0 ? "+" : ""}</dt>
           {/* Dice Modifier Input */}
           <input
             type="number"
@@ -155,7 +156,12 @@ function DiceRoller() {
         </div>
       </div>
       {/* Dice Box */}
-      <DiceBox rolls={rolls} result={result} mod={mod} onClick={handleSingleRoll}/>
+      <DiceBox
+        rolls={rolls}
+        result={result}
+        mod={mod}
+        onClick={handleSingleRoll}
+      />
     </>
   );
 }
