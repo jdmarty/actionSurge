@@ -13,7 +13,6 @@ function AddPlayerModal(props) {
         className="text-2xl border border-red-500 flex px-3 hover:bg-green-300 hover:text-white"
         onClick={() => {
           props.onClick(props.index)
-          props.closeModal()
         }}
       >
         <dt className="w-1/3">{props.name}</dt>

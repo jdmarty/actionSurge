@@ -91,6 +91,8 @@ function DisplayMonster(props) {
 
   // Render Actions
   const renderActions = (array) => {
+    // check if there is a viable array to map
+    if (!array) return
     return array.map((action) => {
       return (
         <div className="mt-2 rounded-md shadow-lg" key={action.name.length*Math.random()}>
