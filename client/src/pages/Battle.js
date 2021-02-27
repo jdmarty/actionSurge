@@ -236,9 +236,18 @@ function Battle() {
   const handleMove = (x, y) => {
     if (mover === null) return;
     console.log(x,y)
-    // remap combatants where
+    // remap combatants and change mover position
+    const newCombatants = combatants.map((combatant) => {
+      if (mover._id && combatant._id === mover._id) {
+        return {...combatant, xPos: x, yPos: y}
+      } else if (combatant.name === mover.name) {
+        return {...combatant, xPos: x, yPos: y}
+      } else {
+        return combatant
+      }
+    })
     // set combatants to the new array
-    // setCombatants(newCombatants);
+    setCombatants(newCombatants);
   };
   //====================================================================
 
