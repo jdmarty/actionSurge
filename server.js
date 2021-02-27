@@ -1,6 +1,5 @@
 // Modules
 const express = require("express");
-// const session = require("express-session");
 const logger = require("morgan");
 const mongoose = require("mongoose");
 
@@ -11,22 +10,6 @@ const routes = require("./routes");
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// Configure session
-// const sess = {
-//   secret: "Super secret secret",
-//   cookie: {
-//     maxAge: 1800000,
-//   },
-//   rolling: true,
-//   resave: false,
-//   saveUninitialized: true,
-// };
-
-// Set cookies to secure in production environment
-// if (process.env.NODE_ENV === "production") {
-//   app.set("trust proxy", 1);
-//   sess.cookie.secure = true;
-// }
 
 // Define middleware
 // app.use(session(sess));
