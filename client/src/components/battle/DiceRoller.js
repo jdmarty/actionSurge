@@ -103,7 +103,7 @@ function DiceRoller() {
           {/* Dice Number Input */}
           <input
             type="number"
-            className="text-right"
+            className="text-center w-12"
             min="0"
             max="100"
             placeholder="Num"

@@ -346,7 +346,7 @@ function Battle() {
       style={{ height: "90vh" }}
     >
       {/* Left Column */}
-      <div className="col-span-3 overflow-auto">
+      <div className="col-span-3 overflow-auto text-sm">
         {/* Display Character / Monster */}
         <div
           className="border border-black bg-indigo-100 overflow-auto"
@@ -368,28 +368,28 @@ function Battle() {
         </div>
       </div>
       {/* Middle Column */}
-      <div className="col-span-6 border-black border h-full">
+      <div className="col-span-6 border-black border">
         {/* Header row with buttons */}
-        <div className="border-t border-b border-black p-4 flex flex-wrap justify-between">
+        <div className="border-t border-b border-black p-4 flex flex-wrap justify-around">
           <button
-            className="bg-indigo-800 text-white px-4 py-2 rounded-lg mx-6"
+            className="bg-indigo-800 text-white p-2 rounded-lg mx-6"
             onClick={openCharacterModal}
           >
             Add Character
           </button>
           <button
-            className="bg-indigo-800 text-white px-4 py-2 rounded-lg mx-6"
+            className="bg-indigo-800 text-white p-2 rounded-lg mx-6"
             onClick={openMonsterModal}
           >
             Add Monster
           </button>
           <button
-            className="bg-red-800 text-white px-4 py-2 rounded-lg mx-6"
+            className="bg-red-800 text-white p-2 rounded-lg mx-6"
             onClick={openConfirmModal}
           >
             Reset Battle
           </button>
-          <div className="bg-gray-500 text-white px-4 py-2 rounded-lg mx-6 flex justify-around space-x-2">
+          <div className="bg-gray-500 text-white p-2 rounded-lg mx-6 flex justify-around space-x-2">
             <label>Grid Size</label>
             <select
               className="w-24 text-black text-center"
@@ -413,7 +413,7 @@ function Battle() {
         {/* Header with buttons */}
         <div className="flex justify-around">
           <button
-            className={`bg-gray-800 text-white px-4 py-2 rounded-lg ${
+            className={`bg-gray-800 text-white p-2 rounded-lg ${
               combatants.length < 1 && "hidden"
             }`}
             onClick={rollInitiative}
@@ -421,7 +421,7 @@ function Battle() {
             Roll Initiative
           </button>
           <button
-            className={`bg-gray-800 text-white px-4 py-2 rounded-lg ${
+            className={`bg-gray-800 text-white p-2 rounded-lg ${
               combatants.length < 1 && "hidden"
             }`}
             onClick={advanceInitiative}

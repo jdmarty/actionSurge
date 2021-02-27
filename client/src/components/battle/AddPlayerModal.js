@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import Modal from "react-modal";
 import parseName from "../../utils/parseIndexName";
+import { toast } from "react-toast";
 
 function AddPlayerModal(props) {
   // state for filtered list
@@ -22,6 +23,7 @@ function AddPlayerModal(props) {
         className="text-2xl bg-gray-800 text-gray-300 py-2 mx-6 rounded-md border border-white flex px-3 hover:bg-green-500 hover:text-black cursor-pointer"
         onClick={() => {
           props.onClick(props.index);
+          toast.success(`${props.name} added to battle`);
         }}
       >
         <dt className="w-1/3">{props.name}</dt>
