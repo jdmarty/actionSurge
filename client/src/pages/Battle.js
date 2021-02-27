@@ -24,7 +24,7 @@ function Battle() {
   const [combatants, setCombatants] = useState([]);
   const [viewCombatant, setViewCombatant] = useState({});
   const [squaresPerLine, setSquaresPerLine] = useState(20);
-  const [mover, setMover] = useState(null);
+  const [mover, setMover] = useState({});
 
   // Use effect to load user characters and monsters on mount
   useEffect(() => {
@@ -224,20 +224,24 @@ function Battle() {
   // MOVEMENT===========================================================
   // Set a token to be the active mover
   const handleSetMover = (name, id) => {
+    // set the mover by id or name
     if (id) {
       const newMover = combatants.find((combatant) => combatant._id === id);
       setMover(newMover);
+      setViewCombatant(newMover);
     } else {
       const newMover = combatants.find((combatant) => combatant.name === name);
       setMover(newMover);
+      setViewCombatant(newMover);
     }
   };
   // move a token to a new position
   const handleMove = (x, y) => {
-    if (mover === null) return;
-    console.log(x,y)
+    // do nothing if no mover is set
+    if (!mover.name) return;
     // remap combatants and change mover position
     const newCombatants = combatants.map((combatant) => {
+      // match mover by id or name
       if (mover._id && combatant._id === mover._id) {
         return {...combatant, xPos: x, yPos: y}
       } else if (combatant.name === mover.name) {
@@ -248,6 +252,7 @@ function Battle() {
     })
     // set combatants to the new array
     setCombatants(newCombatants);
+    setMover({})
   };
   //====================================================================
 
@@ -355,10 +360,9 @@ function Battle() {
             Add Monster
           </button>
           <button
-            className="bg-yellow-500 px-4 py-2 rounded-lg mx-6"
-            onClick={() => handleMove("Wolf")}
+            className="bg-gray-500 px-4 py-2 rounded-lg mx-6 line-through"
           >
-            Move Monster
+            Damage / Heal
           </button>
           <button
             className="bg-red-500 px-4 py-2 rounded-lg mx-6"
@@ -367,10 +371,11 @@ function Battle() {
             Reset Battle
           </button>
         </div>
-        {/* Grid */}
+        {/* Game Board*/}
         <Board
           spl={squaresPerLine}
           combatants={combatants}
+          mover={mover}
           setMover={handleSetMover}
           move={handleMove}
         />

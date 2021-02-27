@@ -2,7 +2,10 @@ import React from "react";
 import Square from "./Square";
 import Token from "./Token";
 
-function Board({ spl, combatants, setMover, move }) {
+function Board({ spl, combatants, mover, setMover, move }) {
+  // check if the mover is active
+  const active = mover.name ? true : false
+
   // Create an array of squares to render
   const renderBoard = () => {
     const grid = [];
@@ -18,11 +21,18 @@ function Board({ spl, combatants, setMover, move }) {
       if (isTokenHere) {
         grid.push(
           <Square spl={spl} onClick={() => {}} key={i}>
-            <Token {...isTokenHere} onClick={setMover} />
+            <Token {...isTokenHere} onClick={setMover} mover={mover}/>
           </Square>
         );
       } else {
-        grid.push(<Square spl={spl} onClick={() => move(x, y)} key={i}/>);
+        grid.push(
+          <Square
+            spl={spl}
+            onClick={() => move(x, y)}
+            key={i}
+            active={active}
+          />
+        );
       }
     }
     return grid;
