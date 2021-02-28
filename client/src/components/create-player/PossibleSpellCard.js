@@ -20,7 +20,7 @@ function PossibleSpellCard(props) {
 
   return (
     <li
-      className="border m-4 px-2 bg-blue-500 flex justify-between cursor-pointer"
+      className="border m-4 px-2 bg-blue-700 flex justify-between cursor-pointer"
       onClick={handleAddClick}
     >
       <dt>{props.label}</dt>

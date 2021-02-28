@@ -50,12 +50,7 @@ function Nav() {
           <div className="flex items-center">
             {/* Logo */}
             <div className="hidden md:block">
-              <img
-                className="h-8 w-8 cursor-pointer"
-                src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
-                alt="Workflow"
-                onClick={() => (window.location.pathname = "/")}
-              ></img>
+              <i className="far fa-2x fa-bullseye-arrow text-blue-500"></i>
             </div>
             {/* Links */}
             <div>
@@ -78,7 +73,9 @@ function Nav() {
 
                 <Link to="/edit-character">
                   <div
-                    className={location === "/edit-character" ? active : inactive}
+                    className={
+                      location === "/edit-character" ? active : inactive
+                    }
                   >
                     Edit
                   </div>

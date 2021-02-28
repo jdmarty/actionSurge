@@ -15,7 +15,7 @@ function HitPointsInput() {
   // Handler for name change
   const handleHpChange = (e) => {
     if (hpInput.current.value < 1) {
-      setHp(1);
+      setHp("");
       return
     }
     setHp(hpInput.current.value);

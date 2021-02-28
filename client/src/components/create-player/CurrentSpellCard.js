@@ -18,7 +18,7 @@ function CurrentSpellCard(props) {
 
   return (
     <li
-      className="border m-4 px-2 bg-green-500 flex justify-between cursor-pointer"
+      className="border m-4 px-2 bg-green-700 flex justify-between cursor-pointer"
       onClick={handleRemoveClick}
     >
       <dt>{props.label}</dt>

@@ -150,7 +150,7 @@ function CreateCharacter(props) {
 
         {/* Middle Row */}
         {/* Character Details */}
-        <div className="col-span-3 border-b border-t py-2">
+        <div className="col-span-3 border-b border-t py-4">
           <h1 className="text-center text-white text-2xl">Character Details</h1>
           {/* Character Basics */}
           <div className="grid grid-cols-2 gap-x-4 gap-y-2 px-4 py-2">
@@ -193,7 +193,7 @@ function CreateCharacter(props) {
           </div>
         </div>
         {/* Player Stats */}
-        <div className="bg-gray-900 col-span-6 border py-2">
+        <div className="bg-gray-900 col-span-6 border py-4">
           {/* Abilities zRow */}
           <h1 className="text-center text-white text-2xl">Ability Scores</h1>
           <div className="flex flex-wrap justify-around space-x-6 py-2 px-2">
@@ -218,7 +218,7 @@ function CreateCharacter(props) {
           </div>
         </div>
         {/* Other Character Details */}
-        <div className="bg-gray-900 col-span-3 border-t border-b py-4">
+        <div className="bg-gray-900 col-span-3 border-t border-b py-6">
           {/* Hit Points and AC*/}
           <div className="lg:mx-6 mx-2 mb-4 text-white flex justify-around">
             <HitPointsInput />
@@ -255,9 +255,9 @@ function CreateCharacter(props) {
           </div>
         </div>
         {/* Bottom Row: Skills, Spells, and Weapons */}
-        <div className="bg-gray-900 col-span-3 border text-white">
-          <h1 className="text-center mt-2 text-3xl">Abilities</h1>
-          <div className="my-2 mx-6 p-2l">
+        <div className="col-span-3 border text-white py-2">
+          <h1 className="text-center mt-2 text-2xl">Abilities</h1>
+          <div className="px-6 space-y-2">
             <MultiSelector
               label="Proficient Skills"
               options={skills}
@@ -271,8 +271,8 @@ function CreateCharacter(props) {
             <SkillsList />
           </div>
         </div>
-        <div className="bg-gray-900 col-span-6 border text-white">
-          <h1 className="text-center mt-2 text-3xl">Spells</h1>
+        <div className="col-span-6 border text-white py-2">
+          <h1 className="text-center mt-2 text-2xl">Known Spells</h1>
           <div className="grid grid-cols-2 py-5" style={{ height: "690px" }}>
             <div className="h-full overflow-auto">
               <PossibleSpells />
@@ -282,9 +282,9 @@ function CreateCharacter(props) {
             </div>
           </div>
         </div>
-        <div className="bg-gray-900 col-span-3 border text-white">
-          <h1 className="text-center mt-2 text-3xl">Other Equipment</h1>
-          <div className="my-2 mx-6 p-2 space-y-5 text-2xl">
+        <div className="bg-gray-900 col-span-3 border text-white py-2">
+          <h1 className="text-center mt-2 text-2xl">Other Equipment</h1>
+          <div className="my-2 mx-6 p-2 space-y-5">
             <MultiSelector label="Weapons" options={weapons} type="weapons" />
             <MultiSelector label="Armor" options={armor} type="armor" />
             <MultiSelector label="Potions" options={potions} type="potions" />
