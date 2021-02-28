@@ -22,7 +22,7 @@ function NameInput() {
   }
 
   return (
-    <div className="grid grid-cols-12">
+    <div className="lg:grid grid-cols-12 px-2">
       <label
         htmlFor="player-name"
         className="col-span-1 py-1 text-center block text-2xl font-medium text-gray-300"

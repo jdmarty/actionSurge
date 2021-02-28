@@ -40,9 +40,12 @@ function SavesCard(props) {
     };
     return bonus < 0 ? bonus : "+"+ bonus
   }
+
+  // conditional class
+  const style= proficient ? "bg-blue-700 text-white" : "bg-white text-black"
   
   return (
-    <div className="bg-white px-2 rounded-full">
+    <div className={`${style} p-2 my-2 rounded-md`}>
       <input 
         type="checkbox" 
         name="save" 

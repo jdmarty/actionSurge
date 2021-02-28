@@ -93,7 +93,7 @@ function CreateCharacter(props) {
     // If confirmed, delete the character and redirect
     if (proceed) {
       API.deleteCharacter(id).then(() => {
-        window.location.pathname = "/";
+        window.location.pathname = "/edit-character";
       }).catch(err => {
         console.log(err);
         toast.error(
@@ -134,27 +134,26 @@ function CreateCharacter(props) {
   }
 
   return (
-    <form className="py-9 md:px-9 sm:px-36 px-4 flex justify-center">
+    <form className="p-4 md:px-9 sm:px-36 flex justify-center">
       {/* Main Grid */}
-      <div className="grid grid-cols-12 w-full">
+      <div className="lg:grid grid-cols-12 w-full bg-gray-900 rounded-md border-2">
         {/* Top Row : Name */}
         {/* Name Input */}
-        <div className="bg-gray-900 col-span-10 border px-2 py-2">
+        <div className="col-span-10 px-2 py-2">
           {/* Name Input with attached label */}
           <NameInput />
         </div>
         {/* Submit Button */}
-        <div className="bg-gray-900 col-span-2 border text-center py-2">
+        <div className="col-span-2 text-center py-2">
           {renderButtons(props.type)}
         </div>
 
         {/* Middle Row */}
         {/* Character Details */}
-        <div className="bg-gray-900 col-span-3 border">
+        <div className="col-span-3 border-b border-t py-2">
+          <h1 className="text-center text-white text-2xl">Character Details</h1>
           {/* Character Basics */}
-          <div className="grid grid-cols-2 gap-4 p-4">
-            {/* Image Container */}
-            <div className="col-span-2 h-44 bg-red-300"></div>
+          <div className="grid grid-cols-2 gap-x-4 gap-y-2 px-4 py-2">
             {/* Level Selector */}
             <div className="col-span-2">
               <SingleSelector
@@ -194,67 +193,59 @@ function CreateCharacter(props) {
           </div>
         </div>
         {/* Player Stats */}
-        <div className="bg-gray-900 col-span-6 border">
-          {/* Abilities Grid */}
-          <h1 className="text-center text-white text-3xl">Ability Scores</h1>
-          <div className="grid grid-cols-6 gap-6 h-full py-6 px-2">
+        <div className="bg-gray-900 col-span-6 border py-2">
+          {/* Abilities zRow */}
+          <h1 className="text-center text-white text-2xl">Ability Scores</h1>
+          <div className="flex flex-wrap justify-around space-x-6 py-2 px-2">
             <AbilitiesCard type="Strength" />
-            {/* Dex Card */}
             <AbilitiesCard type="Dexterity" />
-            {/* Con Card */}
             <AbilitiesCard type="Constitution" />
-            {/* Int Card */}
             <AbilitiesCard type="Intelligence" />
-            {/* Wis Card */}
             <AbilitiesCard type="Wisdom" />
-            {/* Cha Card */}
             <AbilitiesCard type="Charisma" />
-            {/* Saves Row */}
-            <div className="col-span-6">
-              <h1 className="text-center text-white text-3xl">
-                Saving Throws (Check marks indicate proficiency)
-              </h1>
-              <div className="grid grid-cols-6 gap-2 p-4">
-                {/* Save Cards */}
-                <SavesCard display="STR" type="strength" />
-                <SavesCard display="DEX" type="dexterity" />
-                <SavesCard display="CON" type="constitution" />
-                <SavesCard display="INT" type="intelligence" />
-                <SavesCard display="WIS" type="wisdom" />
-                <SavesCard display="CHA" type="charisma" />
-              </div>
-            </div>
+          </div>
+          {/* Saves Row */}
+          <h1 className="text-center text-white text-2xl">
+            Saving Throws (Check marks indicate proficiency)
+          </h1>
+          <div className="flex flex-wrap justify-around space-x-6 py-2 px-2">
+            <SavesCard display="STR" type="strength" />
+            <SavesCard display="DEX" type="dexterity" />
+            <SavesCard display="CON" type="constitution" />
+            <SavesCard display="INT" type="intelligence" />
+            <SavesCard display="WIS" type="wisdom" />
+            <SavesCard display="CHA" type="charisma" />
           </div>
         </div>
         {/* Other Character Details */}
-        <div className="bg-gray-900 col-span-3 border">
+        <div className="bg-gray-900 col-span-3 border-t border-b py-4">
           {/* Hit Points and AC*/}
-          <div className="border my-2 mx-6 p-2 text-white flex justify-around">
+          <div className="lg:mx-6 mx-2 mb-4 text-white flex justify-around">
             <HitPointsInput />
-            <ArmorClassInput />
           </div>
 
           {/* Movement */}
-          <div className="border my-2 mx-6 p-2 text-white flex justify-around">
+          <div className="lg:mx-6 md:mx-2 text-white flex justify-around">
+            <ArmorClassInput />
             <SpeedInput />
           </div>
 
           {/* Defenses */}
-          <div className="border my-2 mx-6 p-2 text-white">
+          <div className="lg:grid grid-cols-2 gap-x-4 gap-y-2 p-2 text-white">
             <MultiSelector
               label="Resistances"
               options={damageTypes}
               type="damage_resistances"
             />
             <MultiSelector
-              label="Immunities"
-              options={damageTypes}
-              type="damage_immunities"
-            />
-            <MultiSelector
               label="Vulnerabilities"
               options={damageTypes}
               type="damage_vulnerabilities"
+            />
+            <MultiSelector
+              label="Damage Immunities"
+              options={damageTypes}
+              type="damage_immunities"
             />
             <MultiSelector
               label="Condition Immunities"

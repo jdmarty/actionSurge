@@ -39,14 +39,16 @@ function AbilitiesCard(props) {
   }
 
   return (
-    <div className="col-span-2">
+    <div className="w-24 my-2">
       {/* Card Header */}
-      <h3 className="bg-green-300 text-center">{props.type}</h3>
+      <h3 className="bg-green-700 text-white text-center border rounded-md rounded-b-none">
+        {props.type}
+      </h3>
       {/* Card Body */}
-      <div className="h-1/2 bg-blue-300 text-center">
+      <div className="text-center">
         <input
           type="number"
-          className="text-center text-3xl w-full h-full"
+          className="text-center text-3xl w-full"
           name={props.type.toLowerCase()}
           value={score}
           ref={thisScore}
@@ -54,7 +56,9 @@ function AbilitiesCard(props) {
         ></input>
       </div>
       {/* Card Footer */}
-      <div className="bg-gray-300 text-center text-2xl">{renderBonus()}</div>
+      <div className="bg-gray-700 text-white text-center text-2xl border rounded-md rounded-t-none">
+        {renderBonus()}
+      </div>
     </div>
   );
 }

@@ -46,7 +46,7 @@ function DiceBox(props) {
   };
 
   return (
-    <div className="grid grid-cols-12 text-white">
+    <div className="grid grid-cols-12 text-gray-300">
       <div className="flex flex-wrap justify-around py-2 overflow-auto col-span-8">
         {renderDice()}
       </div>

@@ -29,7 +29,7 @@ function HitPointsInput() {
   return (
     <div className="text-center">
       <label htmlFor="maxHP" className="text-2xl">
-        HP
+        Hit Points
       </label>
       <input
         name="maxHP"
