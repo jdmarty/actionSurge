@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import {
   getBonusFromStat,
   parseIndexName,
+  rollDice,
   skills,
 } from "../../utils/battleFunctions";
 
@@ -37,9 +38,12 @@ function DisplayCharacter(props) {
     };
     return (
       <div
-        className={`text-center w-12 shadow-xl rounded-md border ${getColor(
+        className={`text-center w-12 shadow-xl rounded-md border cursor-pointer ${getColor(
           props.stat
         )}`}
+        onClick={() =>
+          props.onClick({ number: 1, type: 20, mod: bonus, rolls: ["20"] })
+        }
       >
         <h2 className="font-bold">{props.name}</h2>
         <p>{props.stat}</p>
@@ -61,7 +65,12 @@ function DisplayCharacter(props) {
     };
     return (
       <div
-        className={`text-center w-12 shadow-xl rounded-md ${getColor(bonus)}`}
+        className={`text-center w-12 shadow-xl rounded-md cursor-pointer ${getColor(
+          bonus
+        )}`}
+        onClick={() =>
+          props.onClick({ number: 1, type: 20, mod: bonus, rolls: ["20"] })
+        }
       >
         <h2 className="font-bold">{props.name}</h2>
         <p className="bg-white rounded w-3/4 mx-auto transform translate-y-1 border border-black">
@@ -91,6 +100,7 @@ function DisplayCharacter(props) {
           proficient={props.save_proficiencies.includes(stat)}
           profBonus={props.proficiency}
           key={"save" + index}
+          onClick={props.setDice}
         />
       );
     });
@@ -125,7 +135,16 @@ function DisplayCharacter(props) {
         ? baseBonus + props.proficiency
         : baseBonus;
       return (
-        <li className="flex justify-between" key={skill.label}>
+        <li
+          className="flex justify-between hover:bg-black hover:text-white cursor-pointer px-1"
+          onClick={() => props.setDice({
+            number: 1,
+            type: 20,
+            mod: bonus,
+            rolls: ["20"],
+          })}
+          key={skill.label}
+        >
           <span>{skill.base.slice(0, 3).toUpperCase()}</span>
           <span>{skill.label}</span>
           <span>{bonus >= 0 ? "+" + bonus : bonus}</span>
@@ -135,15 +154,15 @@ function DisplayCharacter(props) {
   };
 
   // Render Spells and equipment
-    const renderOtherCards = (array) => {
-      return array.map((item) => {
-        return (
-          <li className="bg-white my-2 px-2 rounded-md" key={item}>
-            {parseIndexName(item)}
-          </li>
-        );
-      });
-    };
+  const renderOtherCards = (array) => {
+    return array.map((item) => {
+      return (
+        <li className="bg-white my-2 px-2 rounded-md" key={item}>
+          {parseIndexName(item)}
+        </li>
+      );
+    });
+  };
 
   return (
     <div className="text-center">
@@ -184,12 +203,12 @@ function DisplayCharacter(props) {
       {/* Ability Score Cards */}
       <h2 className="bg-gray-800 text-white">- Ability Scores -</h2>
       <div className="px-6 my-2 flex flex-wrap justify-around">
-        <AbilityCard name="STR" stat={props.strength} />
-        <AbilityCard name="DEX" stat={props.dexterity} />
-        <AbilityCard name="CON" stat={props.constitution} />
-        <AbilityCard name="INT" stat={props.intelligence} />
-        <AbilityCard name="WIS" stat={props.wisdom} />
-        <AbilityCard name="CHA" stat={props.charisma} />
+        <AbilityCard name="STR" stat={props.strength} onClick={props.setDice} />
+        <AbilityCard name="DEX" stat={props.dexterity} onClick={props.setDice}/>
+        <AbilityCard name="CON" stat={props.constitution} onClick={props.setDice} />
+        <AbilityCard name="INT" stat={props.intelligence} onClick={props.setDice} />
+        <AbilityCard name="WIS" stat={props.wisdom} onClick={props.setDice} />
+        <AbilityCard name="CHA" stat={props.charisma} onClick={props.setDice} />
       </div>
       {/* Saving Throws */}
       <h2 className="bg-gray-800 text-white mt-4">- Saving Throws -</h2>

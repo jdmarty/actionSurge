@@ -25,6 +25,12 @@ function Battle() {
   const [viewCombatant, setViewCombatant] = useState({});
   const [squaresPerLine, setSquaresPerLine] = useState(20);
   const [mover, setMover] = useState({});
+  const [diceRoll, setDiceRoll] = useState({
+    number: 1,
+    type: "20",
+    mod: 0,
+    rolls: ["20"],
+  });
 
   // Use effect to load user characters and monsters on mount
   useEffect(() => {
@@ -262,9 +268,16 @@ function Battle() {
 
   // handle grid size change
   const handleGridResize = (e) => {
-    console.log(e.target.value)
-    setSquaresPerLine(Number(e.target.value / 5))
-  }
+    console.log(e.target.value);
+    setSquaresPerLine(Number(e.target.value / 5));
+  };
+  //====================================================================
+
+  // DICE ROLLER========================================================
+  const handleDiceChange = (obj) => {
+    console.log(obj)
+    setDiceRoll(obj);
+  };
   //====================================================================
 
   // MODALS=============================================================
@@ -331,18 +344,18 @@ function Battle() {
   };
 
   const renderGridSizeOptions = () => {
-    let options = []
-    options.push(<option value={100}>{`Default`}</option>);
-    for (let i=25; i <= 200; i+=5) {
-      options.push(<option value={i}>{`${i} ft`}</option>)
+    let options = [];
+    options.push(<option value={100} key={"default"}>{`Default`}</option>);
+    for (let i = 25; i <= 200; i += 5) {
+      options.push(<option value={i} key={"size"+i}>{`${i} ft`}</option>);
     }
-    return options
-  }
+    return options;
+  };
   // ===============================================================
 
   return (
     <div
-      className="grid grid-cols-12 bg-indigo-100 m-4"
+      className="grid grid-cols-12 bg-indigo-100 m-4 border border-black"
       style={{ height: "90vh" }}
     >
       {/* Left Column */}
@@ -354,9 +367,17 @@ function Battle() {
         >
           {viewCombatant.name &&
             (viewCombatant._id ? (
-              <DisplayCharacter {...viewCombatant} onChange={handleHPChange} />
+              <DisplayCharacter
+                {...viewCombatant}
+                onChange={handleHPChange}
+                setDice={handleDiceChange}
+              />
             ) : (
-              <DisplayMonster {...viewCombatant} onChange={handleHPChange} />
+              <DisplayMonster
+                {...viewCombatant}
+                onChange={handleHPChange}
+                setDice={handleDiceChange}
+              />
             ))}
         </div>
         {/* Dice Roller */}
@@ -364,13 +385,13 @@ function Battle() {
           className="border border-black bg-gray-800 overflow-auto"
           style={{ height: "30%" }}
         >
-          <DiceRoller />
+          <DiceRoller {...diceRoll} />
         </div>
       </div>
       {/* Middle Column */}
       <div className="col-span-6 border-black border">
         {/* Header row with buttons */}
-        <div className="border-t border-b border-black p-4 flex flex-wrap justify-around">
+        <div className="border-b border-black p-4 flex flex-wrap justify-around">
           <button
             className="bg-indigo-800 text-white p-2 rounded-lg mx-6"
             onClick={openCharacterModal}

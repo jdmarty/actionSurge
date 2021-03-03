@@ -1,19 +1,27 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { rollDice } from "../../utils/battleFunctions";
 import DiceBox from "./DiceBox";
 
-function DiceRoller() {
+function DiceRoller(props) {
   // Local states
-  const [number, setNumber] = useState(1);
-  const [type, setType] = useState("20");
-  const [mod, setMod] = useState(0);
-  const [rolls, setRolls] = useState(["20"]);
+  const [number, setNumber] = useState(props.number);
+  const [type, setType] = useState(props.type);
+  const [mod, setMod] = useState(props.mod);
+  const [rolls, setRolls] = useState(props.rolls);
   const [result, setResult] = useState(0);
 
   // References
   const numberRef = useRef();
   const typeRef = useRef();
   const modRef = useRef();
+
+  // effect to set rolls when props are received
+  useEffect(() => {
+    setNumber(props.number);
+    setType(props.type);
+    setMod(props.mod);
+    setRolls(props.rolls)
+  }, [props.number, props.type, props.mod, props.rolls])
 
   // handle number of dice change
   const handleNumberChange = () => {

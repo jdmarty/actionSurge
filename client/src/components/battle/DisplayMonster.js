@@ -28,7 +28,7 @@ function DisplayMonster(props) {
     const speeds = Object.keys(props.speed);
     return speeds.map((speed, index) => {
       return (
-        <span className="text-xl" key={"speed"+index}>
+        <span className="text-xl" key={"speed" + index}>
           {parseIndexName(speed)}: {props.speed[speed]}
         </span>
       );
@@ -45,9 +45,12 @@ function DisplayMonster(props) {
     };
     return (
       <div
-        className={`text-center w-12 shadow-xl rounded-md border ${getColor(
+        className={`text-center w-12 shadow-xl rounded-md border cursor-pointer ${getColor(
           props.stat
         )}`}
+        onClick={() =>
+          props.onClick({ number: 1, type: 20, mod: bonus, rolls: ["20"] })
+        }
       >
         <h2 className="font-bold">{props.name}</h2>
         <p>{props.stat}</p>
@@ -81,7 +84,16 @@ function DisplayMonster(props) {
   const renderProficiencies = (props) => {
     return props.proficiencies.map((prof) => {
       return (
-        <li className="flex justify-between" key={prof.proficiency.name.length*Math.random()}>
+        <li
+          className="flex justify-between cursor-pointer hover:bg-black hover:text-white px-1"
+          key={prof.proficiency.name.length * Math.random()}
+          onClick={() => props.setDice({
+            number: 1,
+            type: 20,
+            mod: prof.value,
+            rolls: ["20"],
+          })}
+        >
           <span>{prof.proficiency.name}</span>
           <span>{prof.value >= 0 ? "+" + prof.value : prof.value}</span>
         </li>
@@ -92,10 +104,13 @@ function DisplayMonster(props) {
   // Render Actions
   const renderActions = (array) => {
     // check if there is a viable array to map
-    if (!array) return
+    if (!array) return;
     return array.map((action) => {
       return (
-        <div className="mt-2 rounded-md shadow-lg" key={action.name.length*Math.random()}>
+        <div
+          className="mt-2 rounded-md shadow-lg"
+          key={action.name.length * Math.random()}
+        >
           <h3 className="bg-red-900 text-white">{action.name}</h3>
           <p className="bg-white p-2">{action.desc}</p>
         </div>
@@ -140,12 +155,12 @@ function DisplayMonster(props) {
       {/* Ability Score Cards */}
       <h2 className="bg-gray-800 text-white">- Ability Scores -</h2>
       <div className="px-6 my-2 flex flex-wrap justify-around">
-        <AbilityCard name="STR" stat={props.strength} />
-        <AbilityCard name="DEX" stat={props.dexterity} />
-        <AbilityCard name="CON" stat={props.constitution} />
-        <AbilityCard name="INT" stat={props.intelligence} />
-        <AbilityCard name="WIS" stat={props.wisdom} />
-        <AbilityCard name="CHA" stat={props.charisma} />
+        <AbilityCard name="STR" stat={props.strength} onClick={props.setDice} />
+        <AbilityCard name="DEX" stat={props.dexterity} onClick={props.setDice}/>
+        <AbilityCard name="CON" stat={props.constitution} onClick={props.setDice} />
+        <AbilityCard name="INT" stat={props.intelligence} onClick={props.setDice} />
+        <AbilityCard name="WIS" stat={props.wisdom} onClick={props.setDice} />
+        <AbilityCard name="CHA" stat={props.charisma} onClick={props.setDice} />
       </div>
       {/* Defenses */}
       <h2 className="bg-gray-800 text-white">- Defenses -</h2>
