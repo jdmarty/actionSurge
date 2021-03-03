@@ -134,27 +134,16 @@ function DisplayCharacter(props) {
     });
   };
 
-  // Weapon Cards
-  const renderWeaponCards = (props) => {
-    return props.weapons.map((weapon) => {
-      return (
-        <li className="bg-white my-2 px-2 rounded-md" key={weapon}>
-          {parseIndexName(weapon)}
-        </li>
-      );
-    });
-  };
-
-  // Spell Cards
-  const renderSpellCards = (props) => {
-    return props.spells.map((spell) => {
-      return (
-        <li className="bg-white my-2 px-2 rounded-md" key={spell}>
-          {parseIndexName(spell)}
-        </li>
-      );
-    });
-  };
+  // Render Spells and equipment
+    const renderOtherCards = (array) => {
+      return array.map((item) => {
+        return (
+          <li className="bg-white my-2 px-2 rounded-md" key={item}>
+            {parseIndexName(item)}
+          </li>
+        );
+      });
+    };
 
   return (
     <div className="text-center">
@@ -224,12 +213,22 @@ function DisplayCharacter(props) {
       {/* Weapons */}
       <h2 className="border-b bg-gray-800 text-white mt-4">- Weapons -</h2>
       <ul className="px-10 my-2 flex flex-wrap justify-around space-x-2">
-        {renderWeaponCards(props)}
+        {renderOtherCards(props.weapons)}
       </ul>
       {/* Spells */}
       <h2 className="border-b bg-gray-800 text-white mt-4">- Spells -</h2>
       <ul className="px-10 my-2 flex flex-wrap justify-around space-x-2">
-        {renderSpellCards(props)}
+        {renderOtherCards(props.spells)}
+      </ul>
+      {/* Potions */}
+      <h2 className="border-b bg-gray-800 text-white mt-4">- Potions -</h2>
+      <ul className="px-10 my-2 flex flex-wrap justify-around space-x-2">
+        {renderOtherCards(props.potions)}
+      </ul>
+      {/* Armor */}
+      <h2 className="border-b bg-gray-800 text-white mt-4">- Armor -</h2>
+      <ul className="px-10 my-2 flex flex-wrap justify-around space-x-2">
+        {renderOtherCards(props.armor)}
       </ul>
     </div>
   );

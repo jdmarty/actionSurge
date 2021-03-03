@@ -43,7 +43,7 @@ function Battle() {
         setAllMonsters(data.results);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [authState.userId]);
 
   // ADD OR REMOVE COMBATANTS===============================================
   // Add a character to the battle

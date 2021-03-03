@@ -39,7 +39,7 @@ function Board({ spl, combatants, mover, setMover, move }) {
   };
   // return a flexbox containing the prescribed number of squares
   return (
-    <div className="flex flex-wrap" style={{ height: "90%" }}>
+    <div className="flex flex-wrap" style={{ height: "88%" }}>
       {renderBoard()}
     </div>
   );
