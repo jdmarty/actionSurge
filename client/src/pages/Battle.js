@@ -356,14 +356,14 @@ function Battle() {
 
   return (
     <div
-      className="grid grid-cols-12 bg-indigo-100 m-4 border border-black"
-      style={{ height: "90vh" }}
+      className="grid grid-cols-12 bg-indigo-200 m-4 border border-black"
+      style={{ height: "88vh" }}
     >
       {/* Left Column */}
       <div className="col-span-3 overflow-auto text-sm">
         {/* Display Character / Monster */}
         <div
-          className="border border-black bg-indigo-100 overflow-auto"
+          className="border border-black overflow-auto"
           style={{ height: "70%" }}
         >
           {viewCombatant.name &&

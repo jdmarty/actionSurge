@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import Modal from "react-modal";
 
 function ConfirmResetModal(props) {
   return (
     <Modal {...props}>
       <div className="text-3xl text-center">
-        <h1 className="mb-4">Are you sure you want to reset this battle?</h1>
+        <h1 className="text-3xl text-center mb-6 border-b border-gray-800">
+          Are you sure you want to reset this battle?
+        </h1>
         <button
-          className="bg-red-500 px-4 py-2 rounded-lg mx-6"
+          className="bg-red-800 text-white px-4 py-2 rounded-lg mx-6"
           onClick={() => {
             props.handleReset();
             props.closeModal();
@@ -16,7 +18,7 @@ function ConfirmResetModal(props) {
           Yes
         </button>
         <button
-          className="bg-yellow-500 px-4 py-2 rounded-lg mx-6"
+          className="bg-yellow-700 text-white px-4 py-2 rounded-lg mx-6"
           onClick={props.closeModal}
         >
           No

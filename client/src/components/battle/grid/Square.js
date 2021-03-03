@@ -10,7 +10,7 @@ function Square({ spl, children, active, onMouseUp }) {
 
   return (
     <div
-      className={`border-gray-300 border bg-blue-100 overflow-visible ${active && "hover:bg-gray-300 bg-blue-200"}`}
+      className={`border-gray-300 border bg-blue-100 overflow-visible ${active && "hover:bg-gray-500 bg-blue-200"}`}
       style={squareStyle}
       onMouseUp={() => onMouseUp()}
     >

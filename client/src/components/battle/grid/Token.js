@@ -14,7 +14,7 @@ function Token(props) {
     return false;
   }).join("");
 
-  //style to fit in token
+  //style to fit in square
   const style = {
     height: "100%",
     width: "100%",
@@ -24,9 +24,9 @@ function Token(props) {
   const type = props._id ? "bg-green-300" : "bg-red-300";
   const isMover =
     props._id && props.mover._id === props._id
-      ? "border-2 border-yellow-900"
+      ? "ring-4"
       : props.mover.name === props.name
-      ? "border-2 border-yellow-900"
+      ? "ring-4"
       : "";
   const isDead = props.current_hit_points <= 0 && "opacity-70"
   const remainingHealth = (props.current_hit_points / props.hit_points) *100

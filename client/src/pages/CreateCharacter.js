@@ -36,7 +36,7 @@ import { toast } from "react-toast";
 
 function CreateCharacter(props) {
   // Global state for create player state
-  const [characterState, characterDispatch] = useCreateCharacterContext();
+  const [characterState] = useCreateCharacterContext();
   const [authState] = useAuthContext();
   let { id } = useParams();
 
@@ -151,7 +151,7 @@ function CreateCharacter(props) {
         {/* Middle Row */}
         {/* Character Details */}
         <div className="col-span-3 border-b border-t py-4">
-          <h1 className="text-center text-white text-2xl">Character Details</h1>
+          <h1 className="text-center text-gray-300 text-2xl">Character Details</h1>
           {/* Character Basics */}
           <div className="grid grid-cols-2 gap-x-4 gap-y-2 px-4 py-2">
             {/* Level Selector */}
@@ -195,7 +195,7 @@ function CreateCharacter(props) {
         {/* Player Stats */}
         <div className="bg-gray-900 col-span-6 border py-4">
           {/* Abilities zRow */}
-          <h1 className="text-center text-white text-2xl">Ability Scores</h1>
+          <h1 className="text-center text-gray-300 text-2xl">Ability Scores</h1>
           <div className="flex flex-wrap justify-around space-x-6 py-2 px-2">
             <AbilitiesCard type="Strength" />
             <AbilitiesCard type="Dexterity" />
@@ -205,7 +205,7 @@ function CreateCharacter(props) {
             <AbilitiesCard type="Charisma" />
           </div>
           {/* Saves Row */}
-          <h1 className="text-center text-white text-2xl">
+          <h1 className="text-center text-gray-300 text-2xl">
             Saving Throws (Check marks indicate proficiency)
           </h1>
           <div className="flex flex-wrap justify-around space-x-6 py-2 px-2">
@@ -220,18 +220,18 @@ function CreateCharacter(props) {
         {/* Other Character Details */}
         <div className="bg-gray-900 col-span-3 border-t border-b py-6">
           {/* Hit Points and AC*/}
-          <div className="lg:mx-6 mx-2 mb-4 text-white flex justify-around">
+          <div className="lg:mx-6 mx-2 mb-4 text-gray-300 flex justify-around">
             <HitPointsInput />
           </div>
 
           {/* Movement */}
-          <div className="lg:mx-6 md:mx-2 text-white flex justify-around">
+          <div className="lg:mx-6 md:mx-2 text-gray-300 flex justify-around">
             <ArmorClassInput />
             <SpeedInput />
           </div>
 
           {/* Defenses */}
-          <div className="lg:grid grid-cols-2 gap-x-4 gap-y-2 p-2 text-white">
+          <div className="lg:grid grid-cols-2 gap-x-4 gap-y-2 p-2 text-gray-300">
             <MultiSelector
               label="Resistances"
               options={damageTypes}
@@ -255,7 +255,7 @@ function CreateCharacter(props) {
           </div>
         </div>
         {/* Bottom Row: Skills, Spells, and Weapons */}
-        <div className="col-span-3 border text-white py-2">
+        <div className="col-span-3 border text-gray-300 py-2">
           <h1 className="text-center mt-2 text-2xl">Abilities</h1>
           <div className="px-6 space-y-2">
             <MultiSelector
@@ -282,7 +282,7 @@ function CreateCharacter(props) {
             </div>
           </div>
         </div>
-        <div className="bg-gray-900 col-span-3 border text-white py-2">
+        <div className="bg-gray-900 col-span-3 border text-gray-300 py-2">
           <h1 className="text-center mt-2 text-2xl">Other Equipment</h1>
           <div className="my-2 mx-6 p-2 space-y-5">
             <MultiSelector label="Weapons" options={weapons} type="weapons" />

@@ -33,7 +33,7 @@ function Selector(props) {
 
   return (
     <div className="m-1 text-black">
-      <label htmlFor={props.label.toLowerCase()} className="text-white">
+      <label htmlFor={props.label.toLowerCase()} className="text-gray-300">
         {props.label}
       </label>
       <Select
@@ -41,6 +41,7 @@ function Selector(props) {
         isMulti
         onChange={setSelectedOption}
         options={props.options}
+        className="bg-gray-500 text-white"
       />
     </div>
   );
