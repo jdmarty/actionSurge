@@ -21,7 +21,8 @@ function Battle() {
   const [authState] = useAuthContext();
   const [allCharacters, setAllCharacters] = useState([]);
   const [allMonsters, setAllMonsters] = useState([]);
-  const [combatants, setCombatants] = useState([]);
+  // get combatants from local storage or set empty
+  const [combatants, setCombatants] = useState(JSON.parse(localStorage.getItem("combat")) || []);
   const [viewCombatant, setViewCombatant] = useState({});
   const [squaresPerLine, setSquaresPerLine] = useState(20);
   const [mover, setMover] = useState({});
@@ -142,6 +143,7 @@ function Battle() {
     });
     setViewCombatant({});
     setMover({})
+    localStorage.removeItem("combat")
   };
   // ====================================================================
 
@@ -290,6 +292,12 @@ function Battle() {
   };
   //====================================================================
 
+  // SAVE BATTLE
+  const handleSave = () => {
+    localStorage.setItem("combat", JSON.stringify(combatants))
+    toast.success("Battle State Saved")
+  }
+
   // MODALS=============================================================
   const [characterModalIsOpen, setCharacterModalIsOpen] = useState(false);
   const [monsterModalIsOpen, setMonsterModalIsOpen] = useState(false);
@@ -402,25 +410,29 @@ function Battle() {
       <div className="col-span-6 border-black border">
         {/* Header row with buttons */}
         <div className="border-b border-black p-4 flex flex-wrap justify-around">
+          {/* Add Character */}
           <button
-            className="bg-indigo-800 text-white p-2 rounded-lg mx-6"
+            className="bg-indigo-800 text-white p-2 rounded-lg mx-6 lg:my-0 my-2"
             onClick={openCharacterModal}
           >
             Add Character
           </button>
+          {/* Add Monster */}
           <button
-            className="bg-indigo-800 text-white p-2 rounded-lg mx-6"
+            className="bg-indigo-800 text-white p-2 rounded-lg mx-6 lg:my-0 my-2"
             onClick={openMonsterModal}
           >
             Add Monster
           </button>
+          {/* Reset Battle */}
           <button
-            className="bg-red-800 text-white p-2 rounded-lg mx-6"
+            className="bg-red-800 text-white p-2 rounded-lg mx-6 lg:my-0 my-2"
             onClick={openConfirmModal}
           >
             Reset Battle
           </button>
-          <div className="bg-gray-500 text-white p-2 rounded-lg mx-6 flex justify-around space-x-2">
+          {/* Grid Size */}
+          <div className="bg-gray-500 text-white p-2 rounded-lg mx-6 lg:my-0 my-2 flex justify-around space-x-2">
             <label>Grid Size</label>
             <select
               className="w-24 text-black text-center"
@@ -459,6 +471,15 @@ function Battle() {
           >
             Next Turn
           </button>
+          {/* Save Battle */}
+          <div
+            className={`bg-gray-800 text-white p-2 rounded-lg hover:bg-gray-500 hover:text-green-500 cursor-pointer ${
+              combatants.length < 1 && "hidden"
+            }`}
+            onClick={handleSave}
+          >
+            <i className="fas fa-save"></i>
+          </div>
         </div>
         {/* Initiative tracker */}
         <ul className="overflow-auto px-2">
