@@ -4,8 +4,11 @@ import ReactTooltip from "react-tooltip"
 
 function Token(props) {
   // get the token name by returning only the first letter and numbers
-  const tokenName = props.name.split("").filter((char, index) => {
+  const tokenName = props.name.split("").filter((char, index, arr) => {
+    //return first and second letter if the name is one word
+    if (index === 1 && !arr.includes(" ")) return true
     if (index === 0) return true;
+    // return all capital letters and numbers
     if (char.match(/[A-Z]/)) return true;
     if (char.match(/[0-9]/)) return true;
     return false;
