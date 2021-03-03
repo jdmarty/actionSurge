@@ -111,7 +111,7 @@ function LoginScreen() {
 
   return (
     <div className="bg-gray-900 text-gray-300 rounded-lg p-5 lg:w-2/3 md:w-3/4 w-full border">
-      <h2 className="text-center text-3xl">Signup</h2>
+      <h2 className="text-center text-3xl">Create an Account</h2>
       <form className="md:px-24 sm:px-12 px-4">
         <div className="py-3 text-left sm:px-6">
           <label
