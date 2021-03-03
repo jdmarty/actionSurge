@@ -124,8 +124,8 @@ function Battle() {
         return monster.name !== name;
       });
       setCombatants(newCombatants);
-      // set to view the current combatant
-      setViewCombatant(newCombatants[0]);
+      // set to view the current combatant or nothing
+      setViewCombatant(newCombatants[0] || {});
       return newCombatants;
     }
   };

@@ -52,7 +52,8 @@ function InitiativeCard(props) {
       {/* Button to delete combatant */}
       <button
         className="text-right hover:text-red-800"
-        onClick={() => {
+        onClick={(e) => {
+          e.stopPropagation()
           props.onClick(props.name, props.id);
         }}
       >
