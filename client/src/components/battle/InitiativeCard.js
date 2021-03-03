@@ -31,13 +31,13 @@ function InitiativeCard(props) {
     >
       {/* Display Name */}
       <dt
-        className={`w-1/2 ${props.current_hit_points <= 0 && "line-through"}`}
+        className={`w-1/2 ${props.current_hit_points <= 0 && "line-through"} truncate`}
       >
         {props.name}
         <HealthBar health={remainingHealth} height={5}/>
       </dt>
       {/* Flexbox containing initiative input */}
-      <div className="text-right flex justify-between">
+      <div className="text-right flex justify-between mx-2">
         <label>Initiative</label>
         {/* On change update local state, on blur update global state */}
         <input

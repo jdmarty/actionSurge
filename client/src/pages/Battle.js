@@ -129,10 +129,19 @@ function Battle() {
     }
   };
 
-  // Remove all combatants
+  // Remove all combatants and reset state
   const handleReset = () => {
     setCombatants([]);
     setViewCombatant({});
+    setDiceRoll({
+      number: 1,
+      type: "20",
+      mod: 0,
+      rolls: ["20"],
+      result: 0,
+    });
+    setViewCombatant({});
+    setMover({})
   };
   // ====================================================================
 
@@ -356,11 +365,11 @@ function Battle() {
 
   return (
     <div
-      className="grid grid-cols-12 bg-indigo-200 m-4 border border-black"
+      className="grid grid-cols-12 bg-indigo-200 bg-opacity-70 m-4 border border-black"
       style={{ height: "88vh" }}
     >
       {/* Left Column */}
-      <div className="col-span-3 overflow-auto text-sm">
+      <div className="lg:col-span-3 col-span-6 overflow-auto text-sm">
         {/* Display Character / Monster */}
         <div
           className="border border-black overflow-auto"
@@ -383,7 +392,7 @@ function Battle() {
         </div>
         {/* Dice Roller */}
         <div
-          className="border border-black bg-gray-800 overflow-auto"
+          className="border border-black bg-gray-800 bg-opacity-70 overflow-auto"
           style={{ height: "30%" }}
         >
           <DiceRoller {...diceRoll} />
@@ -431,7 +440,7 @@ function Battle() {
         />
       </div>
       {/* Right Column */}
-      <div className="col-span-3 border-black border p-5 overflow-auto">
+      <div className="lg:col-span-3 col-span-6 border-black border p-5 overflow-auto">
         {/* Header with buttons */}
         <div className="flex justify-around">
           <button
