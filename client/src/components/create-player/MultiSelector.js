@@ -41,7 +41,6 @@ function Selector(props) {
         isMulti
         onChange={setSelectedOption}
         options={props.options}
-        className="bg-gray-500 text-white"
       />
     </div>
   );
