@@ -20,8 +20,9 @@ function DiceRoller(props) {
     setNumber(props.number);
     setType(props.type);
     setMod(props.mod);
-    setRolls(props.rolls)
-  }, [props.number, props.type, props.mod, props.rolls])
+    setRolls(props.rolls);
+    setResult(props.result)
+  }, [props.number, props.type, props.mod, props.rolls, props.result])
 
   // handle number of dice change
   const handleNumberChange = () => {

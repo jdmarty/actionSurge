@@ -1,5 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
-import { getBonusFromStat, parseIndexName } from "../../utils/battleFunctions";
+import {
+  getBonusFromStat,
+  parseIndexName,
+  rollDice,
+} from "../../utils/battleFunctions";
 
 function DisplayMonster(props) {
   // state to track hitpoints
@@ -48,9 +52,16 @@ function DisplayMonster(props) {
         className={`text-center w-12 shadow-xl rounded-md border cursor-pointer ${getColor(
           props.stat
         )}`}
-        onClick={() =>
-          props.onClick({ number: 1, type: 20, mod: bonus, rolls: ["20"] })
-        }
+        onClick={() => {
+          const result = rollDice(20);
+          props.onClick({
+            number: 1,
+            type: 20,
+            mod: bonus,
+            rolls: [result],
+            result: result + bonus,
+          });
+        }}
       >
         <h2 className="font-bold">{props.name}</h2>
         <p>{props.stat}</p>
@@ -87,12 +98,16 @@ function DisplayMonster(props) {
         <li
           className="flex justify-between cursor-pointer hover:bg-black hover:text-white px-1"
           key={prof.proficiency.name.length * Math.random()}
-          onClick={() => props.setDice({
-            number: 1,
-            type: 20,
-            mod: prof.value,
-            rolls: ["20"],
-          })}
+          onClick={() => {
+            const result = rollDice(20)
+            props.setDice({
+              number: 1,
+              type: 20,
+              mod: prof.value,
+              rolls: [result],
+              result: result + prof.value
+            });
+          }}
         >
           <span>{prof.proficiency.name}</span>
           <span>{prof.value >= 0 ? "+" + prof.value : prof.value}</span>
@@ -156,9 +171,21 @@ function DisplayMonster(props) {
       <h2 className="bg-gray-800 text-white">- Ability Scores -</h2>
       <div className="px-6 my-2 flex flex-wrap justify-around">
         <AbilityCard name="STR" stat={props.strength} onClick={props.setDice} />
-        <AbilityCard name="DEX" stat={props.dexterity} onClick={props.setDice}/>
-        <AbilityCard name="CON" stat={props.constitution} onClick={props.setDice} />
-        <AbilityCard name="INT" stat={props.intelligence} onClick={props.setDice} />
+        <AbilityCard
+          name="DEX"
+          stat={props.dexterity}
+          onClick={props.setDice}
+        />
+        <AbilityCard
+          name="CON"
+          stat={props.constitution}
+          onClick={props.setDice}
+        />
+        <AbilityCard
+          name="INT"
+          stat={props.intelligence}
+          onClick={props.setDice}
+        />
         <AbilityCard name="WIS" stat={props.wisdom} onClick={props.setDice} />
         <AbilityCard name="CHA" stat={props.charisma} onClick={props.setDice} />
       </div>

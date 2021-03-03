@@ -30,6 +30,7 @@ function Battle() {
     type: "20",
     mod: 0,
     rolls: ["20"],
+    result: 0
   });
 
   // Use effect to load user characters and monsters on mount

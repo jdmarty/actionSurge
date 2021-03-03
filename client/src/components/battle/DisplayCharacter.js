@@ -41,9 +41,16 @@ function DisplayCharacter(props) {
         className={`text-center w-12 shadow-xl rounded-md border cursor-pointer ${getColor(
           props.stat
         )}`}
-        onClick={() =>
-          props.onClick({ number: 1, type: 20, mod: bonus, rolls: ["20"] })
-        }
+        onClick={() => {
+          const result = rollDice(20);
+          props.onClick({
+            number: 1,
+            type: 20,
+            mod: bonus,
+            rolls: [result],
+            result: result + bonus,
+          });
+        }}
       >
         <h2 className="font-bold">{props.name}</h2>
         <p>{props.stat}</p>
@@ -68,9 +75,16 @@ function DisplayCharacter(props) {
         className={`text-center w-12 shadow-xl rounded-md cursor-pointer ${getColor(
           bonus
         )}`}
-        onClick={() =>
-          props.onClick({ number: 1, type: 20, mod: bonus, rolls: ["20"] })
-        }
+        onClick={() => {
+          const result = rollDice(20);
+          props.onClick({
+            number: 1,
+            type: 20,
+            mod: bonus,
+            rolls: [result],
+            result: result + bonus,
+          });
+        }}
       >
         <h2 className="font-bold">{props.name}</h2>
         <p className="bg-white rounded w-3/4 mx-auto transform translate-y-1 border border-black">
@@ -137,12 +151,16 @@ function DisplayCharacter(props) {
       return (
         <li
           className="flex justify-between hover:bg-black hover:text-white cursor-pointer px-1"
-          onClick={() => props.setDice({
-            number: 1,
-            type: 20,
-            mod: bonus,
-            rolls: ["20"],
-          })}
+          onClick={() => {
+            const result = rollDice(20);
+            props.setDice({
+              number: 1,
+              type: 20,
+              mod: bonus,
+              rolls: [result],
+              result: result + bonus
+            });
+          }}
           key={skill.label}
         >
           <span>{skill.base.slice(0, 3).toUpperCase()}</span>
@@ -204,9 +222,21 @@ function DisplayCharacter(props) {
       <h2 className="bg-gray-800 text-white">- Ability Scores -</h2>
       <div className="px-6 my-2 flex flex-wrap justify-around">
         <AbilityCard name="STR" stat={props.strength} onClick={props.setDice} />
-        <AbilityCard name="DEX" stat={props.dexterity} onClick={props.setDice}/>
-        <AbilityCard name="CON" stat={props.constitution} onClick={props.setDice} />
-        <AbilityCard name="INT" stat={props.intelligence} onClick={props.setDice} />
+        <AbilityCard
+          name="DEX"
+          stat={props.dexterity}
+          onClick={props.setDice}
+        />
+        <AbilityCard
+          name="CON"
+          stat={props.constitution}
+          onClick={props.setDice}
+        />
+        <AbilityCard
+          name="INT"
+          stat={props.intelligence}
+          onClick={props.setDice}
+        />
         <AbilityCard name="WIS" stat={props.wisdom} onClick={props.setDice} />
         <AbilityCard name="CHA" stat={props.charisma} onClick={props.setDice} />
       </div>
