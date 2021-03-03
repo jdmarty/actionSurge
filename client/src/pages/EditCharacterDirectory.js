@@ -13,14 +13,14 @@ function EditCharacterDirectory() {
     API.getUserCharacters(authState.userId)
       .then(({ data }) => setCharacters(data))
       .catch((err) => console.log(err));
-  }, []);
+  }, [authState.userId]);
   
   // render a directory link for each character
   const renderLinks = (characters) => {
     return characters.map((character, index) => {
       return (
         <Link to={`edit-character/${character._id}`}>
-          <li className="text-center text-2xl bg-yellow-900 border hover:bg-gray-300 hover:text-black p-2 m-4">
+          <li className="transition duration-250 text-center text-2xl bg-gray-900 border hover:bg-green-700 transform md:hover:scale-110 p-2 m-4 rounded-md">
             {character.name}
           </li>
         </Link>
@@ -35,12 +35,12 @@ function EditCharacterDirectory() {
           Select a Character to Edit:
         </h1>
         <ul>
-          {renderLinks(characters)}
           <Link to="/create-character">
-            <li className="text-center text-2xl bg-gray-900 border hover:bg-gray-300 hover:text-black p-2 m-4">
+            <li className="transition duration-250 text-center text-2xl bg-gray-500 border hover:bg-green-700 transform md:hover:scale-110 p-2 m-4 rounded-md">
               + Create New Character
             </li>
           </Link>
+          {renderLinks(characters)}
         </ul>
       </div>
     </div>
