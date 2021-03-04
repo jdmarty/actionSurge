@@ -5,7 +5,6 @@ function Square({ spl, children, active, onMouseUp }) {
   const squareStyle = {
     width: `${100 / spl}%`,
     height: `${100 / spl}%`,
-    fontSize: 300 / spl,
   };
 
   return (

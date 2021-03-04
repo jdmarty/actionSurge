@@ -14,11 +14,31 @@ function Token(props) {
     return false;
   }).join("");
 
+  // set token stats from character size
+  const setSize = (size, spl) => {
+    switch (size) {
+      case "Huge":
+        return {
+          height: "calc(200% + 2px)",
+          width: "calc(200% + 2px)",
+          fontSize: `${36 / spl}vw`,
+        };
+      case "Gargantuan":
+        return {
+          height: "calc(300% + 4px)",
+          width: "calc(300% + 4px)",
+          fontSize: `${54 / spl}vw`,
+        };
+      default:
+        return { height: "100%", width: "100%", fontSize: `${18 / spl}vw`};
+    }
+  }
+
   //style to fit in square
   const style = {
-    height: "100%",
-    width: "100%",
-  }
+    boxSizing: "content-box",
+    ...setSize(props.size, props.spl)
+  };
 
   // conditional styles
   const type = props._id ? "bg-green-300" : "bg-red-300";
@@ -28,7 +48,7 @@ function Token(props) {
       : props.mover.name === props.name
       ? "ring-4"
       : "";
-  const isDead = props.current_hit_points <= 0 && "opacity-70"
+  const isDead = props.current_hit_points <= 0 && "opacity-50"
   const remainingHealth = (props.current_hit_points / props.hit_points) *100
 
   // return a div containing the health bar, token name, and possible overlay

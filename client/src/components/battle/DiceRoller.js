@@ -112,7 +112,7 @@ function DiceRoller(props) {
           {/* Dice Number Input */}
           <input
             type="number"
-            className="text-center w-12"
+            className="text-center w-10"
             min="0"
             max="100"
             placeholder="Num"
@@ -135,7 +135,7 @@ function DiceRoller(props) {
           {/* Dice Modifier Input */}
           <input
             type="number"
-            className="text-center w-12"
+            className="text-center w-10"
             max="1000"
             placeholder="Mod"
             ref={modRef}

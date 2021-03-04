@@ -21,7 +21,12 @@ function Board({ spl, combatants, mover, setMover, move }) {
       if (isTokenHere) {
         grid.push(
           <Square spl={spl} onMouseUp={() => move(x, y)} key={i}>
-            <Token {...isTokenHere} onMouseDown={setMover} mover={mover}/>
+            <Token
+              {...isTokenHere}
+              onMouseDown={setMover}
+              mover={mover}
+              spl={spl}
+            />
           </Square>
         );
       } else {
