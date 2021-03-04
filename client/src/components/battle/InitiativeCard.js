@@ -24,8 +24,8 @@ function InitiativeCard(props) {
 
   return (
     <li
-      className={`border border-black my-4 flex justify-between px-4 py-2 rounded-md cursor-pointer ${
-        monster ? "bg-red-300 " : "bg-green-300 "
+      className={`border my-4 flex justify-between px-4 py-2 rounded-md cursor-pointer ${
+        monster ? "border-red-800 bg-red-300 " : "border-green-800 bg-green-300 "
       }${props.first && "ring-4 ring-blue-500 border-0"}`}
       onClick={() => props.onViewClick(props.name, props._id)}
     >
