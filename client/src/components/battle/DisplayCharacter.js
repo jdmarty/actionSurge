@@ -38,7 +38,7 @@ function DisplayCharacter(props) {
     };
     return (
       <div
-        className={`text-center w-12 shadow-xl rounded-md border cursor-pointer ${getColor(
+        className={`hover:bg-white text-center w-12 shadow-xl rounded-md border cursor-pointer ${getColor(
           props.stat
         )}`}
         onClick={() => {
@@ -54,7 +54,7 @@ function DisplayCharacter(props) {
       >
         <h2 className="font-bold">{props.name}</h2>
         <p>{props.stat}</p>
-        <p className="bg-white rounded w-3/4 mx-auto transform translate-y-1 border border-black">
+        <p className="bg-gray-800 text-white rounded w-3/4 mx-auto transform translate-y-1 border border-black">
           {bonus >= 0 ? "+ " + bonus : bonus}
         </p>
       </div>
@@ -72,7 +72,7 @@ function DisplayCharacter(props) {
     };
     return (
       <div
-        className={`text-center w-12 shadow-xl rounded-md cursor-pointer ${getColor(
+        className={`hover:bg-white text-center w-12 shadow-xl rounded-md border cursor-pointer ${getColor(
           bonus
         )}`}
         onClick={() => {
@@ -87,7 +87,7 @@ function DisplayCharacter(props) {
         }}
       >
         <h2 className="font-bold">{props.name}</h2>
-        <p className="bg-white rounded w-3/4 mx-auto transform translate-y-1 border border-black">
+        <p className="bg-gray-800 text-white rounded w-3/4 mx-auto transform translate-y-1 border border-black">
           {bonus >= 0 ? "+ " + bonus : bonus}
         </p>
       </div>
@@ -125,7 +125,7 @@ function DisplayCharacter(props) {
     if (props.array.length < 1) return <></>;
     return (
       <div className="text-center border w-24 rounded-md bg-white">
-        <h2 className="border-b bg-black text-white rounded-md">
+        <h2 className="border-b bg-black text-white rounded-t-md">
           {props.name}
         </h2>
         {props.array.map((item, index) => {
@@ -150,7 +150,7 @@ function DisplayCharacter(props) {
         : baseBonus;
       return (
         <li
-          className="flex justify-between hover:bg-black hover:text-white cursor-pointer px-1"
+          className="flex justify-between rounded-md hover:bg-gray-800 hover:text-gray-300 cursor-pointer px-2"
           onClick={() => {
             const result = rollDice(20);
             props.setDice({
@@ -257,25 +257,25 @@ function DisplayCharacter(props) {
       </div>
 
       {/* Skills */}
-      <h2 className="border-b bg-gray-800 text-white mt-4">- Skills -</h2>
+      <h2 className="bg-gray-800 text-white mt-4">- Skills -</h2>
       <ul className="px-10 my-2">{renderSkillCards(props)}</ul>
       {/* Weapons */}
-      <h2 className="border-b bg-gray-800 text-white mt-4">- Weapons -</h2>
+      <h2 className="bg-gray-800 text-white mt-4">- Weapons -</h2>
       <ul className="px-10 my-2 flex flex-wrap justify-around space-x-2">
         {renderOtherCards(props.weapons)}
       </ul>
       {/* Spells */}
-      <h2 className="border-b bg-gray-800 text-white mt-4">- Spells -</h2>
+      <h2 className="bg-gray-800 text-white mt-4">- Spells -</h2>
       <ul className="px-10 my-2 flex flex-wrap justify-around space-x-2">
         {renderOtherCards(props.spells)}
       </ul>
       {/* Potions */}
-      <h2 className="border-b bg-gray-800 text-white mt-4">- Potions -</h2>
+      <h2 className="bg-gray-800 text-white mt-4">- Potions -</h2>
       <ul className="px-10 my-2 flex flex-wrap justify-around space-x-2">
         {renderOtherCards(props.potions)}
       </ul>
       {/* Armor */}
-      <h2 className="border-b bg-gray-800 text-white mt-4">- Armor -</h2>
+      <h2 className="bg-gray-800 text-white mt-4">- Armor -</h2>
       <ul className="px-10 my-2 flex flex-wrap justify-around space-x-2">
         {renderOtherCards(props.armor)}
       </ul>

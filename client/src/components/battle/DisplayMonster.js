@@ -49,7 +49,7 @@ function DisplayMonster(props) {
     };
     return (
       <div
-        className={`text-center w-12 shadow-xl rounded-md border cursor-pointer ${getColor(
+        className={`hover:bg-white text-center w-12 shadow-xl rounded-md border cursor-pointer ${getColor(
           props.stat
         )}`}
         onClick={() => {
@@ -65,7 +65,7 @@ function DisplayMonster(props) {
       >
         <h2 className="font-bold">{props.name}</h2>
         <p>{props.stat}</p>
-        <p className="bg-white rounded w-3/4 mx-auto transform translate-y-1 border border-black">
+        <p className="bg-gray-800 text-white rounded w-3/4 mx-auto transform translate-y-1 border border-black">
           {bonus >= 0 ? "+ " + bonus : bonus}
         </p>
       </div>
@@ -77,7 +77,7 @@ function DisplayMonster(props) {
     if (props.array.length < 1) return <></>;
     return (
       <div className="text-center border w-24 rounded-md bg-white">
-        <h2 className="border-b bg-black text-white rounded-md">
+        <h2 className="border-b bg-black text-white rounded-t-md">
           {props.name}
         </h2>
         {props.array.map((item, index) => {
@@ -96,16 +96,16 @@ function DisplayMonster(props) {
     return props.proficiencies.map((prof) => {
       return (
         <li
-          className="flex justify-between cursor-pointer hover:bg-black hover:text-white px-1"
+          className="flex justify-between cursor-pointer rounded-md hover:bg-gray-800 hover:text-gray-300 px-2"
           key={prof.proficiency.name.length * Math.random()}
           onClick={() => {
-            const result = rollDice(20)
+            const result = rollDice(20);
             props.setDice({
               number: 1,
               type: 20,
               mod: prof.value,
               rolls: [result],
-              result: result + prof.value
+              result: result + prof.value,
             });
           }}
         >
@@ -123,11 +123,11 @@ function DisplayMonster(props) {
     return array.map((action) => {
       return (
         <div
-          className="mt-2 rounded-md shadow-lg"
+          className="mt-2 shadow-lg"
           key={action.name.length * Math.random()}
         >
-          <h3 className="bg-red-900 text-white">{action.name}</h3>
-          <p className="bg-white p-2">{action.desc}</p>
+          <h3 className="bg-red-900 rounded-t-md text-white">{action.name}</h3>
+          <p className="bg-white rounded-b-md p-2">{action.desc}</p>
         </div>
       );
     });

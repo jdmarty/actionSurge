@@ -287,7 +287,6 @@ function Battle() {
 
   // DICE ROLLER========================================================
   const handleDiceChange = (obj) => {
-    console.log(obj)
     setDiceRoll(obj);
   };
   //====================================================================
