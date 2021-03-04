@@ -58,7 +58,6 @@ function CreateCharacter(props) {
     API.createCharacter(characterData)
       .then(({ data }) => {
         toast.success(`New Character ${characterData.name} successfully created!`);
-        setTimeout(() => (window.location.pathname = "/"), 3000);
       })
       .catch((err) => {
         console.log(err);
