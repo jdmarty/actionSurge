@@ -55,9 +55,9 @@ function Battle() {
 
   // ADD OR REMOVE COMBATANTS===============================================
   // Add a character to the battle
-  const handleAddCharacter = (index) => {
+  const handleAddCharacter = (id) => {
     const currentCombatants = [...combatants];
-    const newCharacter = allCharacters[index];
+    const newCharacter = allCharacters.find(character => character._id === id)
     // check for duplicates
     const isDuplicate = currentCombatants.find(
       (character) => character._id === newCharacter._id

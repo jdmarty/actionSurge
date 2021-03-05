@@ -1,70 +1,55 @@
-# Getting Started with Create React App
+# Hunters Mark
+## Dungeons and Dragons 5E Dashboard
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Welcome to Hunters Mark
+This application combines a suite of crucial DM tools into one minimalist experience that allows a DM to track critical combat information like initiative, hit points, positioning, and monster statistics from a single application. It incorporates these tools along with a dice rolling application, simple player creation platform, and access to an open source API [http://www.dnd5eapi.co/](http://www.dnd5eapi.co/) that gives a DM access to the basic DnD 5E rule set.
 
-## Available Scripts
+## How To Use
 
-In the project directory, you can run:
+### Logging In
+All links from the home page will redirect the user to the login page if they have not already logged in (since access to user-created player avatars requires an account).
 
-### `npm start`
+To login and existing user, enter a username and password in the appropriate fields and click Login.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+![Hunters Mark Login Page]()
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+To create a new account, click Sign Up next to the Login button to be redirected to the Create an Account page. From this page enter the desired username, email, and password in the appropriate fields. Once the form is completely filled 
 
-### `npm test`
+![Hunters Mark Signup page]()
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Home Page
+After logging in or creating an account, the user will be redirected to the home page. From here, they can choose to:
+- Create a new player character
+- Edit an existing character
+- Run a battle
 
-### `npm run build`
+### Creating A Character
+The user can enter data describing their character on the Create Character page and sae that character in the application database for use in a battle. This works best when a character is transferred from an existing character sheet into this application
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+#### Required Inputs
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+All that is required to create a character is that the following fields have a value
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Name (text input)
+- Level (select input)
+- Race (select input)
+- Class (select input)
 
-### `npm run eject`
+![Create Player Required Fields]()
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+All other fields provide additional information to improve the battle experience.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+#### Ability Scores
+Enter a value between 1 and 30 in the ability scores box. The app will calculate an ability check bonus from this number.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+![Create Player Ability Scores]()
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+#### Saving Throws
+Saving throw bonuses are automatically calculated from ability scores. Clicking on the check box next to that saving throw indicates that character is proficient in that saving throw, and thus receives an additional bonus relative to their level
 
-## Learn More
+![Create Player Saving Throws]()
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+#### Hit Points
+Enter a number in the hit points field to define that players maximum hit points
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
