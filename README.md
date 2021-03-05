@@ -1,6 +1,12 @@
 # Hunters Mark
 ## Dungeons and Dragons 5E Dashboard
 
+[![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)
+
+## Links
+- Deployed [https://hunters-mark.herokuapp.com/](https://hunters-mark.herokuapp.com/)
+- Repository [https://github.com/jdmarty/actionSurge](https://github.com/jdmarty/actionSurge)
+
 ## Welcome to Hunters Mark
 This application combines a suite of crucial DM tools into one minimalist experience that allows a DM to track critical combat information like initiative, hit points, positioning, and monster statistics from a single application. It incorporates these tools along with a dice rolling application, simple player creation platform, and access to an open source API [http://www.dnd5eapi.co/](http://www.dnd5eapi.co/) that gives a DM access to the basic DnD 5E rule set.
 
@@ -93,5 +99,88 @@ From this page, the user can update any of the information they entered in the c
 
 ----------------------------------------------------------------------------------------
 
+### Running a Battle
+The user can select the Run Battle button on the home page to open the battle page. This is the home for the bulk of this applications features, including the battle grid, character information display, dice roller, and initiative tracker
 
+#### Adding a Character
+Click the Add Character button above the battle grid to add a user-created character to the battle. Select a character from the modal to add that character to the battle. This list can be filtered by entering a search term in the input field at the top of the modal
 
+#### Adding a Monster
+Click the Add Character button above the battle grid to add a  monster from the 5th edition basic rules to the battle. Select a monster from the modal to add that monster to the battle. This list can be filtered by entering a search term in the input field at the top of the modal
+
+#### Resizing the Grid
+Select a dropdown option from the grid size input to set the size of your battle grid. NOTE that the grid is sized from the top left corner down, so resizing during a battle may cut off tokens in the lower or far right corners of the map
+
+#### Initiative Tracker
+
+![Battle Initiative Tracker]()
+
+Once at least on character or monster has been added to the battle, their card will be added to the initiative tracker and the initiative options will appear. 
+
+- Initiative for all combatants can be rolled automatically by clicking the Roll Initiative button at the top of the initiative tracker.
+
+- Initiative can be adjusted manually by altering the numerical value in the initiative field on a combatants card.
+
+- Track the active combatant by clicking the Next Turn button at the top of the initiative tracker. This will cycle initiative to the next combatant in order, and highlight their character token on the battle grid.
+
+- Click the red "X" on a combatants initiative card to remove that combatant from the battle.
+
+- Click the save button at the top of the initiative tracker to locally store battle data, including current hit points, initiative, and grid position.
+
+#### Combatant Details
+
+![Battle Combatant Details]()
+
+Click on a combatant's initiative card or grid token to view details about that combatant. When initiative cycles, this panel will automatically update to display the details of the next combatant in the initiative count.
+
+- Update the value next to the red heart on the details panel to change that combatants hit points value. Current hit points are displayed on both a combatants initiative card and battle token.
+
+- Click on a combatants ability score or saving throw card to make a simple d20 check. All rolls will be made in the Dice Roller panel (see section below)
+
+- Click on a combatants skill or proficiency element to make a simple d20 check for that ability or saving throw
+
+- The actions that a monster may perform are listed below their proficiencies, including their hit bonus and damage rolls.
+
+- A player characters weapons, spells, potions, and armor are listed below their skills
+
+#### Dice Roller
+
+![Battle Dice Roller]()
+
+The dice roller panel can be used to perform basic dice rolls with any of the standard dice types. To use this feature
+
+1. Enter the number of dice to roll in the first input field
+2. Select the type of dice to roll in the second input field
+3. Enter the modifier to be added after rolls are completed in the third input field.
+4. Click the Roll button to roll all selected dice and report the sum of all dice rolls as the result
+
+This feature can also perform a few special types of roll
+- Click the ADV button to make a roll with advantage (roll two d20, add the modifier to each roll, and report the highest value as the result)
+- Click the DIS button to make a roll with disadvantage (roll two d20, add the modifier to each roll, and report the lowest value as the result)
+
+Once dice have been added to the pool, a graphic representation of each di will be rendered. Click on that di to perform an individual roll or re-roll of that di.
+
+#### Battle Grid
+
+![Battle Grid]()
+
+Once a character or monster is added to the battle, a token representing that character is added to the battle grid. 
+
+This token will have a name generated from that combatants initials. Green token are player characters, red tokens are monsters. Hover over a token to view that characters name. The token with a golden outline is at the top of the initiative order
+
+Combatants can be repositioned on the battle grid by dragging and dropping their token. Clicking on a combatants token will display that combatants information on the Combatant Details panel
+
+Token size is calculated based on that monsters size category (Large, Huge, Gargantuan, etc...)
+
+#### Resetting a Battle
+Click the red Reset Battle button to open a dialog box that will ask for confirmation before clearing the battle. Click yes to remove all characters from the battle and clear any locally stored battle data
+
+-------------------------------------------------------------------------------------------
+
+## Credits
+
+This application was created as a solo project by UCI Full Stack Flex Code Bootcamp student (Joshua Marty)[https://www.linkedin.com/in/joshua-marty-22a544a2/]
+
+## License
+
+This project uses the ISC license
