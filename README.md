@@ -10,6 +10,8 @@
 ## Welcome to Hunters Mark
 This application combines a suite of crucial DM tools into one minimalist experience that allows a DM to track critical combat information like initiative, hit points, positioning, and monster statistics from a single application. It incorporates these tools along with a dice rolling application, simple player creation platform, and access to an open source API [http://www.dnd5eapi.co/](http://www.dnd5eapi.co/) that gives a DM access to the basic DnD 5E rule set.
 
+![Hunters Mark Homepage](https://github.com/jdmarty/actionSurge/blob/main/images/home-snip.PNG)
+
 ## How To Use
 
 ### Logging In
