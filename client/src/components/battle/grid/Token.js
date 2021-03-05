@@ -49,12 +49,13 @@ function Token(props) {
       ? "ring-4"
       : "";
   const isDead = props.current_hit_points <= 0 && "opacity-50"
+  const isFirst = props.first ? "ring-2 ring-yellow-500" : ""
   const remainingHealth = (props.current_hit_points / props.hit_points) *100
 
   // return a div containing the health bar, token name, and possible overlay
   return (
     <div
-      className={`${type} ${isMover} ${isDead} text-black text-center truncate cursor-move relative noselect`}
+      className={`${type} ${isMover} ${isDead} ${isFirst} text-black text-center truncate cursor-move relative noselect`}
       style={style}
       onMouseDown={() => props.onMouseDown(props.name, props._id)}
       data-tip={props.name}

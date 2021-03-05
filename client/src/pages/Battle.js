@@ -448,6 +448,7 @@ function Battle() {
           mover={mover}
           setMover={handleSetMover}
           move={handleMove}
+          firstCombatant={combatants[0]}
         />
       </div>
       {/* Right Column */}

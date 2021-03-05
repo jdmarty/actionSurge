@@ -2,7 +2,7 @@ import React from "react";
 import Square from "./Square";
 import Token from "./Token";
 
-function Board({ spl, combatants, mover, setMover, move }) {
+function Board({ spl, combatants, mover, setMover, move, firstCombatant }) {
   // check if the mover is active
   const active = mover.name ? true : false
 
@@ -17,14 +17,21 @@ function Board({ spl, combatants, mover, setMover, move }) {
       const isTokenHere = combatants.find((combatant) => {
         return combatant.xPos === x && combatant.yPos === y;
       });
+      // check if that combatant if the first combatant
+      const isFirst = (thisToken, firstToken) => {
+        if (thisToken._id && thisToken._id === firstToken._id) return true
+        if (thisToken.name === firstToken.name) return true
+        return false
+      }
       // if there is a combatant there, render a token, otherwise an empty square
       if (isTokenHere) {
         grid.push(
           <Square spl={spl} onMouseUp={() => move(x, y)} key={i}>
             <Token
               {...isTokenHere}
-              onMouseDown={setMover}
+              first={isFirst(isTokenHere, firstCombatant)}
               mover={mover}
+              onMouseDown={setMover}
               spl={spl}
             />
           </Square>
