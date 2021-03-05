@@ -102,7 +102,7 @@ From this page, the user can update any of the information they entered in the c
 ### Running a Battle
 The user can select the Run Battle button on the home page to open the battle page. This is the home for the bulk of this applications features, including the battle grid, character information display, dice roller, and initiative tracker
 
-![Battle Page]()
+![Battle Page](https://github.com/jdmarty/actionSurge/blob/main/images/battle-overall-snip.PNG)
 
 #### Adding a Character
 Click the Add Character button above the battle grid to add a user-created character to the battle. Select a character from the modal to add that character to the battle. This list can be filtered by entering a search term in the input field at the top of the modal
@@ -131,7 +131,7 @@ Once at least on character or monster has been added to the battle, their card w
 
 #### Combatant Details
 
-![Battle Combatant Details]()
+![Battle Combatant Details](https://github.com/jdmarty/actionSurge/blob/main/images/battle-details-snip.PNG)
 
 Click on a combatant's initiative card or grid token to view details about that combatant. When initiative cycles, this panel will automatically update to display the details of the next combatant in the initiative count.
 
