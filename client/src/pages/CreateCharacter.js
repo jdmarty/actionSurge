@@ -255,7 +255,7 @@ function CreateCharacter(props) {
         </div>
         {/* Bottom Row: Skills, Spells, and Weapons */}
         <div className="col-span-3 border text-gray-300 py-2">
-          <h1 className="text-center mt-2 text-2xl">Abilities</h1>
+          <h1 className="text-center mt-2 text-2xl">Skills</h1>
           <div className="px-6 space-y-2">
             <MultiSelector
               label="Proficient Skills"

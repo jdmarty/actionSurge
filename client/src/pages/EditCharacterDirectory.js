@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useAuthContext } from "../utils/AuthState";
 import API from "../utils/API";
+import parseIndexName from "../utils/parseIndexName"
 
 function EditCharacterDirectory() {
   // Characters list, auth state, and global context
@@ -20,8 +21,9 @@ function EditCharacterDirectory() {
     return characters.map((character, index) => {
       return (
         <Link to={`edit-character/${character._id}`}>
-          <li className="transition duration-250 text-center text-2xl bg-gray-900 border hover:bg-green-700 transform md:hover:scale-110 p-2 m-4 rounded-md">
-            {character.name}
+          <li className="flex justify-between transition duration-250 text-2xl bg-gray-900 border hover:bg-green-700 transform md:hover:scale-110 py-2 px-4 m-4 rounded-md">
+            <span>{character.name}</span>
+            <span>Lvl {character.level} {parseIndexName(character.classType)}</span>
           </li>
         </Link>
       );

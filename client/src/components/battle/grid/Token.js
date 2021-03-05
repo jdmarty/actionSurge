@@ -30,7 +30,11 @@ function Token(props) {
           fontSize: `${54 / spl}vw`,
         };
       default:
-        return { height: "100%", width: "100%", fontSize: `${18 / spl}vw`};
+        return {
+          height: "100%",
+          width: "100%",
+          fontSize: `${18 / spl}vw`,
+        };
     }
   }
 
