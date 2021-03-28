@@ -51,6 +51,11 @@ const API = {
   getMonster: function (url) {
     return axios.get(`https://www.dnd5eapi.co${url}`);
   },
+
+  // get a single spell
+  getSpell: function (url) {
+    return axios.get(`https://www.dnd5eapi.co${url}`);
+  }
 };
 
 export default API

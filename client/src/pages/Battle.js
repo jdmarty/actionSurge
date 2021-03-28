@@ -305,9 +305,11 @@ function Battle() {
   //====================================================================
 
   // VIEW SPELL=========================================================
-  const handleViewSpell = (obj) => {
-    setViewSpell(obj);
-    openSpellModal();
+  const handleViewSpell = (url) => {
+    API.getSpell(url).then(({ data }) => {
+      setViewSpell(data);
+      openSpellModal();
+    })
   }
   //====================================================================
 
