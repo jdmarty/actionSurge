@@ -59,7 +59,7 @@ function Token(props) {
   // return a div containing the health bar, token name, and possible overlay
   return (
     <div
-      className={`${type} ${isMover} ${isDead} ${isFirst} text-black text-center truncate cursor-move relative noselect`}
+      className={`${type} ${isMover} ${isDead} ${isFirst} text-black text-center truncate cursor-move relative noselect border border-black`}
       style={style}
       onMouseDown={() => props.onMouseDown(props.name, props._id)}
       data-tip={props.name}
