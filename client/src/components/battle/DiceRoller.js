@@ -46,6 +46,7 @@ function DiceRoller(props) {
 
   // handle modifier change
   const handleModChange = () => {
+    // set the modifier
     setMod(Number(modRef.current.value));
     setResult("");
   };
@@ -80,7 +81,7 @@ function DiceRoller(props) {
   const handleDisRoll = () => {
     // set the roller for two d20 rolls
     setNumber(2);
-    setType(20);
+    setType("20");
     // roll two dice and set the result to the lower value
     const newRolls = [rollDice(20), rollDice(20)];
     const newResult = Math.min(...newRolls) + mod;
@@ -91,16 +92,16 @@ function DiceRoller(props) {
 
   // handle single dice roll
   const handleSingleRoll = (e, index) => {
-    const newRolls = [...rolls]
+    const newRolls = [...rolls];
     // change the roll at the target index
     newRolls[index] = rollDice(type);
-    setRolls(newRolls)
+    setRolls(newRolls);
     // sum up all number values in the rolls array
-    const newResult = newRolls.reduce((a,b) => {
-      if (typeof b == "string") return a
-      else return a + b
-    }, 0)
-    setResult(newResult)
+    const newResult = newRolls.reduce((a, b) => {
+      if (typeof b == "string") return a;
+      else return a + b;
+    }, 0);
+    setResult(newResult);
   }
 
   return (
