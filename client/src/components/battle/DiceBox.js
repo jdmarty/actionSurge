@@ -20,7 +20,7 @@ function DiceBox(props) {
   // render a group of divs to represent dice
   const renderDice = () => {
     // map out and array of dice
-    return props.rolls.map((roll, index) => {
+    const allDice =  props.rolls.map((roll, index) => {
       if (typeof roll === "string") {
         return (
           <Di
@@ -35,7 +35,7 @@ function DiceBox(props) {
         return (
           <Di
             roll={roll}
-            animation="diceSpin"
+            animation={props.animation ? "diceSpin" : ""}
             key={"di" + index}
             index={index}
             onClick={props.onClick}
@@ -43,6 +43,10 @@ function DiceBox(props) {
         );
       }
     });
+    // reset animations after spin is complete
+    setTimeout(props.resetAnimation, 120)
+    // render the dice
+    return allDice
   };
 
   return (

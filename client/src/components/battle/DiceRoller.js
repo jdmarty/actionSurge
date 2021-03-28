@@ -9,6 +9,7 @@ function DiceRoller(props) {
   const [mod, setMod] = useState(props.mod);
   const [rolls, setRolls] = useState(props.rolls);
   const [result, setResult] = useState(0);
+  const [animation, setAnimation] = useState(false);
 
   // References
   const numberRef = useRef();
@@ -21,8 +22,13 @@ function DiceRoller(props) {
     setType(props.type);
     setMod(props.mod);
     setRolls(props.rolls);
-    setResult(props.result)
-  }, [props.number, props.type, props.mod, props.rolls, props.result])
+    setResult(props.result);
+  }, [props.number, props.type, props.mod, props.rolls, props.result]);
+
+  // reset animation to false
+  const resetAnimation = () => {
+    setAnimation(false);
+  };
 
   // handle number of dice change
   const handleNumberChange = () => {
@@ -53,6 +59,8 @@ function DiceRoller(props) {
 
   // handle dice rolls
   const handleRoll = () => {
+    // set animation to run
+    setAnimation(true)
     // map the dice type array into values
     const newRolls = rolls.map((roll) => {
       const diceType = Number(type);
@@ -66,6 +74,8 @@ function DiceRoller(props) {
 
   // handle roll with advantage
   const handleAdvRoll = () => {
+    // set animation to run
+    setAnimation(true);
     // set roller for 2d20 rolls
     setNumber(2);
     setType("20");
@@ -79,6 +89,8 @@ function DiceRoller(props) {
 
   // handle roll with disadvantage
   const handleDisRoll = () => {
+    // set animation to run
+    setAnimation(true);
     // set the roller for two d20 rolls
     setNumber(2);
     setType("20");
@@ -93,6 +105,8 @@ function DiceRoller(props) {
   // handle single dice roll
   const handleSingleRoll = (e, index) => {
     const newRolls = [...rolls];
+    // set animation to run
+    setAnimation(true);
     // change the roll at the target index
     newRolls[index] = rollDice(type);
     setRolls(newRolls);
@@ -102,7 +116,7 @@ function DiceRoller(props) {
       else return a + b;
     }, 0);
     setResult(newResult);
-  }
+  };
 
   return (
     <>
@@ -170,6 +184,8 @@ function DiceRoller(props) {
         rolls={rolls}
         result={result}
         mod={mod}
+        animation={animation}
+        resetAnimation={resetAnimation}
         onClick={handleSingleRoll}
       />
     </>
