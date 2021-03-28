@@ -126,7 +126,7 @@ function DisplayMonster(props) {
           className="mt-2 shadow-lg"
           key={action.name.length * Math.random()}
         >
-          <h3 className="bg-red-900 rounded-t-md text-white">
+          <h3 className="bg-red-900 rounded-t-md text-white py-1">
             {action.name}
             {action.usage && ` (${action.usage.times || action.usage.min_value+"+/"+action.usage.dice} ${action.usage.type})`}
           </h3>
