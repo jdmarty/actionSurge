@@ -121,6 +121,18 @@ function DisplayMonster(props) {
     // check if there is a viable array to map
     if (!array) return;
     return array.map((action) => {
+      // determine recharge condition
+      const findRecharge = (action) => {
+        if (!action.usage) return "";
+        if (action.usage.type === "recharge after rest")
+          return " (recharge on rest)";
+        if (action.usage.type === "per day")
+          return ` (${action.usage.times} per day)`;
+        if (action.usage.type === "recharge on roll")
+          return ` (recharge on ${action.usage.min_value}+ / ${action.usage.dice})`;
+        return "";
+      };
+      // generate card
       return (
         <div
           className="mt-2 shadow-lg"
@@ -128,7 +140,7 @@ function DisplayMonster(props) {
         >
           <h3 className="bg-red-900 rounded-t-md text-white py-1">
             {action.name}
-            {action.usage && ` (${action.usage.times || action.usage.min_value+"+/"+action.usage.dice} ${action.usage.type})`}
+            {findRecharge(action)}
           </h3>
           <p className="bg-white p-2">{action.desc}</p>
           <div className="bg-gray-300 flex justify-around rounded-b-md border cursor-pointer">
