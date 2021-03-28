@@ -131,7 +131,7 @@ function DisplayMonster(props) {
           <div className="bg-gray-300 flex justify-around rounded-b-md border cursor-pointer">
             {/* Add an attack roll option if one is available */}
             {action.attack_bonus && (
-              <div 
+              <div
                 className="flex-auto hover:text-red-900 hover:font-bold border"
                 onClick={() => {
                   const result = rollDice(20);
@@ -142,11 +142,37 @@ function DisplayMonster(props) {
                     rolls: [result],
                     result: result + action.attack_bonus,
                   });
-                }}>
+                }}
+              >
                 Attack Roll
               </div>
             )}
           </div>
+        </div>
+      );
+    });
+  };
+
+  // Render spells
+  const renderSpells = (array) => {
+    // check if the monster knows any spells
+    const spellcastingAbility = array.find((el) => el.spellcasting);
+    if (!spellcastingAbility) return;
+    // render a list of spells
+    return spellcastingAbility.spellcasting.spells.map((spell) => {
+      return (
+        <div className="flex justify-between text-center cursor-pointer rounded-md hover:bg-gray-800 hover:text-gray-300 px-2">
+          <span>{spell.name}</span>
+          {/* Render either spell level or usage rate */}
+          {!spell.usage && (
+            <span>{spell.level > 0 ? `Level ${spell.level}` : "Cantrip"}</span>
+          )}
+          {spell.usage && (
+            <span>
+              {spell.usage.times}
+              {" " + spell.usage.type}
+            </span>
+          )}
         </div>
       );
     });
@@ -227,6 +253,9 @@ function DisplayMonster(props) {
       {/* Special Abilities */}
       <h2 className="bg-gray-800 text-white">- Special Abilities -</h2>
       <div className="px-10 my-2">{renderActions(props.special_abilities)}</div>
+      {/* Spells */}
+      <h2 className="bg-gray-800 text-white">- Spells -</h2>
+      <div className="px-10 my-2">{renderSpells(props.special_abilities)}</div>
     </div>
   );
 }
