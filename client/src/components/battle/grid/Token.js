@@ -53,7 +53,7 @@ function Token(props) {
       ? "ring-4"
       : "";
   const isDead = props.current_hit_points <= 0 && "opacity-50"
-  const isFirst = props.first ? "ring-2 ring-yellow-500" : ""
+  const isFirst = props.first ? "ring-2 ring-yellow-800" : ""
   const remainingHealth = (props.current_hit_points / props.hit_points) *100
 
   // return a div containing the health bar, token name, and possible overlay

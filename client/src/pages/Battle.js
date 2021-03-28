@@ -9,6 +9,7 @@ import { rollDice, getBonusFromStat } from "../utils/battleFunctions";
 import AddPlayerModal from "../components/battle/AddPlayerModal";
 import AddMonsterModal from "../components/battle/AddMonsterModal";
 import ConfirmResetModal from "../components/battle/ConfirmRestModal";
+import SpellModal from "../components/battle/SpellModal"
 import InitiativeCard from "../components/battle/InitiativeCard";
 import DiceRoller from "../components/battle/DiceRoller";
 import DisplayCharacter from "../components/battle/DisplayCharacter";
@@ -22,8 +23,11 @@ function Battle() {
   const [allCharacters, setAllCharacters] = useState([]);
   const [allMonsters, setAllMonsters] = useState([]);
   // get combatants from local storage or set empty
-  const [combatants, setCombatants] = useState(JSON.parse(localStorage.getItem("combat")) || []);
+  const [combatants, setCombatants] = useState(
+    JSON.parse(localStorage.getItem("combat")) || []
+  );
   const [viewCombatant, setViewCombatant] = useState({});
+  const [viewSpell, setViewSpell] = useState({});
   const [squaresPerLine, setSquaresPerLine] = useState(20);
   const [mover, setMover] = useState({});
   const [diceRoll, setDiceRoll] = useState({
@@ -31,7 +35,7 @@ function Battle() {
     type: "20",
     mod: 0,
     rolls: ["20"],
-    result: 0
+    result: 0,
   });
 
   // Use effect to load user characters and monsters on mount
@@ -57,7 +61,9 @@ function Battle() {
   // Add a character to the battle
   const handleAddCharacter = (id) => {
     const currentCombatants = [...combatants];
-    const newCharacter = allCharacters.find(character => character._id === id)
+    const newCharacter = allCharacters.find(
+      (character) => character._id === id
+    );
     // check for duplicates
     const isDuplicate = currentCombatants.find(
       (character) => character._id === newCharacter._id
@@ -142,8 +148,8 @@ function Battle() {
       result: 0,
     });
     setViewCombatant({});
-    setMover({})
-    localStorage.removeItem("combat")
+    setMover({});
+    localStorage.removeItem("combat");
   };
   // ====================================================================
 
@@ -291,16 +297,25 @@ function Battle() {
   };
   //====================================================================
 
-  // SAVE BATTLE
+  // SAVE BATTLE========================================================
   const handleSave = () => {
-    localStorage.setItem("combat", JSON.stringify(combatants))
-    toast.success("Battle State Saved")
+    localStorage.setItem("combat", JSON.stringify(combatants));
+    toast.success("Battle State Saved");
+  };
+  //====================================================================
+
+  // VIEW SPELL=========================================================
+  const handleViewSpell = (obj) => {
+    setViewSpell(obj);
+    openSpellModal();
   }
+  //====================================================================
 
   // MODALS=============================================================
   const [characterModalIsOpen, setCharacterModalIsOpen] = useState(false);
   const [monsterModalIsOpen, setMonsterModalIsOpen] = useState(false);
   const [confirmModalIsOpen, setConfirmModalIsOpen] = useState(false);
+  const [spellModalIsOpen, setSpellModalIsOpen] = useState(false);
 
   const modalStyles = {
     content: {
@@ -342,6 +357,15 @@ function Battle() {
     setConfirmModalIsOpen(false);
   };
 
+  // Handlers for spell modal
+  const openSpellModal = () => {
+    setSpellModalIsOpen(true);
+  };
+
+  const closeSpellModal = () => {
+    setSpellModalIsOpen(false);
+  };
+
   // ===============================================================
 
   // Render Functions===============================================
@@ -364,7 +388,7 @@ function Battle() {
     let options = [];
     options.push(<option value={100} key={"default"}>{`Default`}</option>);
     for (let i = 25; i <= 200; i += 5) {
-      options.push(<option value={i} key={"size"+i}>{`${i} ft`}</option>);
+      options.push(<option value={i} key={"size" + i}>{`${i} ft`}</option>);
     }
     return options;
   };
@@ -394,6 +418,7 @@ function Battle() {
                 {...viewCombatant}
                 onChange={handleHPChange}
                 setDice={handleDiceChange}
+                viewSpell={handleViewSpell}
               />
             ))}
         </div>
@@ -517,6 +542,16 @@ function Battle() {
         contentLabel="confirm reset modal"
         closeModal={closeConfirmModal}
         handleReset={handleReset}
+        closeTimeoutMS={100}
+      />
+      {/* Spell Modal */}
+      <SpellModal
+        spell={viewSpell}
+        isOpen={spellModalIsOpen}
+        onRequestClose={closeSpellModal}
+        style={modalStyles}
+        contentLabel="spell information modal"
+        closeModal={closeSpellModal}
         closeTimeoutMS={100}
       />
     </div>

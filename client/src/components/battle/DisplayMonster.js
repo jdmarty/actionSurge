@@ -161,7 +161,10 @@ function DisplayMonster(props) {
     // render a list of spells
     return spellcastingAbility.spellcasting.spells.map((spell) => {
       return (
-        <div className="flex justify-between text-center cursor-pointer rounded-md hover:bg-gray-800 hover:text-gray-300 px-2">
+        <div
+          className="flex justify-between text-center cursor-pointer rounded-md hover:bg-gray-800 hover:text-gray-300 px-2"
+          onClick={() => props.viewSpell(spell)}
+        >
           <span>{spell.name}</span>
           {/* Render either spell level or usage rate */}
           {!spell.usage && (
