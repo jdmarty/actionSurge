@@ -126,7 +126,10 @@ function DisplayMonster(props) {
           className="mt-2 shadow-lg"
           key={action.name.length * Math.random()}
         >
-          <h3 className="bg-red-900 rounded-t-md text-white">{action.name}</h3>
+          <h3 className="bg-red-900 rounded-t-md text-white">
+            {action.name}
+            {action.usage && ` (${action.usage.times || action.usage.min_value+"+/"+action.usage.dice} ${action.usage.type})`}
+          </h3>
           <p className="bg-white p-2">{action.desc}</p>
           <div className="bg-gray-300 flex justify-around rounded-b-md border cursor-pointer">
             {/* Add an attack roll option if one is available */}
