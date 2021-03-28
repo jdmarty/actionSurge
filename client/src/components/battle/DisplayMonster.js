@@ -76,7 +76,7 @@ function DisplayMonster(props) {
   const DefenseCard = (props) => {
     if (props.array.length < 1) return <></>;
     return (
-      <div className="text-center border w-24 rounded-md bg-white">
+      <div className="text-center border w-32 rounded-md bg-white">
         <h2 className="border-b bg-black text-white rounded-t-md">
           {props.name}
         </h2>
