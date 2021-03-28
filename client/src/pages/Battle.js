@@ -213,7 +213,6 @@ function Battle() {
     setCombatants(currentCombatants);
     // set to view the current combatant
     setViewCombatant(currentCombatants[0]);
-    console.log(currentCombatants[0]);
     return currentCombatants;
   };
 
