@@ -23,6 +23,7 @@ function DiceRoller(props) {
     setMod(props.mod);
     setRolls(props.rolls);
     setResult(props.result);
+    setAnimation(true);
   }, [props.number, props.type, props.mod, props.rolls, props.result]);
 
   // reset animation to false
