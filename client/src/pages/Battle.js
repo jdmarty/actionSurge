@@ -5,6 +5,7 @@ import { toast } from "react-toast";
 import { useAuthContext } from "../utils/AuthState";
 import API from "../utils/API";
 import { rollDice, getBonusFromStat } from "../utils/battleFunctions";
+import monsterAPI from "../utils/battleMonsterAPI"
 // components
 import AddPlayerModal from "../components/battle/AddPlayerModal";
 import AddMonsterModal from "../components/battle/AddMonsterModal";
@@ -91,22 +92,7 @@ function Battle() {
     const targetMonster = allMonsters.find((monster) => monster.name === name);
     // call the api to populate the monster details
     API.getMonster(targetMonster.url).then(({ data }) => {
-      const newMonster = data;
-      //check for duplicates and update name accordingly
-      let modifier = 1;
-      const originalName = newMonster.name;
-      while (
-        currentCombatants.find((monster) => monster.name === newMonster.name)
-      ) {
-        newMonster.name = `${originalName} (${modifier})`;
-        modifier++;
-      }
-      // give the new monster a base initiative, health, and position
-      newMonster.initiative = 0;
-      newMonster.current_hit_points = newMonster.hit_points;
-      newMonster.xPos = combatants.length % squaresPerLine;
-      newMonster.yPos = Math.floor(combatants.length / squaresPerLine);
-      // push the new monster to the current array and set state
+      const newMonster = monsterAPI.createNewMonster(data, currentCombatants, squaresPerLine);
       currentCombatants.push(newMonster);
       setCombatants(currentCombatants);
       // set to view the current combatant
@@ -125,7 +111,7 @@ function Battle() {
       setCombatants(newCombatants);
       return newCombatants;
     } else {
-      // filter out monsters with matching ids
+      // filter out monsters with matching names
       const newCombatants = combatants.filter((monster) => {
         return monster.name !== name;
       });
@@ -240,7 +226,7 @@ function Battle() {
         })
       : combatants.map((combatant) => {
           if (combatant.name === name) {
-            return { ...combatant, current_hit_points: Number(value) };
+            return monsterAPI.setMonsterHP(combatant, value)
           }
           return combatant;
         });
@@ -285,7 +271,6 @@ function Battle() {
 
   // handle grid size change
   const handleGridResize = (e) => {
-    console.log(e.target.value);
     setSquaresPerLine(Number(e.target.value / 5));
   };
   //====================================================================

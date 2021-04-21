@@ -19,13 +19,13 @@ function AddMonsterModal(props) {
   const AddMonsterCard = (props) => {
     return (
       <li
-        className="text-2xl bg-gray-800 text-gray-300 py-2 mx-6 rounded-md border border-white flex px-3 hover:bg-green-500 hover:text-black cursor-pointer"
+        className="flex flex-col text-2xl bg-gray-800 text-gray-300 py-2 mx-6 rounded-md border border-white flex px-3 hover:bg-green-500 hover:text-black cursor-pointer"
         onClick={() => {
-          props.onClick(props.name)
-          toast.success(`${props.name} added to battle`)
+          props.onClick(props.name);
+          toast.success(`${props.name} added to battle`);
         }}
       >
-        <dt className="border-black w-1/3">{props.name}</dt>
+        <dt className="w-1/3">{props.name}</dt>
       </li>
     );
   };
