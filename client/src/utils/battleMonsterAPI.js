@@ -1,6 +1,6 @@
 const monsterAPI = {
   // call to create a new monster from API data
-  createNewMonster: function(monsterData, currentCombatants, squaresPerLine) {
+  createNewMonster: function (monsterData, currentCombatants, squaresPerLine) {
     const newMonster = { ...monsterData };
     //check for duplicates and update name accordingly
     let modifier = 1;
@@ -19,18 +19,18 @@ const monsterAPI = {
     // give the new monster a max speed from their best movement option
     let maxSpeed = 0;
     for (let type in newMonster.speed) {
-      const speedInFt = parseInt(newMonster.speed[type].split(" ")[0])
-      if (speedInFt > maxSpeed) maxSpeed = speedInFt
+      const speedInFt = parseInt(newMonster.speed[type].split(" ")[0]);
+      if (speedInFt > maxSpeed) maxSpeed = speedInFt;
     }
-    newMonster.maxSpeed = maxSpeed
+    newMonster.maxSpeed = maxSpeed;
     // return the finished monster
-    return newMonster
+    return newMonster;
   },
 
   // call to update a monster's HP with a set value
-  setMonsterHP: function(monsterData, value) {
-    console.log(value)
-    return {...monsterData, current_hit_points: Number(value)}
-  }
-}
-export default monsterAPI
+  setMonsterHP: function (monsterData, value) {
+    console.log(value);
+    return { ...monsterData, current_hit_points: Number(value) };
+  },
+};
+export default monsterAPI;

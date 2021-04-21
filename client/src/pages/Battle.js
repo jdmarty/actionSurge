@@ -225,10 +225,8 @@ function Battle() {
           return combatant;
         })
       : combatants.map((combatant) => {
-          if (combatant.name === name) {
-            return monsterAPI.setMonsterHP(combatant, value)
-          }
-          return combatant;
+          if (combatant.name === name) return monsterAPI.setMonsterHP(combatant, value)
+          else return combatant;
         });
     // set combatants to the new array
     setCombatants(newCombatants);
