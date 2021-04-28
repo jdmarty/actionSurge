@@ -11,14 +11,14 @@ import { CreateCharacterProvider } from "./utils/CreateCharacterState";
 // Raw Components
 import Nav from "./components/Nav.jsx";
 // Pages
-import Home from "./pages/Home";
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
-import NoMatch from "./pages/NoMatch";
+import Home from "./pages/Home.jsx";
+import Login from "./pages/Login.jsx";
+import Signup from "./pages/Signup.jsx";
+import NoMatch from "./pages/NoMatch.jsx";
 import CreateCharacter from "./pages/CreateCharacter.jsx";
-import EditCharacterDirectory from "./pages/EditCharacterDirectory";
-import EditCharacter from "./pages/EditCharacter";
-import Battle from "./pages/Battle";
+import EditCharacterDirectory from "./pages/EditCharacterDirectory.jsx";
+import EditCharacter from "./pages/EditCharacter.jsx";
+import Battle from "./pages/Battle.jsx";
 
 function MainRouter() {
   // get current auth context
