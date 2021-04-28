@@ -3,17 +3,17 @@ import React from "react";
 import { useParams } from "react-router-dom"
 // Components
 import SubmitButton from "../components/SubmitButton.jsx";
-import AbilitiesCard from "../components/create-player/AbilitiesCard";
-import SavesCard from "../components/create-player/SavesCard";
-import SingleSelector from "../components/create-player/SingleSelector";
-import MultiSelector from "../components/create-player/MultiSelector";
-import NameInput from "../components/create-player/NameInput";
-import HitPointsInput from "../components/create-player/HitPointsInput";
-import ArmorClassInput from "../components/create-player/ArmorClassInput";
-import SpeedInput from "../components/create-player/SpeedInput";
-import SkillsList from "../components/create-player/SkillsList";
-import PossibleSpells from "../components/create-player/PossibleSpells";
-import CurrentSpells from "../components/create-player/CurrentSpells";
+import AbilitiesCard from "../components/create-player/AbilitiesCard.jsx";
+import SavesCard from "../components/create-player/SavesCard.jsx";
+import SingleSelector from "../components/create-player/SingleSelector.jsx";
+import MultiSelector from "../components/create-player/MultiSelector.jsx";
+import NameInput from "../components/create-player/NameInput.jsx";
+import HitPointsInput from "../components/create-player/HitPointsInput.jsx";
+import ArmorClassInput from "../components/create-player/ArmorClassInput.jsx";
+import SpeedInput from "../components/create-player/SpeedInput.jsx";
+import SkillsList from "../components/create-player/SkillsList.jsx";
+import PossibleSpells from "../components/create-player/PossibleSpells.jsx";
+import CurrentSpells from "../components/create-player/CurrentSpells.jsx";
 // Options
 import {
   raceOptions,

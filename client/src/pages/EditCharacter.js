@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { useCreateCharacterContext } from "../utils/CreateCharacterState";
 import { ADJUST_CHARACTER_ALL } from "../utils/actions";
 import API from "../utils/API";
-import CreateCharacter from "../pages/CreateCharacter";
+import CreateCharacter from "../pages/CreateCharacter.jsx";
 
 function EditCharacter(props) {
   // set state and params

@@ -15,7 +15,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import NoMatch from "./pages/NoMatch";
-import CreateCharacter from "./pages/CreateCharacter";
+import CreateCharacter from "./pages/CreateCharacter.jsx";
 import EditCharacterDirectory from "./pages/EditCharacterDirectory";
 import EditCharacter from "./pages/EditCharacter";
 import Battle from "./pages/Battle";

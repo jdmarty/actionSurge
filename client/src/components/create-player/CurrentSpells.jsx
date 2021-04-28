@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { useCreateCharacterContext } from "../../utils/CreateCharacterState";
-import CurrentSpellCard from "./CurrentSpellCard";
+import CurrentSpellCard from "./CurrentSpellCard.jsx";
 // function to parse index name back to standard name
 import parseIndexName from "../../utils/parseIndexName";
 

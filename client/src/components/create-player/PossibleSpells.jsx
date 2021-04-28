@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { allSpells } from "../../utils/allSpells";
-import PossibleSpellCard from "./PossibleSpellCard";
+import PossibleSpellCard from "./PossibleSpellCard.jsx";
 
 function PossibleSpells() {
   const [search, setSearch] = useState("");
