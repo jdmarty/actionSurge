@@ -9,7 +9,7 @@ import { useAuthContext } from "./utils/AuthState";
 import { CreateCharacterProvider } from "./utils/CreateCharacterState";
 
 // Raw Components
-import Nav from "./components/Nav";
+import Nav from "./components/Nav.jsx";
 // Pages
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -27,17 +27,6 @@ function MainRouter() {
   // Create routes map
   return (
     <Router>
-      {/* <div className="bg-red-500 p-2">
-        <span className="border-black border-2 mx-2">
-          Logged In = {authState.loggedIn + ""}
-        </span>
-        <span className="border-black border-2 mx-2">
-          User Name = {authState.userName}
-        </span>
-        <span className="border-black border-2 mx-2">
-          User ID = {authState.userId}
-        </span>
-      </div> */}
       <Nav />
       <Switch>
         <Route exact path="/">

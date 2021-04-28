@@ -4,7 +4,7 @@ import { toast } from "react-toast"
 import { useAuthContext } from "../utils/AuthState";
 import { LOGIN } from "../utils/actions";
 import API from "../utils/API"
-import SubmitButton from "../components/SubmitButton"
+import SubmitButton from "./SubmitButton.jsx"
 
 function LoginScreen() {
   // references for inputs

@@ -2,7 +2,7 @@
 import React from "react";
 import { useParams } from "react-router-dom"
 // Components
-import SubmitButton from "../components/SubmitButton";
+import SubmitButton from "../components/SubmitButton.jsx";
 import AbilitiesCard from "../components/create-player/AbilitiesCard";
 import SavesCard from "../components/create-player/SavesCard";
 import SingleSelector from "../components/create-player/SingleSelector";

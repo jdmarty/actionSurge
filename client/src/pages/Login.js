@@ -1,6 +1,6 @@
 import React from "react";
 // components
-import LoginScreen from "../components/LoginScreen"
+import LoginScreen from "../components/LoginScreen.jsx"
 
 function Login() {
   return (
