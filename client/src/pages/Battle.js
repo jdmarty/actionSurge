@@ -7,14 +7,14 @@ import API from "../utils/API";
 import { rollDice, getBonusFromStat } from "../utils/battleFunctions";
 import monsterAPI from "../utils/battleMonsterAPI"
 // components
-import AddPlayerModal from "../components/battle/AddPlayerModal";
-import AddMonsterModal from "../components/battle/AddMonsterModal";
-import ConfirmResetModal from "../components/battle/ConfirmRestModal";
-import SpellModal from "../components/battle/SpellModal"
-import InitiativeCard from "../components/battle/InitiativeCard";
-import DiceRoller from "../components/battle/DiceRoller";
-import DisplayCharacter from "../components/battle/DisplayCharacter";
-import DisplayMonster from "../components/battle/DisplayMonster";
+import AddPlayerModal from "../components/battle/AddPlayerModal.jsx";
+import AddMonsterModal from "../components/battle/AddMonsterModal.jsx";
+import ConfirmResetModal from "../components/battle/ConfirmRestModal.jsx";
+import SpellModal from "../components/battle/SpellModal.jsx"
+import InitiativeCard from "../components/battle/InitiativeCard.jsx";
+import DiceRoller from "../components/battle/DiceRoller.jsx";
+import DisplayCharacter from "../components/battle/DisplayCharacter.jsx";
+import DisplayMonster from "../components/battle/DisplayMonster.jsx";
 // grid components
 import Board from "../components/battle/grid/Board";
 

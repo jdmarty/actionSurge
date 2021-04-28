@@ -1,5 +1,5 @@
 import React from "react";
-import HealthBar from "../HealthBar"
+import HealthBar from "../HealthBar.jsx"
 import ReactTooltip from "react-tooltip"
 
 function Token(props) {

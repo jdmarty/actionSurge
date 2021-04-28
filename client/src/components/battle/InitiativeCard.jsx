@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import HealthBar from "../battle/HealthBar";
+import HealthBar from "../battle/HealthBar.jsx";
 
 function InitiativeCard(props) {
   // conditional class for monster and first

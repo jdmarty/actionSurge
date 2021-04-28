@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { rollDice } from "../../utils/battleFunctions";
-import DiceBox from "./DiceBox";
+import DiceBox from "./DiceBox.jsx";
 
 function DiceRoller(props) {
   // Local states
