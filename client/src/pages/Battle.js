@@ -16,7 +16,7 @@ import DiceRoller from "../components/battle/DiceRoller.jsx";
 import DisplayCharacter from "../components/battle/DisplayCharacter.jsx";
 import DisplayMonster from "../components/battle/DisplayMonster.jsx";
 // grid components
-import Board from "../components/battle/grid/Board";
+import Board from "../components/battle/grid/Board.jsx";
 
 function Battle() {
   //state variables

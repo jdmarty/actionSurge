@@ -1,6 +1,6 @@
 import React from "react";
-import Square from "./Square";
-import Token from "./Token";
+import Square from "./Square.jsx";
+import Token from "./Token.jsx";
 
 function Board({ spl, combatants, mover, setMover, move, firstCombatant }) {
   // check if the mover is active
