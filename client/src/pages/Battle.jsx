@@ -5,7 +5,7 @@ import { toast } from "react-toast";
 import { useAuthContext } from "../utils/AuthState";
 import API from "../utils/API";
 import { rollDice, getBonusFromStat } from "../utils/battleFunctions";
-import monsterAPI from "../utils/battleMonsterAPI"
+import Monster from "../utils/monsterClass"
 // components
 import AddPlayerModal from "../components/battle/AddPlayerModal.jsx";
 import AddMonsterModal from "../components/battle/AddMonsterModal.jsx";
@@ -88,13 +88,17 @@ function Battle() {
 
   // Add a monster to the battle
   const handleAddMonster = (name) => {
-    const currentCombatants = [...combatants];
+    const currentCombatants = combatants;
     const targetMonster = allMonsters.find((monster) => monster.name === name);
     // call the api to populate the monster details
     API.getMonster(targetMonster.url).then(({ data }) => {
-      const newMonster = monsterAPI.createNewMonster(data, currentCombatants, squaresPerLine);
+      // calculate monster spawn position
+      const newXPos = currentCombatants.length % squaresPerLine;
+      const newYPos = Math.floor(currentCombatants.length / squaresPerLine);
+      const newMonster = new Monster(data, currentCombatants, newXPos, newYPos);
       currentCombatants.push(newMonster);
       setCombatants(currentCombatants);
+      console.log(combatants)
       // set to view the current combatant
       setViewCombatant(currentCombatants[0]);
     });
@@ -216,20 +220,12 @@ function Battle() {
   // HIT POINTS TRACKING================================================
   // Handle manual change of hit points
   const handleHPChange = (value, name, id) => {
-    // remap the combatants array by either id or name
-    const newCombatants = id
-      ? combatants.map((combatant) => {
-          if (combatant._id === id) {
-            return { ...combatant, current_hit_points: Number(value) };
-          }
-          return combatant;
-        })
-      : combatants.map((combatant) => {
-          if (combatant.name === name) return monsterAPI.setMonsterHP(combatant, value)
-          else return combatant;
-        });
-    // set combatants to the new array
-    setCombatants(newCombatants);
+    // clone the current combatants
+    const currentCombatants = combatants
+    // find the index that matches the target name
+    const targetIndex = combatants.findIndex((combatant) => combatant.name === name)
+    console.log(currentCombatants)
+    setCombatants(currentCombatants)
   };
   // ===================================================================
 
