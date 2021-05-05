@@ -3,7 +3,7 @@ import HealthBar from "../battle/HealthBar.jsx";
 
 function InitiativeCard(props) {
   // conditional class for monster and first
-  const monster = props._id ? false : true;
+  const monster = props.type === "monster" ? true : false;
   // state to track initiative value
   const [initiative, setInitiative] = useState(0);
   const initiativeInput = useRef();
@@ -54,7 +54,7 @@ function InitiativeCard(props) {
         className="text-right hover:text-red-800"
         onClick={(e) => {
           e.stopPropagation()
-          props.onClick(props.name, props.id);
+          props.onClick(props._id);
         }}
       >
         ❌

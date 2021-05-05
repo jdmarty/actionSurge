@@ -62,6 +62,7 @@ function Battle() {
   // ADD OR REMOVE COMBATANTS===============================================
   // Add a character to the battle
   const handleAddCharacter = (id) => {
+    // clone combatants from state and find the correct character to add
     const currentCombatants = [...combatants];
     const newCharacterData = allCharacters.find(
       (character) => character._id === id
@@ -82,7 +83,6 @@ function Battle() {
     const newCharacter = new Character(newCharacterData, newXPos, newYPos)
     // push the new player to the current array and set state
     currentCombatants.push(newCharacter);
-    console.log(currentCombatants)
     setCombatants(currentCombatants);
     // set to view the current combatant
     setViewCombatant(currentCombatants[0]);
@@ -101,32 +101,18 @@ function Battle() {
       const newMonster = new Monster(data, currentCombatants, newXPos, newYPos);
       currentCombatants.push(newMonster);
       setCombatants(currentCombatants);
-      console.log(combatants)
       // set to view the current combatant
       setViewCombatant(currentCombatants[0]);
     });
   };
 
   // Remove a combatant
-  const handleRemoveCombatant = (name, id) => {
-    // if there is a character id, filter the characters list
-    if (id) {
-      // filter out combatants with matching ids
-      const newCombatants = combatants.filter((character) => {
-        return character._id !== id;
-      });
-      setCombatants(newCombatants);
-      return newCombatants;
-    } else {
-      // filter out monsters with matching names
-      const newCombatants = combatants.filter((monster) => {
-        return monster.name !== name;
-      });
-      setCombatants(newCombatants);
-      // set to view the current combatant or nothing
-      setViewCombatant(newCombatants[0] || {});
-      return newCombatants;
-    }
+  const handleRemoveCombatant = (id) => {
+    // clone combatants list and filter out the matching id
+    const newCombatants = [...combatants].filter(combatant => {
+      return combatant._id !== id
+    })
+    setCombatants(newCombatants)
   };
 
   // Remove all combatants and reset state
@@ -390,7 +376,7 @@ function Battle() {
           style={{ height: "70%" }}
         >
           {viewCombatant.name &&
-            (viewCombatant._id ? (
+            (viewCombatant instanceof Character ? (
               <DisplayCharacter
                 {...viewCombatant}
                 onChange={handleHPChange}

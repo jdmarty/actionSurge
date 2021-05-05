@@ -5,6 +5,7 @@ class Character {
       this[key] = data[key];
     }
     // give the new character a base initiative, health, and position
+    this.type = "character"
     this.initiative = 0;
     this.current_hit_points = this.hit_points;
     this.xPos = xPos;
