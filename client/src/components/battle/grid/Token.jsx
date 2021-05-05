@@ -45,11 +45,9 @@ function Token(props) {
   };
 
   // conditional styles
-  const type = props._id ? "bg-green-300" : "bg-red-300";
+  const type = props.type === "character" ? "bg-green-300" : "bg-red-300";
   const isMover =
     props._id && props.mover._id === props._id
-      ? "ring-4"
-      : props.mover.name === props.name
       ? "ring-4"
       : "";
   const isDead = props.current_hit_points <= 0 && "opacity-50"
