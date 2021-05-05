@@ -214,22 +214,17 @@ function Battle() {
     setMover(newMover);
     setViewCombatant(newMover);
   };
-  
+
   // move a token to a new position
   const handleMove = (x, y) => {
     // do nothing if no mover is set
     if (!mover.name) return;
-    // remap combatants and change mover position
-    const newCombatants = combatants.map((combatant) => {
-      // match mover by id or name
-      if (mover._id && combatant._id === mover._id) {
-        return { ...combatant, xPos: x, yPos: y };
-      } else if (combatant.name === mover.name) {
-        combatant.setPos(x, y);
-      } else {
-        return combatant;
-      }
-    });
+    // find the combatant to adjust
+    const newCombatants = [...combatants]
+    const targetIndex = combatants.findIndex(combatant => {
+      return combatant._id === mover._id
+    })
+    newCombatants[targetIndex].setPos(x, y)
     // set combatants to the new array
     setCombatants(newCombatants);
     setMover({});
