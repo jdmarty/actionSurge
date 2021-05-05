@@ -27,7 +27,7 @@ function InitiativeCard(props) {
       className={`border my-4 flex justify-between px-4 py-2 rounded-md cursor-pointer ${
         monster ? "border-red-800 bg-red-300 " : "border-green-800 bg-green-300 "
       }${props.first && "ring-4 ring-yellow-500 border-0"}`}
-      onClick={() => props.onViewClick(props.name, props._id)}
+      onClick={() => props.onViewClick(props._id)}
     >
       {/* Display Name */}
       <dt
@@ -46,7 +46,7 @@ function InitiativeCard(props) {
           value={initiative}
           ref={initiativeInput}
           onChange={handleInitiativeChange}
-          onBlur={() => props.onChange(initiative, props.name, props.id)}
+          onBlur={() => props.onChange(initiative, props._id)}
         ></input>
       </div>
       {/* Button to delete combatant */}

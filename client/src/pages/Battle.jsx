@@ -139,10 +139,9 @@ function Battle() {
     if (combatants.length < 1) return;
     // roll initiative for each combatant
     const newCombatants = combatants.map((combatant) => {
-      return {
-        ...combatant,
-        initiative: rollDice(20) + getBonusFromStat(combatant.dexterity),
-      };
+      const newInitiative = rollDice(20) + getBonusFromStat(combatant.dexterity)
+      combatant.setInitiative(newInitiative)
+      return combatant
     });
     // sort by combatants by initiative
     const sortedCombatants = newCombatants.sort(
@@ -155,28 +154,19 @@ function Battle() {
   };
 
   // Update a single initiative value
-  const handleUpdateInitiative = (value, name, id) => {
+  const handleUpdateInitiative = (value, id) => {
     const currentCombatants = [...combatants];
-    let newCombatants = [];
-    // search by id if one is provided, otherwise use name
-    if (id) {
-      newCombatants = currentCombatants.map((combatant) => {
-        if (combatant._id === id) return { ...combatant, initiative: value };
-        else return combatant;
-      });
-    } else {
-      newCombatants = currentCombatants.map((combatant) => {
-        if (combatant.name === name) return { ...combatant, initiative: value };
-        else return combatant;
-      });
-    }
+    // find the combatant to update
+    const targetIndex = currentCombatants.findIndex(combatant => {
+      return combatant._id === id
+    })
+    currentCombatants[targetIndex].setInitiative(value);
     // sort by combatants by initiative
-    const sortedCombatants = newCombatants.sort(
+    const sortedCombatants = currentCombatants.sort(
       (a, b) => b.initiative - a.initiative
     );
     // set the state to the update combatants list
     setCombatants(sortedCombatants);
-    // set to view the current combatant
     setViewCombatant(sortedCombatants[0]);
     return sortedCombatants;
   };
@@ -196,11 +186,9 @@ function Battle() {
   };
 
   // Click to view combatant
-  const handleViewClick = (name, id) => {
+  const handleViewClick = (id) => {
     // Search for target by id or name
-    const target = id
-      ? combatants.find((combatant) => combatant._id === id)
-      : combatants.find((combatant) => combatant.name === name);
+    const target = combatants.find((combatant) => combatant._id === id)
     // set viewCombatant to the target
     setViewCombatant(target);
   };

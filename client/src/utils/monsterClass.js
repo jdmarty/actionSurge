@@ -39,6 +39,11 @@ class Monster {
     this.xPos = x;
     this.yPos = y;
   }
+
+  // function to set initiative to a set value
+  setInitiative(value) {
+    this.initiative = value;
+  }
 }
 
 export default Monster;
