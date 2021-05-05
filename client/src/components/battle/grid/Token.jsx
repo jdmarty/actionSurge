@@ -61,7 +61,7 @@ function Token(props) {
     <div
       className={`${type} ${isMover} ${isDead} ${isFirst} text-black text-center truncate cursor-move relative noselect border border-black`}
       style={style}
-      onMouseDown={() => props.onMouseDown(props.name, props._id)}
+      onMouseDown={() => props.onMouseDown(props._id)}
       data-tip={props.name}
     >
       {/* Health Bar */}

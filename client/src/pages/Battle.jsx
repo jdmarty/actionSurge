@@ -196,11 +196,11 @@ function Battle() {
 
   // HIT POINTS TRACKING================================================
   // Handle manual change of hit points
-  const handleHPChange = (value, name, id) => {
+  const handleHPChange = (value, id) => {
     // clone the current combatants
     const currentCombatants = [...combatants]
     // find the index that matches the target name
-    const targetIndex = combatants.findIndex((combatant) => combatant.name === name)
+    const targetIndex = combatants.findIndex((combatant) => combatant._id === id)
     currentCombatants[targetIndex].setHP(Number(value))
     setCombatants(currentCombatants)
   };
@@ -208,18 +208,13 @@ function Battle() {
 
   // MOVEMENT===========================================================
   // Set a token to be the active mover
-  const handleSetMover = (name, id) => {
-    // set the mover by id or name
-    if (id) {
-      const newMover = combatants.find((combatant) => combatant._id === id);
-      setMover(newMover);
-      setViewCombatant(newMover);
-    } else {
-      const newMover = combatants.find((combatant) => combatant.name === name);
-      setMover(newMover);
-      setViewCombatant(newMover);
-    }
+  const handleSetMover = (id) => {
+    // set the mover by id
+    const newMover = combatants.find((combatant) => combatant._id === id);
+    setMover(newMover);
+    setViewCombatant(newMover);
   };
+  
   // move a token to a new position
   const handleMove = (x, y) => {
     // do nothing if no mover is set

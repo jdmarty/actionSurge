@@ -24,7 +24,7 @@ function DisplayMonster(props) {
     if (newHitPoints < 0) newHitPoints = 0;
     // set hit points locally and globally
     setHitPoints(newHitPoints);
-    props.onChange(newHitPoints, props.name, props._id);
+    props.onChange(newHitPoints, props._id);
   };
 
   // Render Speed Cards
