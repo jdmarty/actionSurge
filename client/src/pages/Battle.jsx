@@ -6,6 +6,7 @@ import { useAuthContext } from "../utils/AuthState";
 import API from "../utils/API";
 import { rollDice, getBonusFromStat } from "../utils/battleFunctions";
 import Monster from "../utils/monsterClass"
+import Character from "../utils/characterClass"
 // components
 import AddPlayerModal from "../components/battle/AddPlayerModal.jsx";
 import AddMonsterModal from "../components/battle/AddMonsterModal.jsx";
@@ -62,25 +63,26 @@ function Battle() {
   // Add a character to the battle
   const handleAddCharacter = (id) => {
     const currentCombatants = [...combatants];
-    const newCharacter = allCharacters.find(
+    const newCharacterData = allCharacters.find(
       (character) => character._id === id
     );
     // check for duplicates
     const isDuplicate = currentCombatants.find(
-      (character) => character._id === newCharacter._id
+      (character) => character._id === newCharacterData._id
     );
     // if a duplicate is found, alert alert the user
     if (isDuplicate) {
       toast.error("Selected Player is already in battle");
       return;
     }
-    // give the character a base initiative, health, and position
-    newCharacter.initiative = 0;
-    newCharacter.current_hit_points = newCharacter.hit_points;
-    newCharacter.xPos = combatants.length % squaresPerLine;
-    newCharacter.yPos = Math.floor(combatants.length / squaresPerLine);
+    // calculate character spawn position
+    const newXPos = currentCombatants.length % squaresPerLine;
+    const newYPos = Math.floor(currentCombatants.length / squaresPerLine);
+    // create a new character class instance
+    const newCharacter = new Character(newCharacterData, newXPos, newYPos)
     // push the new player to the current array and set state
     currentCombatants.push(newCharacter);
+    console.log(currentCombatants)
     setCombatants(currentCombatants);
     // set to view the current combatant
     setViewCombatant(currentCombatants[0]);
@@ -95,6 +97,7 @@ function Battle() {
       // calculate monster spawn position
       const newXPos = currentCombatants.length % squaresPerLine;
       const newYPos = Math.floor(currentCombatants.length / squaresPerLine);
+      // create a new monster from class
       const newMonster = new Monster(data, currentCombatants, newXPos, newYPos);
       currentCombatants.push(newMonster);
       setCombatants(currentCombatants);
@@ -221,10 +224,10 @@ function Battle() {
   // Handle manual change of hit points
   const handleHPChange = (value, name, id) => {
     // clone the current combatants
-    const currentCombatants = combatants
+    const currentCombatants = [...combatants]
     // find the index that matches the target name
     const targetIndex = combatants.findIndex((combatant) => combatant.name === name)
-    console.log(currentCombatants)
+    currentCombatants[targetIndex].setHP(Number(value))
     setCombatants(currentCombatants)
   };
   // ===================================================================
@@ -253,7 +256,7 @@ function Battle() {
       if (mover._id && combatant._id === mover._id) {
         return { ...combatant, xPos: x, yPos: y };
       } else if (combatant.name === mover.name) {
-        return { ...combatant, xPos: x, yPos: y };
+        combatant.setPos(x, y);
       } else {
         return combatant;
       }

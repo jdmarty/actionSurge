@@ -29,6 +29,12 @@ class Monster {
   setHP(value) {
     this.current_hit_points = value
   }
+
+  // function to update position
+  setPos(x, y) {
+    this.xPos = x;
+    this.yPos = y
+  }
 }
 
 export default Monster;
